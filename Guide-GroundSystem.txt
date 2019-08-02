@@ -10,7 +10,7 @@ The Ground System contains a main window that lets you launch the different util
 
 Note: The Main Window needs to be opened at all times so that the telemetry messages can be forwarded to the Telemetry System.
 
-The Ground System will automatically detect the spacecraft when it starts sending the telemetry, and it will be added to the ip addresses list. You can select the spacecraft from the list, and start Telemetry System to receive its data. If ‘All’ spacecrafts are selected, you can start Telemetry System to display the packet count from multiple spacecrafts (if it detected more than one).
+The Ground System will automatically detect the spacecraft when it starts sending the telemetry, and it will be added to the ip addresses list. You can select the spacecraft from the list, and start Telemetry System to receive its data. If 'All' spacecrafts are selected, you can start Telemetry System to display the packet count from multiple spacecrafts (if it detected more than one).
 
 Future enhancements:
   1. Detect different spacecrafts based on telemetry header(spacecraft id) data instead of using the spacecraft ip address.
@@ -18,9 +18,9 @@ Future enhancements:
 
 
 Before launching the Ground System make sure that:
-  —> PyQt4 is installed.
-  —> PyZMQ is installed. 
-  —> cmdUtil is compiled.
+  -> PyQt4 is installed.
+  -> PyZMQ is installed. 
+  -> cmdUtil is compiled.
 
 
 Installing and running cFS Ground System on Mac:
