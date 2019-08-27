@@ -67,17 +67,17 @@ int SendUdp(char *hostname, char *portNum, char *packetData, int packetSize) {
         return -2;
     }
     
-	/* 
-	**Criteria for selecting socket address 
-	*/
+    /*
+    **Criteria for selecting socket address 
+    */
 
-	memset(&hints, 0, sizeof(struct addrinfo));
-	hints.ai_family   = AF_INET; /* IPv4*/
-	hints.ai_socktype = SOCK_DGRAM; /*Datagram socket*/
-	hints.ai_flag     = 0;
-	hints.ai_protocol = 0; /*Any protocol */
+    memset(&hints, 0, sizeof(struct addrinfo));
+    hints.ai_family   = AF_INET; /* IPv4*/
+    hints.ai_socktype = SOCK_DGRAM; /*Datagram socket*/
+    hints.ai_flag     = 0;
+    hints.ai_protocol = 0; /*Any protocol */
 	
-	errcode = getaddrinfo(hostname, portNum, &hints, &result);
+    errcode = getaddrinfo(hostname, portNum, &hints, &result);
     if (errcode != 0) {
         return -3;
     }
