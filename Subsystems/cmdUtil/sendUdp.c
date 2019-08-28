@@ -45,11 +45,12 @@
 int SendUdp(char *hostname, char *portNum, char *packetData, int packetSize) {
     SOCKET              sd;
     int                 rc;
+    int                 port;
+    int                 errcode;
     unsigned int        i;
     struct sockaddr_in  cliAddr;
-    struct sockaddr_in  remoteServAddr;
-    struct hostent     *hostID;
-    int                 port;
+    struct addrinfo     hints;
+    struct addrinfo     *result;
 
     #ifdef WIN32
         WSADATA  wsaData;
@@ -59,39 +60,38 @@ int SendUdp(char *hostname, char *portNum, char *packetData, int packetSize) {
     if (hostname == NULL) {
         return -1;
     }
-
-    /*
-    ** get server IP address (no check if input is IP address or DNS name
-    */
-    hostID = gethostbyname(hostname);
-    if (hostID == NULL) {
-        return -2;
-    }
-
+	
     /*
     ** Check port
     */
     port = atoi(portNum);
     if (port == -1) {
+        return -2;
+    }
+    
+    /*
+    **Criteria for selecting socket address 
+    */
+    memset(&hints, 0, sizeof(struct addrinfo));
+    hints.ai_family   = AF_INET; /*IPv4*/
+    hints.ai_socktype = SOCK_DGRAM; /*Datagram socket*/
+    hints.ai_flags    = AI_CANONNAME; 
+    hints.ai_protocol = 0; /*Any Protocol*/
+	
+    errcode = getaddrinfo(hostname, portNum, &hints, &result);
+    if (errcode != 0) {
         return -3;
     }
 
-    printf("sending data to '%s' (IP : %s); port %d\n", hostID->h_name,
-        inet_ntoa(*(struct in_addr *)hostID->h_addr_list[0]), port);
-
-    /*
-    ** Setup socket structures
-    */
-    remoteServAddr.sin_family = hostID->h_addrtype;
-    memcpy((char *) &remoteServAddr.sin_addr.s_addr,
-        hostID->h_addr_list[0], hostID->h_length);
-    remoteServAddr.sin_port = htons(port);
+    printf("sending data to '%s' (IP : %s); port %d\n", result->ai_canonname,
+        inet_ntoa(((struct sockaddr_in*)result->ai_addr)->sin_addr), port);
 
     /*
     ** Create Socket
     */
-    sd = socket(AF_INET,SOCK_DGRAM,0);
-    if (sd < 0) {
+    sd = socket(AF_INET, SOCK_DGRAM, 0);
+
+    if(sd < 0){
         return -4;
     }
 
@@ -121,15 +121,17 @@ int SendUdp(char *hostname, char *portNum, char *packetData, int packetSize) {
     /*
     ** send the event
     */
-    rc = sendto(sd, (char*)packetData, packetSize, 0,
-        (struct sockaddr*)&remoteServAddr,
-        sizeof(remoteServAddr));
+    rc = sendto(sd, (char*)packetData, packetSize, 0, 
+           result->ai_addr, result->ai_addrlen); 
+
 
     if (rc < 0) {
+        freeaddrinfo(result);
         closesocket(sd);
         return -6;
     }
 
+    freeaddrinfo(result);
     closesocket(sd);
     return 0;
 }
