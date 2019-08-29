@@ -35,6 +35,7 @@
     #include <ctype.h>
     #include <stdio.h>
     #include <string.h>
+    #include <stdlib.h>
     #define SOCKET int
     #define closesocket(fd) close(fd)
 #endif
