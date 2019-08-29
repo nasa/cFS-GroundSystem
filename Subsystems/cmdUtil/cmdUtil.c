@@ -383,7 +383,6 @@ int main(int argc, char *argv[]) {
     int   opt = 0;
     int   longIndex = 0;
     int   retStat;
-    long  tempLong;
     short tempShort;
 
     /*
