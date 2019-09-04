@@ -32,11 +32,7 @@
 #include "getopt.h"
 #include <string.h>
 #include <limits.h>
-
-/*
-** sendUdp prototype -- Used to send the completed command to a UDP network socket.
-*/
-int SendUdp(char *hostname, char *portNum, char *packetData, int packetSize);
+#include "SendUdp.h"
 
 /*
 ** Defines

@@ -20,6 +20,8 @@
 **      Udp packet send routine
 */
 
+#include "SendUdp.h"
+
 #ifdef WIN32
     #pragma warning (disable:4786)
     #include <winsock2.h>
