@@ -1,3 +1,3 @@
 all::
-	gcc -o cmdUtil sendUdp.c cmdUtil.c
+	gcc -o cmdUtil SendUdp.c cmdUtil.c
 
