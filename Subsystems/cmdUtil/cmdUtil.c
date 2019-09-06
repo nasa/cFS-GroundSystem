@@ -32,11 +32,7 @@
 #include "getopt.h"
 #include <string.h>
 #include <limits.h>
-
-/*
-** sendUdp prototype -- Used to send the completed command to a UDP network socket.
-*/
-int SendUdp(char *hostname, char *portNum, char *packetData, int packetSize);
+#include "SendUdp.h"
 
 /*
 ** Defines
@@ -236,7 +232,7 @@ void ProcessStringArgument(char *optarg, CommandData_t *CommandData) {
     stringLenString[stringIndex] = '\0';
     stringLength = strtol(stringLenString, NULL, 10);
     if (CommandData->Verbose) {
-        printf("String Length is %d.\n", stringLength);
+        printf("String Length is %ld.\n", stringLength);
     }
 
     if (stringLength > 128) {
@@ -387,7 +383,6 @@ int main(int argc, char *argv[]) {
     int   opt = 0;
     int   longIndex = 0;
     int   retStat;
-    long  tempLong;
     short tempShort;
 
     /*

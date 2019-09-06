@@ -6,7 +6,7 @@ Telemetry ( tlmGUI/ directory ):
 UDP/IP packets. The "enable telemetry" command tells the TO_LAB application to start 
 sending packets to a UDP port on the "localhost" or a specified IP. 
 
-Start the telemetry system using the Ground System’s main window.
+Start the telemetry system using the Ground System's main window.
 
 Buttons are available for individual telemetry pages. 
 New pages can be added by adding to the "telemetry-pages.txt" text file. 
@@ -63,7 +63,7 @@ Commands ( cmdGUI/ directory)
 This is a simple Python / QT4 based Command GUI for the cmdUtil utility. 
 It provides a list of "command pages" with a list of commands to send to a subsystem.
 
-Start the command system using the Ground System’s main window.
+Start the command system using the Ground System's main window.
 
 The program is written in Python 2.x with the PyQT4 GUI. The dialogs were created
 in the QT4 designer program, and converted to python classes using the "pyuic4" 
