@@ -1,0 +1,17 @@
+(lp0
+(lp1
+S'SAMPLE_APP_NOOP_CC'
+p2
+aS'SAMPLE_APP_RESET_COUNTERS_CC'
+p3
+aS'SAMPLE_APP_PROCESS_CC'
+p4
+aa(lp5
+S'0'
+p6
+aS'1'
+p7
+aS'2'
+p8
+aag1
+a.
