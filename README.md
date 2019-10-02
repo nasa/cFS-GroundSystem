@@ -6,8 +6,10 @@ This lab application is a non-flight utility ground system to interact with the 
 
 See Guide-GroundSystem.txt for more information.
 
-## Release Notes
+## Version Notes
 
+- 2.1.1:
+  - Minor updates (see https://github.com/nasa/cFS-GroundSystem/pull/36)
 - 2.1.0:
   - Minor updates (see https://github.com/nasa/cFS-GroundSystem/pull/26)
 - **2.0.90a OFFICIAL RELEASE**:
