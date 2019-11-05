@@ -29,7 +29,7 @@
 */
 #include <stdio.h>
 #include <stdlib.h>
-#include "getopt.h"
+#include <getopt.h>
 #include <string.h>
 #include <limits.h>
 #include "SendUdp.h"
@@ -383,7 +383,7 @@ int main(int argc, char *argv[]) {
     int   opt = 0;
     int   longIndex = 0;
     int   retStat;
-    short tempShort;
+    unsigned short tempShort;
 
     /*
     ** Initialize the CommandData struct
