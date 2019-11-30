@@ -1,4 +1,4 @@
-cFS Ground System Version 2.1.1
+cFS Ground System Version 2.1.2
 
 cFS Ground System Info:
 
