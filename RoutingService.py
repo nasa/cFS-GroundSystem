@@ -60,44 +60,55 @@ class RoutingService(QtCore.QThread):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.sock.bind(('', udpRecvPort))
 
-        # Wait for UDP messages
-        while True:
-            try:
-                # Receive message
-                datagram, host = self.sock.recvfrom(4096) # buffer size is 1024 bytes
+        print ('Attempting to wait for UDP messages')
 
-                # Ignore datagram if it is not long enough (doesnt contain tlm header?)
-                if len(datagram) < 6:
-                    continue
+        socketErrorCount = 0
+        while socketErrorCount < 5:
 
-                # Read host address
-                hostIpAddress = host[0]
+            # Wait for UDP messages
+            while True:
+                try:
+                    # Receive message
+                    datagram, host = self.sock.recvfrom(4096) # buffer size is 1024 bytes
 
-                #
-                # Add Host to the list if not already in list
-                #
-                if not any(hostIpAddress in s for s in self.ipAddressesList):
-                    hostName = "Spacecraft" + str(len(self.spacecraftNames))
-                    print "Detected " + hostName + " at " + hostIpAddress
-                    self.ipAddressesList.append(hostIpAddress);
-                    self.spacecraftNames.append(hostName)
-                    self.emit(self.signalUpdateIpList, hostIpAddress, hostName)
+                    print ('length datagram: %d' % len(datagram))
 
-                # Forward the message using zeroMQ
-                name = self.spacecraftNames[self.ipAddressesList.index(hostIpAddress)]
-                self.forwardMessage(datagram, name)
+                    # Ignore datagram if it is not long enough (doesnt contain tlm header?)
+                    if len(datagram) < 6:
+                        continue
 
-            # Handle errors
-            except socket.error, v:
-                print 'Ignored socket error.'
-                sleep(1)
+                    # Read host address
+                    hostIpAddress = host[0]
+
+                    #
+                    # Add Host to the list if not already in list
+                    #
+                    if not any(hostIpAddress in s for s in self.ipAddressesList):
+                        hostName = 'Spacecraft' + str(len(self.spacecraftNames))
+                        my_hostName_as_bytes = str.encode(hostName)
+                        print ("Detected " + hostName + " at " + hostIpAddress)
+                        self.ipAddressesList.append(hostIpAddress);
+                        self.spacecraftNames.append(my_hostName_as_bytes)
+                        self.emit(self.signalUpdateIpList, hostIpAddress, my_hostName_as_bytes)
+
+                    # Forward the message using zeroMQ
+                    name = self.spacecraftNames[self.ipAddressesList.index(hostIpAddress)]
+                    self.forwardMessage(datagram, name)
+
+                # Handle errors
+                except socket.error as v:
+                    print ('Ignored socket error for attempt %s' % socketErrorCount)
+                    socketErrorCount = socketErrorCount + 1
+                    sleep(1)
 
     # Apply header using hostname and packet id and send msg using zeroMQ
     def forwardMessage(self, datagram, hostName):
         # Forward message to channel GroundSystem.<Hostname>.<pktId>
         pktId = self.getPktId(datagram)
-        header = "GroundSystem." + hostName + ".TelemetryPackets." + pktId
-        self.publisher.send_multipart([header, datagram])
+        my_decoded_hostName = hostName.decode()
+        header = "GroundSystem." + my_decoded_hostName + ".TelemetryPackets." + pktId
+        my_header_as_bytes = str.encode(header)
+        self.publisher.send_multipart([my_header_as_bytes, datagram])
         #print header
 
 
