@@ -12,10 +12,11 @@ See Guide-GroundSystem.txt for more information.
   - Minor updates (see https://github.com/nasa/cFS-GroundSystem/pull/39)
 - 2.1.1: DEVELOPMENT
   - Minor updates (see https://github.com/nasa/cFS-GroundSystem/pull/36)
-- 2.1.0: RELEASE CANDIDATE
+- **2.1.0 OFFICIAL RELEASE**:
   - Minor updates (see https://github.com/nasa/cFS-GroundSystem/pull/26)
+  - Released as part of cFE 6.7.0, Apache 2.0
 - **2.0.90a OFFICIAL RELEASE**:
-  - Released as part of cFE 6.6.0a under the Apache 2.0 license, see [LICENSE](LICENSE-18128-Apache-2_0.pdf).
+  - Released as part of cFE 6.6.0a, Apache 2.0
 
 ## Known issues
 
