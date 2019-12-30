@@ -54,7 +54,7 @@ class GroundSystem(QtGui.QMainWindow):
     def closeEvent(self, evnt):
         if self.RoutingService:
             self.RoutingService.stop()
-            print "Stopped routing service"
+            print ("Stopped routing service")
 
         super(GroundSystem, self).closeEvent(evnt)
 
@@ -70,7 +70,7 @@ class GroundSystem(QtGui.QMainWindow):
     # Display popup with error
     #
     def DisplayErrorMessage(self, message):
-        print message
+        print (message)
         alert = QtGui.QMessageBox()
         alert.setText(message)
         alert.setIcon(QtGui.QMessageBox.Warning)
