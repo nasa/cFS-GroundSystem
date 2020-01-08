@@ -109,6 +109,7 @@ static struct option longOpts[] = {
     { "long",      required_argument, NULL, 'l' },
     { "double",    required_argument, NULL, 'd' },
     { "string",    required_argument, NULL, 's' },
+    { "word",      required_argument, NULL, 'l' },
     { "help",      no_argument,       NULL, '?' },
     { "verbose",   no_argument,       NULL, 'v' },
     { NULL,        no_argument,       NULL, 0   }
