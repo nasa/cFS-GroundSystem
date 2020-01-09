@@ -8,6 +8,11 @@ See Guide-GroundSystem.txt for more information.
 
 ## Version Notes
 
+- 2.1.3: DEVELOPMENT
+  - Minor updates to work with python 3
+  - No longer compatible with python 2.7
+  - Note issue #50 is to update the related documentation 
+  - See https://github.com/nasa/cFS-GroundSystem/pull/47
 - 2.1.2: DEVELOPMENT
   - Minor updates (see https://github.com/nasa/cFS-GroundSystem/pull/39)
 - 2.1.1: DEVELOPMENT
