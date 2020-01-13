@@ -144,9 +144,8 @@ class CommandSystem(QtGui.QDialog):
            lineEditAddress = getattr(Command.ui, 'lineEdit_'+str(idx))
            pktId = str(lineEditPktId.text())
            address = str(lineEditAddress.text())
-           launch_string = 'python ' + cmdClass[0] + ' --title=\"' + cmdPageDesc[idx] + '\" --pktid=' + pktId + ' --file=' + cmdPageDefFile[idx] + ' --address=\"' + address + '\"' + ' --port=' + str(cmdPagePort[idx]) + ' --endian=' + cmdPageEndian[idx]
+           launch_string = 'python3 ' + cmdClass[0] + ' --title=\"' + cmdPageDesc[idx] + '\" --pktid=' + pktId + ' --file=' + cmdPageDefFile[idx] + ' --address=\"' + address + '\"' + ' --port=' + str(cmdPagePort[idx]) + ' --endian=' + cmdPageEndian[idx]
            cmd_args = shlex.split(launch_string)
-           print launch_string
            subprocess.Popen(cmd_args)
 
     #
@@ -227,14 +226,12 @@ class CommandSystem(QtGui.QDialog):
 
            # if requires parameters
            if self.checkParams(quickIdx) == True:
-              prog = 'python Parameter.py'
+              prog = 'python3 Parameter.py'
               launch_string = prog+' --title=\"'+subsys[quickIdx]+'\" --descrip=\"'+quickCmd[quickIdx]+'\" --idx='+str(idx)+' --host=\"'+address+'\" --port='+str(quickPort[quickIdx])+' --pktid='+pktId+' --endian='+quickEndian[quickIdx]+' --cmdcode='+quickCode[quickIdx]+' --file='+quickParam[quickIdx]
 
            # if doesn't require parameters
            else:
                launch_string = '../cmdUtil/cmdUtil' + ' --host=\"' + address + '\" --port=' + str(quickPort[quickIdx]) + ' --pktid=' + pktId + ' --endian=' + quickEndian[quickIdx] + ' --cmdcode=' + quickCode[quickIdx]
-
-           # print launch_string
            cmd_args = shlex.split(launch_string)
            subprocess.Popen(cmd_args)
 
@@ -269,7 +266,7 @@ if __name__ == '__main__':
 
     i = 0
 
-    with open(cmdDefFile, 'rb') as cmdfile:
+    with open(cmdDefFile, 'r') as cmdfile:
         reader = csv.reader(cmdfile, skipinitialspace = True)
         for cmdRow in reader:
             try:
@@ -284,9 +281,9 @@ if __name__ == '__main__':
                     cmdPagePort.append(int(cmdRow[6]))
                     i += 1
             except IndexError:
-                print "IndexError: list index out of range"
-                print "This could be due to improper formatting in command-pages.txt."
-                print "This is a common error caused by blank lines in command-pages.txt"
+                print ("IndexError: list index out of range")
+                print ("This could be due to improper formatting in command-pages.txt.")
+                print ("This is a common error caused by blank lines in command-pages.txt")
 
     # 
     # Mark the remaining values as invalid
@@ -311,7 +308,7 @@ if __name__ == '__main__':
     quickParam = []
     quickIndices = []
 
-    with open(quickDefFile,'rb') as subFile:
+    with open(quickDefFile,'r') as subFile:
        reader = csv.reader(subFile)
        i = 0
        for fileRow in reader:
@@ -644,6 +641,6 @@ if __name__ == '__main__':
     #
     Command.show()
     Command.raise_()
-    print 'Command System started.'
+    print ('Command System started.')
     sys.exit(app.exec_())
 

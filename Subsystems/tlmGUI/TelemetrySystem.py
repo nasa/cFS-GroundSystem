@@ -81,9 +81,9 @@ class TelemetrySystem(QtGui.QDialog):
          appIdString = "%02X" % ord(packetData[0])
          appIdString = appIdString + "%02X" % ord(packetData[1])
          appId = (ord(packetData[0]) << 8) + (ord(packetData[1]))
-         print "\n-----------------------------------------------"
-         print "\nPacket: App ID = ",  hex(appId)
-         print "\nPacket Data: ", strToHex(packetData)
+         print ("\n-----------------------------------------------")
+         print ("\nPacket: App ID = ",  hex(appId))
+         print ("\nPacket Data: ", strToHex(packetData))
 
     #
     # Button press methods
@@ -135,7 +135,7 @@ class TelemetrySystem(QtGui.QDialog):
         tempSub = self.subscription + '.' + hex(tlmPageAppid[idx])
         if tlmPageIsValid[idx] == True:
            # need to extract data from fields, then start page with right params
-           launch_string = 'python ' + tlmClass[idx] + ' --title=\"' + tlmPageDesc[idx] + '\" --appid=' + hex(tlmPageAppid[idx]) + ' --port=' + str(tlmPagePort[idx]) + ' --file=' + tlmPageDefFile[idx] + ' --endian=' + endian + ' --sub=' + tempSub
+           launch_string = 'python3 ' + tlmClass[idx] + ' --title=\"' + tlmPageDesc[idx] + '\" --appid=' + hex(tlmPageAppid[idx]) + ' --port=' + str(tlmPagePort[idx]) + ' --file=' + tlmPageDefFile[idx] + ' --endian=' + endian + ' --sub=' + tempSub
            cmd_args = shlex.split(launch_string)
            subprocess.Popen(cmd_args)
     
@@ -168,10 +168,9 @@ class TelemetrySystem(QtGui.QDialog):
             appIdString = "%02X" % ord(packetData[0])
             appIdString = appIdString + "%02X" % ord(packetData[1])
             appId = (ord(packetData[0]) << 8) + (ord(packetData[1]))
-            print appIdString
-            print "\nPacket: App ID = ",  hex(appId)
-            print "\nPacket Data: ", strToHex(packetData)
-            print "\n-----------------------------------------------"
+            print ("\nPacket: App ID = ",  hex(appId))
+            print ("\nPacket Data: ", strToHex(packetData))
+            print ("\n-----------------------------------------------")
 
         #
         # Show number of packets received
@@ -256,7 +255,7 @@ class TlmReceiver(QtCore.QThread):
         self.context   = zmq.Context()
         self.subscriber = self.context.socket(zmq.SUB)
         self.subscriber.connect("ipc:///tmp/GroundSystem")
-        self.subscriber.setsockopt(zmq.SUBSCRIBE, subscription)
+        self.subscriber.setsockopt_string(zmq.SUBSCRIBE, subscription)
     
     def run(self):
         while True:
@@ -300,7 +299,7 @@ if __name__ == '__main__':
     if len(subscription) == 0:
         subscription = "GroundSystem"
 
-    print 'Telemetry System started. Subscribed to ' + subscription
+    print ('Telemetry System started. Subscribed to ' + subscription)
     #
     # Read in the contents of the telemetry packet defintion
     #
@@ -313,7 +312,7 @@ if __name__ == '__main__':
     tlmPageDefFile = []
     i = 0
 
-    with open(tlmDefFile, 'rb') as tlmfile:
+    with open(tlmDefFile, 'r') as tlmfile:
        reader = csv.reader(tlmfile, skipinitialspace = True)
        for row in reader:
           if row[0][0] != '#':

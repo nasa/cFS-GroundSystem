@@ -99,8 +99,8 @@ class EventMessageTelemetry(QtGui.QDialog):
         #
         # Not accounting for endian right now!
         #
-        appName = "".join(unpack("<20s",datagram[12:32]))
-        eventText = "".join(unpack("<122sxx",datagram[44:]))
+        appName = datagram[12:32].decode('utf-8','ignore')
+        eventText = datagram[44:].decode('utf-8','ignore')
         appName = appName.split("\0")[0]
         eventText = eventText.split("\0")[0]
         eventString = "EVENT ---> "+ appName + " : " + eventText
@@ -121,24 +121,25 @@ class TlmReceiver(QtCore.QThread):
         self.context   = zmq.Context()
         self.subscriber = self.context.socket(zmq.SUB)
         self.subscriber.connect("ipc:///tmp/GroundSystem")
-        self.subscriber.setsockopt(zmq.SUBSCRIBE, subscription)
+        subscriptionString = str(subscription) + ".Spacecraft1.TelemetryPackets." + str(appId)
+        self.subscriber.setsockopt_string(zmq.SUBSCRIBE, subscriptionString)
     
     def run(self):
         while True:
             # Read envelope with address
             [address, datagram] = self.subscriber.recv_multipart()
-            #print("[%s] %s" % (address, datagram))
+
             # Ignore if not an event message
-            if self.appId not in address: continue
+            if self.appId not in str(address): continue
             self.emit(self.signalTlmDatagram, datagram)
 
 #
 # Display usage
 #
 def usage():
-    print "Must specify --title=<page name> --port=<udp_port> --appid=<packet_app_id(hex)> --endian=<endian(L|B) --file=<tlm_def_file>"
-    print "     example: --title=Executive Services --port=10800 --appid=800 --file=cfe-es-hk-table.txt --endian=L"
-    print "            (quotes are not on the title string in this example)"
+    print ("Must specify --title=<page name> --port=<udp_port> --appid=<packet_app_id(hex)> --endian=<endian(L|B) --file=<tlm_def_file>")
+    print ("     example: --title=Executive Services --port=10800 --appid=800 --file=cfe-es-hk-table.txt --endian=L")
+    print ("            (quotes are not on the title string in this example)")
 
  
 if __name__ == '__main__':
@@ -187,7 +188,7 @@ if __name__ == '__main__':
     if len(arr) < 3:
         subscription = 'GroundSystem'
 
-    print 'Event Messages Page started. Subscribed to ' + subscription
+    print ('Event Messages Page started. Subscribed to ' + subscription)
 
     if endian == 'L':
        py_endian = '<'
