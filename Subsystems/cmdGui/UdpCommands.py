@@ -40,7 +40,7 @@ import pickle
 
 from PyQt4 import QtGui
 from GenericCommandDialog import Ui_GenericCommandDialog
-from HTMLParser import HTMLParser
+from html.parser import HTMLParser
 from HTMLDocsParser import HTMLDocsParser
 from struct import *
 
@@ -166,7 +166,7 @@ class SubsystemCommands(QtGui.QDialog):
             
             # If parameters are required, launches Parameters page
             if param_bool == True:
-                prog = 'python Parameter.py'
+                prog = 'python3 Parameter.py'
                 launch_string = prog+' --title=\"'+pageTitle+'\" --descrip=\"'+cmdDesc[idx]+'\" --idx='+str(idx)+' --host=\"'+address+'\" --port='+str(pagePort)+' --pktid='+str(pagePktId)+' --endian='+pageEndian+' --cmdcode='+cmdCodes[idx]+' --file='+param_files[idx]
 
             # If parameters not required, directly calls cmdUtil to send command
@@ -183,8 +183,8 @@ class SubsystemCommands(QtGui.QDialog):
 # Display usage
 #
 def usage():
-    print "Must specify --title=<page name> --file=<cmd_def_file> --pktid=<packet_app_id(hex)> --endian=<LE|BE> --address=<IP address> --port=<UDP port>" 
-    print "     example: --title=\"Executive Services\" --file=cfe-es-cmds.txt --pktid=1806  --endian=LE --address=127.0.0.1 --port=1234" 
+    print ("Must specify --title=<page name> --file=<cmd_def_file> --pktid=<packet_app_id(hex)> --endian=<LE|BE> --address=<IP address> --port=<UDP port>") 
+    print ("     example: --title=\"Executive Services\" --file=cfe-es-cmds.txt --pktid=1806  --endian=LE --address=127.0.0.1 --port=1234") 
 
 #
 # Main 

@@ -27,7 +27,7 @@ import pickle
 
 from PyQt4 import QtGui, QtNetwork
 from ParameterDialog import Ui_Dialog
-from HTMLParser import HTMLParser
+from html.parser import HTMLParser
 from HTMLDocsParser import HTMLDocsParser
 from struct import *
 
