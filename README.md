@@ -8,6 +8,10 @@ See Guide-GroundSystem.txt for more information.
 
 ## Version Notes
 
+- 2.1.4: DEVELOPMENT
+  - Finish conversion to python 3
+  - cmdutil now accepts --word as alias to --long
+  - See https://github.com/nasa/cFS-GroundSystem/pull/54
 - 2.1.3: DEVELOPMENT
   - Minor updates to work with python 3
   - No longer compatible with python 2.7
