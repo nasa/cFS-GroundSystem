@@ -47,7 +47,11 @@ class SubsystemTelemetry(QtGui.QDialog):
     #
     def displayTelemetryItem(self, datagram, tlmIndex, labelField, valueField):
        if tlmItemIsValid[tlmIndex] == True:
-          TlmField =   unpack(tlmItemFormat[tlmIndex], datagram[int(tlmItemStart[tlmIndex]):(int(tlmItemStart[tlmIndex]) + int(tlmItemSize[tlmIndex]))])
+          TlmField1 =   tlmItemFormat[tlmIndex]
+          if TlmField1[:1] == "<":
+             TlmField1 = TlmField1[1:]
+          TlmField2 =   datagram[int(tlmItemStart[tlmIndex]):(int(tlmItemStart[tlmIndex]) + int(tlmItemSize[tlmIndex]))]
+          TlmField = unpack( TlmField1, TlmField2) 
           if tlmItemDisplayType[tlmIndex] == 'Dec':
              valueField.setText(str(TlmField[0]))
           elif tlmItemDisplayType[tlmIndex] == 'Hex':
@@ -55,7 +59,7 @@ class SubsystemTelemetry(QtGui.QDialog):
           elif tlmItemDisplayType[tlmIndex] == 'Enm':
              valueField.setText(tlmItemEnum[tlmIndex][int(TlmField[0])])
           elif tlmItemDisplayType[tlmIndex] == 'Str':
-             valueField.setText(TlmField[0])
+             valueField.setText(TlmField[0].decode('utf-8','ignore'))
           labelField.setText(tlmItemDesc[tlmIndex])
        else:
           labelField.setText("(unused)")
@@ -135,13 +139,14 @@ class TlmReceiver(QtCore.QThread):
         self.context   = zmq.Context()
         self.subscriber = self.context.socket(zmq.SUB)
         self.subscriber.connect("ipc:///tmp/GroundSystem")
-        self.subscriber.setsockopt(zmq.SUBSCRIBE, subscription)
+        myTlmPgAPID = subscription.split(".",1)
+        mySubscription = "GroundSystem.Spacecraft1.TelemetryPackets." + str(myTlmPgAPID[1])
+        self.subscriber.setsockopt_string(zmq.SUBSCRIBE, mySubscription)
     
     def run(self):
         while True:
             # Read envelope with address
             [address, datagram] = self.subscriber.recv_multipart()
-            #print("[%s] %s" % (address, datagram))
             # Send signal with received packet to front-end/GUI
             self.emit(self.signalTlmDatagram, datagram)
 
@@ -150,9 +155,9 @@ class TlmReceiver(QtCore.QThread):
 # Display usage
 #
 def usage():
-    print "Must specify --title=<page name> --port=<udp_port> --appid=<packet_app_id(hex)> --endian=<endian(L|B) --file=<tlm_def_file> --sub=<subscriber_string>"
-    print "     example: --title=Executive Services --port=10800 --appid=800 --file=cfe-es-hk-table.txt --endian=L --sub=GroundSystem.Spacecraft1.0x886"
-    print "            (quotes are not on the title string in this example)" 
+    print ("Must specify --title=<page name> --port=<udp_port> --appid=<packet_app_id(hex)> --endian=<endian(L|B) --file=<tlm_def_file> --sub=<subscriber_string>")
+    print ("     example: --title=Executive Services --port=10800 --appid=800 --file=cfe-es-hk-table.txt --endian=L --sub=GroundSystem.Spacecraft1.0x886")
+    print ("            (quotes are not on the title string in this example)")
 
 #
 # Main 
@@ -198,7 +203,7 @@ if __name__ == '__main__':
     if len(subscription) == 0:
         subscription = "GroundSystem"
 
-    print 'Generic Telemetry Page started. Subscribed to ' + subscription
+    print ('Generic Telemetry Page started. Subscribed to ' + subscription)
 
     if endian == 'L':
        py_endian = '<'
@@ -225,7 +230,7 @@ if __name__ == '__main__':
     tlmItemEnum = [[] for i in range(40)]
     i = 0
 
-    with open(tlmDefFile, 'rb') as tlmfile:
+    with open(tlmDefFile, 'r') as tlmfile:
        reader = csv.reader(tlmfile, skipinitialspace = True)
        for row in reader:
           if row[0][0] != '#':

@@ -87,12 +87,12 @@ class GroundSystem(QtGui.QMainWindow):
             subscription = '--sub=GroundSystem.' + selectedSpacecraft + '.TelemetryPackets'
 
         # Open Telemetry System
-        system_call = '( cd Subsystems/tlmGUI/ && python TelemetrySystem.py ' + subscription + ' ) & '
+        system_call = '( cd Subsystems/tlmGUI/ && python3 TelemetrySystem.py ' + subscription + ' ) & '
         os.system(system_call)
 
     # Start command system
     def startCmdSystem(self):
-        os.system('( cd Subsystems/cmdGui/ && python CommandSystem.py ) & ')
+        os.system('( cd Subsystems/cmdGui/ && python3 CommandSystem.py ) & ')
 
     # Start FDL-FUL gui system
     #def startFDLSystem(self):
