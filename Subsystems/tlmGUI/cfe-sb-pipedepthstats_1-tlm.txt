@@ -1,0 +1,45 @@
+PipeId,           72,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+Spare,            73,  1,  B, Dec, NULL,        NULL,        NULL,       NULL  
+Depth,            74,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+Msgs In Use,      76,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+Peak In Use,      78,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+PipeId,           80,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+Spare,            81,  1,  B, Dec, NULL,        NULL,        NULL,       NULL  
+Depth,            82,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+Msgs In Use,      84,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+Peak In Use,      86,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+PipeId,           88,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+Spare,            89,  1,  B, Dec, NULL,        NULL,        NULL,       NULL  
+Depth,            90,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+Msgs In Use,      92,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+Peak In Use,      94,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+PipeId,           96,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+Spare,            97,  1,  B, Dec, NULL,        NULL,        NULL,       NULL  
+Depth,            98,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+Msgs In Use,      100,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+Peak In Use,      102,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+PipeId,           104,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+Spare,            105,  1,  B, Dec, NULL,        NULL,        NULL,       NULL  
+Depth,            106,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+Msgs In Use,      108,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+Peak In Use,      110,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+PipeId,           112,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+Spare,            113,  1,  B, Dec, NULL,        NULL,        NULL,       NULL  
+Depth,            114,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+Msgs In Use,      116,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+Peak In Use,      118,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+PipeId,           120,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+Spare,            121,  1,  B, Dec, NULL,        NULL,        NULL,       NULL  
+Depth,            122,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+Msgs In Use,      124,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+Peak In Use,      126,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+PipeId,           128,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+Spare,            129,  1,  B, Dec, NULL,        NULL,        NULL,       NULL  
+Depth,            130,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+Msgs In Use,      132,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+Peak In Use,      134,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+PipeId,           136,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+Spare,            137,  1,  B, Dec, NULL,        NULL,        NULL,       NULL  
+Depth,            138,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+Msgs In Use,      140,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+Peak In Use,      142,  2,  H, Dec, NULL,        NULL,        NULL,       NULL

@@ -15,3 +15,9 @@
 #
 #../../../../apps/to_lab/fsw/src/to_lab_msg.h
 #../../../../apps/ci_lab/fsw/src/ci_lab_msg.h
+#../../../../apps/sample_app/fsw/src/sample_app_msg.h
+../../../../cfe/fsw/cfe-core/src/inc/cfe_es_msg.h
+#../../../../cfe/fsw/cfe-core/src/inc/cfe_time_msg.h
+#../../../../cfe/fsw/cfe-core/src/inc/cfe_evs_msg.h
+#../../../../cfe/fsw/cfe-core/src/inc/cfe_sb_msg.h
+#../../../../cfe/fsw/cfe-core/src/inc/cfe_tbl_msg.h
