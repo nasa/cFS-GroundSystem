@@ -8,6 +8,9 @@ See Guide-GroundSystem.txt for more information.
 
 ## Version Notes
 
+- 2.1.5: DEVELOPMENT
+  - Updated build instructions for Python 3
+  - See https://github.com/nasa/cFS-GroundSystem/pull/64
 - 2.1.4: DEVELOPMENT
   - Finish conversion to python 3
   - cmdutil now accepts --word as alias to --long
@@ -15,7 +18,7 @@ See Guide-GroundSystem.txt for more information.
 - 2.1.3: DEVELOPMENT
   - Minor updates to work with python 3
   - No longer compatible with python 2.7
-  - Note issue #50 is to update the related documentation 
+  - Note issue #50 is to update the related documentation
   - See https://github.com/nasa/cFS-GroundSystem/pull/47
 - 2.1.2: DEVELOPMENT
   - Minor updates (see https://github.com/nasa/cFS-GroundSystem/pull/39)
@@ -36,4 +39,3 @@ As a lab application, extensive testing is not performed prior to release and on
 For best results, submit issues:questions or issues:help wanted requests at https://github.com/nasa/cFS.
 
 Official cFS page: http://cfs.gsfc.nasa.gov
-
