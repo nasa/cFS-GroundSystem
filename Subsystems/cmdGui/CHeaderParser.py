@@ -98,7 +98,7 @@ class CHeaderParser():
 		
 		# Try to open textfile list of header files
 		try:
-			textfile = open(filename, 'rb')
+			textfile = open(filename, 'r')
 			for line in textfile:	
 				# Remove whitespace before and after
 				line = line.strip()
@@ -108,16 +108,16 @@ class CHeaderParser():
 					if line != '':
 						# Add line to list of paths
 						paths.append(line)
-			print "Using header files found in " + filename
+			print ("Using header files found in " + filename)
 			# Send paths back to caller function
 			return paths
 		except IOError as e:
-			print "Couldn't find default file. Checking command line arguments."
+			print ("Couldn't find default file. Checking command line arguments.")
 		except:
-			print "Unexpected error:", sys.exc_info()[0]
+			print ("Unexpected error:", sys.exc_info()[0])
 
-		print "No header files found. Please make sure to provide the "
-		print "default file for loading headers (CHeaderParser-hdr-paths.txt) "
+		print ("No header files found. Please make sure to provide the ")
+		print ("default file for loading headers (CHeaderParser-hdr-paths.txt) ")
 
 		# If we got to here, we couldn't find any header files, return empty list
 		return []
@@ -135,7 +135,7 @@ if __name__ == '__main__':
 
 	# If list is empty, exit now
 	if not file_list:
-		print "ERROR: Empty file list. Nothing to be done. Exiting now."
+		print ("ERROR: Empty file list. Nothing to be done. Exiting now.")
 		exit()
 
 	# initialize command codes/descriptions lists as empty lists
@@ -148,7 +148,7 @@ if __name__ == '__main__':
 	# Concatonate all headers into one variable for referencing
 	for hdr_file in file_list:
 		# open header file as single header
-		single_hdr = open(hdr_file, 'rb')
+		single_hdr = open(hdr_file, 'r')
 		# dump single header into master
 		for single_line in single_hdr:
 			master_hdr.append(single_line)
@@ -203,22 +203,23 @@ if __name__ == '__main__':
 			#	print "length not 3, see line below"
 			#	print definition
 
-	#print "List of Command Descriptions Below:"
-	#print cmdDesc
-	#print "--------------------------------------------------------------"
-	#print "List of Command Codes Below:"
-	#print cmdCodes
-	#print "--------------------------------------------------------------"
+	#print ("List of Command Descriptions Below:")
+	#print (cmdDesc)
+	#print ("--------------------------------------------------------------")
+	#print ("List of Command Codes Below:")
+	#print (cmdCodes)
+	#print ("--------------------------------------------------------------")
 	
-	print "We need to save the command into to a pickle file in 'CommandFile/'. "
-	print "Please do not use any spaces/quotes in your filename. Ex: my_app_cmd_file"
-	cmd_file_name = raw_input("What would you like the command file to be saved as? ")
+	print ("We need to save the command into to a pickle file in 'CommandFile/'. ")
+	print ("Please do not use any spaces/quotes in your filename. Ex: my_app_cmd_file")
+	cmd_file_name = input("What would you like the command file to be saved as? ")
 	
 	# starting from last index (-1) going backward
 	# (from example above) file_split[-2] = app_msg
 	# therefore picklefile = CommandFiles/app_msg
 	#pickle_file = 'CommandFiles/'+file_split[-2]
 	pickle_file = 'CommandFiles/' + cmd_file_name
+
 
 	# Open pickle file for storing command codes/descriptions
 	with open(pickle_file, 'wb') as pickle_obj:
@@ -240,50 +241,50 @@ if __name__ == '__main__':
 	cmd_index = 0
 		
 	# Print a list of unused commands for the user to pick from.
-	print ""
-	print "Unused Commands"
-	print "-----------------------------------------"
+	print ("")
+	print ("Unused Commands")
+	print ("-----------------------------------------")
 	for cmd_index in range(0, len(unused_cmdDesc)):
-		print "Command (" + str(cmd_index) + " of " + str(len(unused_cmdDesc)-1) + ") " + unused_cmdDesc[cmd_index]
+		print ("Command (" + str(cmd_index) + " of " + str(len(unused_cmdDesc)-1) + ") " + unused_cmdDesc[cmd_index])
 
 	# Get user input to see if any commands from this file require parameters
-	more_param_cmds = raw_input('Do any commands in ' + cmd_file_name + ' require parameters? (yes/no): ')
+	more_param_cmds = input('Do any commands in ' + cmd_file_name + ' require parameters? (yes/no): ')
 
-	while string.lower(more_param_cmds) not in ['yes', 'y', 'no', 'n']:
-		print "Your response was not valid. Please enter (yes, y, no, or n)."
-		more_param_cmds = raw_input('Do any commands in ' + cmd_file_name + ' require parameters? (yes/no): ')
+	while str.lower(more_param_cmds) not in ['yes', 'y', 'no', 'n']:
+		print ("Your response was not valid. Please enter (yes, y, no, or n).")
+		more_param_cmds = input('Do any commands in ' + cmd_file_name + ' require parameters? (yes/no): ')
 
 	# Check for exit condition
-	if string.lower(more_param_cmds) == 'no' or \
-			string.lower(more_param_cmds) == 'n':
-		print "You have chosen to exit. Exiting now."
+	if str.lower(more_param_cmds) == 'no' or \
+			str.lower(more_param_cmds) == 'n':
+		print ("You have chosen to exit. Exiting now.")
 		exit()
 
 	# Continue onto creating parameter files if yes
-	elif string.lower(more_param_cmds) == 'yes' or \
-			string.lower(more_param_cmds) == 'y':
+	elif str.lower(more_param_cmds) == 'yes' or \
+			str.lower(more_param_cmds) == 'y':
 		
 		# Continue to ask user for commands with parameters until we get -1 to exit.
 		while True:			
 			# Get user input
-			command_choice = int(raw_input("Which command would you like to add parameters to (-1 to exit)? "))
+			command_choice = int(input("Which command would you like to add parameters to (-1 to exit)? "))
 
 			# Check for exit condition
 			if command_choice == -1:
-				print "You have chosen to exit early. Exiting now."
+				print ("You have chosen to exit early. Exiting now.")
 				break
 
 			# Make sure the choice is within range
 			while command_choice not in range(0, len(unused_cmdDesc)):
-				print "You entered " + str(command_choice) + ", but that isn't an option."
-				print "Choose from the list above or choose -1 to exit."
+				print ("You entered " + str(command_choice) + ", but that isn't an option.")
+				print ("Choose from the list above or choose -1 to exit.")
 
 				# Get user input
-				command_choice = int(raw_input("Which command would you like to add parameters to? "))
+				command_choice = int(input("Which command would you like to add parameters to? "))
 
 				# Check for exit condition
 				if command_choice == -1:
-					print "You have chosen to exit early. Exiting now."
+					print ("You have chosen to exit early. Exiting now.")
 					exit()
 			
 			cmdName = unused_cmdDesc[command_choice]
@@ -301,7 +302,7 @@ if __name__ == '__main__':
 			# structure can be found
 			list_cmd_structs = []
 
-			print "This program will now attempt to find the command structure for " + cmdName
+			print ("This program will now attempt to find the command structure for " + cmdName)
 
 			# create a copy of file_lines for parsing structures
 			file_lines = list(master_hdr)
@@ -350,36 +351,36 @@ if __name__ == '__main__':
 			# After exiting this while loop, cmdStruct should contain a list of lists
 			# The nested lists should contain line numbers to each structure in file
 			for line_list in list_cmd_structs:
-				print ""
-				print "Showing structure " + str(list_cmd_structs.index(line_list)) + " of " + str(len(list_cmd_structs)-1) + " below."
-				print "--------------------------------------------"
+				print ("")
+				print ("Showing structure " + str(list_cmd_structs.index(line_list)) + " of " + str(len(list_cmd_structs)-1) + " below.")
+				print ("--------------------------------------------")
 				for line_num in line_list:
 					# Print the line from the file using the index from the list
-					print file_lines[line_num].strip()
-				print "--------------------------------------------"
+					print (file_lines[line_num].strip())
+				print ("--------------------------------------------")
 
 			# Give the user the option to exit too.
-			print "Choose from the list above or choose -1 to exit."
+			print ("Choose from the list above or choose -1 to exit.")
 
 			# Get choice of structure from user.
-			struct_choice = int(raw_input("Which of the above structures would you like to use? "))
+			struct_choice = int(input("Which of the above structures would you like to use? "))
 
 			# Check for exit condition
 			if struct_choice == -1:
-				print "You have chosen to exit early. Exiting now."
+				print ("You have chosen to exit early. Exiting now.")
 				exit()
 
 			# Make sure the choice is valid
 			while struct_choice not in range(0, len(list_cmd_structs)):
-				print "You entered " + str(struct_choice) + ", but that isn't an option."
-				print "Choose from the list above or choose -1 to exit."
+				print ("You entered " + str(struct_choice) + ", but that isn't an option.")
+				print ("Choose from the list above or choose -1 to exit.")
 
 				# Get user input
-				struct_choice = int(raw_input("Which of the above structures would you like to use? "))
+				struct_choice = int(input("Which of the above structures would you like to use? "))
 
 				# Check for exit condition
 				if struct_choice == -1:
-					print "You have chosen to exit early. Exiting now."
+					print ("You have chosen to exit early. Exiting now.")
 					exit()
 
 			# After exiting the while loop, user's structure choice should be a valid assignment
@@ -395,21 +396,21 @@ if __name__ == '__main__':
 			while param_line in range(0, len(cmd_struct_lines)):
 
 				# Display the command structure with indexed before each line
-				print "\n\n"
+				print ("\n\n")
 				for line_num in range(0, len(cmd_struct_lines)):
 					
 					# Dereference the index number in cmd_struct_lines to get the actual line number
 					actual_line = cmd_struct_lines[line_num]
 
 					# print the line of the file with our "line number" next to it
-					print "Line (" + str(line_num) + ") -> " + file_lines[actual_line].strip()
+					print ("Line (" + str(line_num) + ") -> " + file_lines[actual_line].strip())
 
 				# Prompt the user for line number
-				param_line = int(raw_input("Enter the line of the parameter from the above print-out (-1 to stop): "))
+				param_line = int(input("Enter the line of the parameter from the above print-out (-1 to stop): "))
 
 				# Check exit condition
 				if param_line == -1:
-					print "You have chosen to stop adding parameters."
+					print ("You have chosen to stop adding parameters.")
 					break
 
 				# Dereference the index number in cmd_struct_lines to get the actual line number
@@ -435,7 +436,7 @@ if __name__ == '__main__':
 				# If no type could match, ask user for data type
 				if dataTypeNew == '':
 					typeNew = parser.findKeyword(dataTypesOrig[-1])
-					dataTypeNew = raw_input('Data type for '+paramNames[-1]+' not found. Please enter new data type by hand: ')
+					dataTypeNew = input('Data type for '+paramNames[-1]+' not found. Please enter new data type by hand: ')
 
 				dataTypesNew.append(dataTypeNew)
 
@@ -457,7 +458,7 @@ if __name__ == '__main__':
 					# Add array size to the parameter list
 					paramLens.append(array_size)
 
-					print "Array size: " + str(array_size)
+					print ("Array size: " + str(array_size))
 
 					# Set flag initially to false in order to get into while loop				
 					array_size_within_limit = False
@@ -475,20 +476,20 @@ if __name__ == '__main__':
 					while (not str(array_size).isdigit()) or (not array_size_within_limit):
 						# User input is not an integer
 						if not str(array_size).isdigit():
-								print "Could not translate " + str(array_name_size[1]) + "."
+								print ("Could not translate " + str(array_name_size[1]) + ".")
 						try:
 							# Try to translate user input to an integer
-							array_size = int(raw_input("Please enter the defined value for " + str(array_name_size[1]) + " (0 - 128): "))
+							array_size = int(input("Please enter the defined value for " + str(array_name_size[1]) + " (0 - 128): "))
 							# If we got an integer, we continue to testing if integer is within range
 							if (array_size < 0) or (128 < array_size):
-								print "Array size out of bounds. It must be between 0 and 128."
+								print ("Array size out of bounds. It must be between 0 and 128.")
 								array_size_within_limit = False
 								# Restart the loop, array_size not within limit
 							else:
 								array_size_within_limit = True
 								# End of the loop.
 						except:
-							print "Could not translate " + str(array_name_size[1]) + " into integer. "
+							print ("Could not translate " + str(array_name_size[1]) + " into integer. ")
 							# Restart the loop, array_size not integer
 
 					# Add string length argument to parameter list
@@ -499,13 +500,13 @@ if __name__ == '__main__':
 					paramLens.append('')
 
 				# print the last element of list to see if it worked
-				print "dataTypeOrig:", dataTypesOrig[-1]
-				print "dataTypeNew:", dataTypesNew[-1]
-				print "paramName:", paramNames[-1]
-				print "paramLen:", paramLens[-1]
-				print "stringLen:", stringLens[-1]
+				print ("dataTypeOrig:", dataTypesOrig[-1])
+				print ("dataTypeNew:", dataTypesNew[-1])
+				print ("paramName:", paramNames[-1])
+				print ("paramLen:", paramLens[-1])
+				print ("stringLen:", stringLens[-1])
 
-				print "Added: " + paramNames[-1] + " with type " + dataTypesNew[-1]
+				print ("Added: " + paramNames[-1] + " with type " + dataTypesNew[-1])
 
 				# Remove used parameter from command structure lines
 				# so that the user doesn't choose the same parameter twice
@@ -538,15 +539,15 @@ if __name__ == '__main__':
 			cmd_index = 0
 				
 			# Print a list of unused commands for the user to pick from.
-			print ""
-			print "Unused Commands"
-			print "-----------------------------------------"
+			print ("")
+			print ("Unused Commands")
+			print ("-----------------------------------------")
 			for cmd_index in range(0, len(unused_cmdDesc)):
-				print "Command (" + str(cmd_index) + " of " + str(len(unused_cmdDesc)-1) + ") " + unused_cmdDesc[cmd_index]
+				print ("Command (" + str(cmd_index) + " of " + str(len(unused_cmdDesc)-1) + ") " + unused_cmdDesc[cmd_index])
 
 			# End of 'while True:'
 			# We must have received a -1 when prompting user for the next command.
 
-	print "Thank you for using CHeaderParser." 
-	print "The following commands have been added with parameters: "
-	print used_cmdDesc
+	print ("Thank you for using CHeaderParser.")
+	print ("The following commands have been added with parameters: ")
+	print (used_cmdDesc)

@@ -13,5 +13,5 @@
 #   This program does support relative paths but if the program cannot 
 #	find your header files, try using absolute paths.
 #
-#../../../../../apps/to_lab/fsw/src/to_lab_msg.h
-#../../../../../apps/ci_lab/fsw/src/ci_lab_msg.h
+#../../../../apps/to_lab/fsw/src/to_lab_msg.h
+#../../../../apps/ci_lab/fsw/src/ci_lab_msg.h
