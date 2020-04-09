@@ -8,6 +8,9 @@ See Guide-GroundSystem.txt for more information.
 
 ## Version Notes
 
+- 2.1.6: DEVELOPMENT
+  - Cmd code (and checksum) are always in the same place 
+  - See https://github.com/nasa/cFS-GroundSystem/pull/69
 - 2.1.5: DEVELOPMENT
   - Updated build instructions for Python 3
   - See https://github.com/nasa/cFS-GroundSystem/pull/64
