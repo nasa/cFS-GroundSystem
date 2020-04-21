@@ -1,0 +1,44 @@
+#
+# Time Services Diagnostics Packet
+# CFE_TIME_DiagnosticTlm_Payload_t
+#
+AtToneMET.seconds,               12,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+AtToneMET.subseconds,            16,  4,  I, Dec, NULL,        NULL,        NULL,       NULL  
+AtToneSTCF.seconds,              20,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+AtToneSTCF.subseconds,           24,  4,  I, Dec, NULL,        NULL,        NULL,       NULL  
+AtToneDelay.seconds,             28,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+AtToneDelay.subseconds,          32,  4,  I, Dec, NULL,        NULL,        NULL,       NULL  
+AtToneLatch.seconds,             36,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+AtToneLatch.subseconds,          40,  4,  I, Dec, NULL,        NULL,        NULL,       NULL  
+AtToneLeapSeconds,               44,  2,  H, Dec, NULL,        NULL,        NULL,       NULL  
+ClockStateAPI,                   46,  2,  H, Dec, NULL,        NULL,        NULL,       NULL 
+TimeSinceTone.seconds,           48,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+TimeSinceTone.subseconds,        52,  4,  I, Dec, NULL,        NULL,        NULL,       NULL  
+CurrentLatch.seconds,            56,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+CurrentLatch.subseconds,         60,  4,  I, Dec, NULL,        NULL,        NULL,       NULL  
+CurrentMET.seconds,              64,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+CurrentMET.subseconds,           68,  4,  I, Dec, NULL,        NULL,        NULL,       NULL  
+CurrentTAI.seconds,              72,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+CurrentTAI.subseconds,           76,  4,  I, Dec, NULL,        NULL,        NULL,       NULL  
+CurrentUTC.seconds,              80,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+CurrentUTC.subseconds,           84,  4,  I, Dec, NULL,        NULL,        NULL,       NULL  
+ClockSetState,                   88,  2,  H, Dec, NULL,        NULL,        NULL,       NULL 
+ClockFlyState,                   90,  2,  H, Dec, NULL,        NULL,        NULL,       NULL 
+ClockSource,                     92,  2,  H, Dec, NULL,        NULL,        NULL,       NULL 
+ClockSignal,                     94,  2,  H, Dec, NULL,        NULL,        NULL,       NULL 
+ServerFlyState,                  96,  2,  H, Dec, NULL,        NULL,        NULL,       NULL 
+Forced2Fly,                      98,  2,  H, Dec, NULL,        NULL,        NULL,       NULL 
+ClockStateFlags,                 100,  2,  H, Dec, NULL,        NULL,        NULL,       NULL 
+OneTimeDirection,                102,  2,  H, Dec, NULL,        NULL,        NULL,       NULL 
+OneHzDirection,                  104,  2,  H, Dec, NULL,        NULL,        NULL,       NULL 
+DelayDirection,                  106,  2,  H, Dec, NULL,        NULL,        NULL,       NULL 
+OneTimeAdjust.seconds,           108,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+OneTimeAdjust.subseconds,        112,  4,  I, Dec, NULL,        NULL,        NULL,       NULL  
+OneHzAdjust.seconds,             116,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+OneHzAdjust.subseconds,          120,  4,  I, Dec, NULL,        NULL,        NULL,       NULL  
+ToneSignalLatch.seconds,         124,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+ToneSignalLatch.subseconds,      128,  4,  I, Dec, NULL,        NULL,        NULL,       NULL  
+ToneDataLatch.seconds,           132,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+ToneDataLatch.subseconds,        136,  4,  I, Dec, NULL,        NULL,        NULL,       NULL  
+ToneMatchCounter,                140,  4,  I, Dec, NULL,        NULL,        NULL,       NULL 
+ToneMatchErrorCounter,           144,  4,  I, Dec, NULL,        NULL,        NULL,       NULL 

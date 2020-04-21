@@ -11,5 +11,20 @@
 #  Note(2): Remove any blank lines from the end of the file
 #
 Event Messages,            EventMessage.py,         0x808,   null
-Executive Services,        GenericTelemetry.py,     0x800,   cfe-es-hk-tlm.txt
-Table services,            GenericTelemetry.py,     0x804,   cfe-tbl-hk-tlm.txt
+ES HK Tlm,                 GenericTelemetry.py,     0x800,   cfe-es-hk-tlm.txt
+EVS HK Tlm,                GenericTelemetry.py,     0x801,   cfe-evs-hk-tlm.txt
+SB HK Tlm,                 GenericTelemetry.py,     0x803,   cfe-sb-hk-tlm.txt
+TBL HK Tlm,                GenericTelemetry.py,     0x804,   cfe-tbl-hk-tlm.txt
+TIME HK Tlm,               GenericTelemetry.py,     0x805,   cfe-time-hk-tlm.txt
+TIME DIAG Tlm 1,           GenericTelemetry.py,     0x806,   cfe-time-diag-tlm1.txt
+TIME DIAG Tlm 2,           GenericTelemetry.py,     0x806,   cfe-time-diag-tlm2.txt
+SB STATs Tlm,              GenericTelemetry.py,     0x80A,   cfe-sb-stats-tlm.txt
+SB PipeDepthStats Tlm 1,   GenericTelemetry.py,     0x80A,   cfe-sb-pipedepthstats_1-tlm.txt
+SB PipeDepthStats Tlm 2,   GenericTelemetry.py,     0x80A,   cfe-sb-pipedepthstats_2-tlm.txt
+ES APP Tlm,                GenericTelemetry.py,     0x80B,   cfe-es-app-tlm.txt
+TBL REG Tlm,               GenericTelemetry.py,     0x80C,   cfe-tbl-reg-tlm.txt
+SB ALLSUBs Tlm,            GenericTelemetry.py,     0x80D,   cfe-sb-allsubs-tlm.txt
+SB OneSub Tlm,             GenericTelemetry.py,     0x80E,   cfe-sb-onesub-tlm.txt
+ES Shell Tlm,              GenericTelemetry.py,     0x80F,   cfe-es-shell-tlm.txt
+ES MEMSTATS Tlm,           GenericTelemetry.py,     0x810,   cfe-es-memstats-tlm.txt
+ES BlockStats Tlm 1,       GenericTelemetry.py,     0x810,   cfe-es-blockstats_1-tlm.txt

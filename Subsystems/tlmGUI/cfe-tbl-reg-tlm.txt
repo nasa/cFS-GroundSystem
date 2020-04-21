@@ -1,0 +1,9 @@
+Size,                       4,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+Crc,                        8,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+ActiveBufferAddr,           12,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+InactiveBufferAddr,         16,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+ValidationFuncPtr,          20,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+TimeOfLastUpdate.seconds,   24,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+TimeOfLastUpdate.subsecs,   28,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+FileCreateTimeSecs,         32,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+FileCreateTimeSecs,         36,  4,  I, Dec, NULL,        NULL,        NULL,       NULL

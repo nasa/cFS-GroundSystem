@@ -1,0 +1,5 @@
+PoolHandle,                    20,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+PoolSize,                      24,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+NumBlocksRequested,            28,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+CheckErrCtr,                   32,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+NumFreeBytes,                  36,  4,  I, Dec, NULL,        NULL,        NULL,       NULL

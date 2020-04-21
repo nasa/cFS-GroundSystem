@@ -1,0 +1,20 @@
+#
+# Time Services Diagnostics Packet
+# CFE_TIME_DiagnosticTlm_Payload_t
+#
+ToneSignalCounter,               148,  4,  I, Dec, NULL,        NULL,        NULL,       NULL 
+ToneDataCounter,                 152,  4,  I, Dec, NULL,        NULL,        NULL,       NULL 
+ToneIntCounter,                  156,  4,  I, Dec, NULL,        NULL,        NULL,       NULL 
+ToneIntErrorCounter,             160,  4,  I, Dec, NULL,        NULL,        NULL,       NULL 
+ToneTaskCounter,                 164,  4,  I, Dec, NULL,        NULL,        NULL,       NULL 
+VersionCounter,                  168,  4,  I, Dec, NULL,        NULL,        NULL,       NULL 
+LocalIntCounter,                 172,  4,  I, Dec, NULL,        NULL,        NULL,       NULL 
+LocalTaskCounter,                176,  4,  I, Dec, NULL,        NULL,        NULL,       NULL 
+VirtualMET,                      180,  4,  I, Dec, NULL,        NULL,        NULL,       NULL 
+MinElapsed,                      184,  4,  I, Dec, NULL,        NULL,        NULL,       NULL 
+MaxElapsed,                      188,  4,  I, Dec, NULL,        NULL,        NULL,       NULL 
+MaxLocalClock.seconds,           192,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+MaxLocalClock.subseconds,        196,  4,  I, Dec, NULL,        NULL,        NULL,       NULL  
+ToneOverLimit,                   200,  4,  I, Dec, NULL,        NULL,        NULL,       NULL 
+ToneUnderLimit,                  204,  4,  I, Dec, NULL,        NULL,        NULL,       NULL 
+DataStoreStatus,                 208,  4,  I, Dec, NULL,        NULL,        NULL,       NULL 
