@@ -404,13 +404,15 @@ int main(int argc, char *argv[]) {
         {
         case 'H':
             printf("Host: %s\n",(char *)optarg);
-            strncpy(CommandData.HostName, optarg, HOSTNAME_SIZE);
+            strncpy(CommandData.HostName, optarg, HOSTNAME_SIZE-1);
+            CommandData.HostName[HOSTNAME_SIZE-1] = 0;
             CommandData.GotHostName = 1;
             break;
 
         case 'P':
             printf("Port: %s\n",(char *)optarg);
-            strncpy(CommandData.PortNum, optarg, PORTNUM_SIZE);
+            strncpy(CommandData.PortNum, optarg, PORTNUM_SIZE-1);
+            CommandData.PortNum[PORTNUM_SIZE-1] = 0;
             CommandData.GotPortNum = 1;
             break;
 
