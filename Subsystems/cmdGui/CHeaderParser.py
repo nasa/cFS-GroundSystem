@@ -42,7 +42,7 @@
 # the user for necessary information, and parsing the cFS header files, this 
 # program will generate up to two different "pickle" files for the ground 
 # system to use (for information about pickle files and the pickle python 
-# libary, see the link here: https://docs.python.org/2/library/pickle.html).
+# library, see the link here: https://docs.python.org/2/library/pickle.html).
 # These files will be placed in CommandFiles/ or ParameterFiles/.
 #
 # Usage:
@@ -422,7 +422,7 @@ if __name__ == '__main__':
 				# Add original data type (C data type) to list
 				dataTypesOrig.append(line_split[0])
 
-				# Get rid of any occurance of ';' (at the end of the line)
+				# Get rid of any occurrence of ';' (at the end of the line)
 				paramNames.append(re.sub(';','',line_split[1]))
 
 				# Not sure about why we are keeping track of this yet
