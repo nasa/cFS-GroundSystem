@@ -435,7 +435,7 @@ if __name__ == '__main__':
 
 				# If no type could match, ask user for data type
 				if dataTypeNew == '':
-					typeNew = parser.findKeyword(dataTypesOrig[-1])
+					#typeNew = parser.findKeyword(dataTypesOrig[-1])
 					dataTypeNew = input('Data type for '+paramNames[-1]+' not found. Please enter new data type by hand: ')
 
 				dataTypesNew.append(dataTypeNew)

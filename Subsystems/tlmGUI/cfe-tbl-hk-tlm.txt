@@ -15,24 +15,24 @@
 #  Note(1): A line that begins with # is a comment
 #  Note(2): Remove any blank lines from the end of the file
 #
-Command Counter,       12,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
-Error Counter,         13,  1,  B, Dec, NULL,        NULL,        NULL,       NULL  
-Num tables,            14,  2,  H, Dec, NULL,        NULL,        NULL,       NULL  
-Num load pending,      16,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
-Validation cnt,        18,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
-Last valid CRC,        20,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
-Last valid status,     24,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
-Active buffer,         28,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
-Last valid tbl,        29, 38,  s, Str, NULL,        NULL,        NULL,       NULL
-Success count,         67,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
-Failed count,          68,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
-Num requests,          69,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
-Num free bufs,         70,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
-pad1,                  71,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
-Mem pool hdl,          72,  4,  I, Hex, NULL,        NULL,        NULL,       NULL
-Last upd (secs),       76,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
-Last upd (subs),       80,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
-Last table name,       84, 38,  s, Str, NULL,        NULL,        NULL,       NULL
-Last file loaded,     122, 64,  s, Str, NULL,        NULL,        NULL,       NULL
-Last file dumped,     186, 64,  s, Str, NULL,        NULL,        NULL,       NULL
-pad2,                 188,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+Command Counter,       16,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+Error Counter,         17,  1,  B, Dec, NULL,        NULL,        NULL,       NULL  
+Num tables,            18,  2,  H, Dec, NULL,        NULL,        NULL,       NULL  
+Num load pending,      20,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+Validation cnt,        22,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+Last valid CRC,        24,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+Last valid status,     28,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+Active buffer,         32,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+Last valid tbl,        33, 40,  s, Str, NULL,        NULL,        NULL,       NULL
+Success count,         73,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+Failed count,          74,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+Num requests,          75,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+Num free bufs,         76,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+pad1,                  77,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+Mem pool hdl,          78,  4,  I, Hex, NULL,        NULL,        NULL,       NULL
+Last upd (secs),       82,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+Last upd (subs),       86,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+Last upd table name,   90, 40,  s, Str, NULL,        NULL,        NULL,       NULL
+Last file loaded,     130, 64,  s, Str, NULL,        NULL,        NULL,       NULL
+Last file dumped,     194, 64,  s, Str, NULL,        NULL,        NULL,       NULL
+LastTableLoaded,      258, 40,  s, Str, NULL,        NULL,        NULL,       NULL

@@ -1,2 +1,3 @@
 *.pyc
 cmdUtil
+.DS_Store

@@ -1,0 +1,15 @@
+#
+Command Counter,        12,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+CommandErrorCounter,    13,  1,  B, Dec, NULL,        NULL,        NULL,       NULL  
+MessageFormatMode,      14,  1,  B, Dec, NULL,        NULL,        NULL,       NULL  
+MessageTruncCounter,    15,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+UnregisteredAppCounter, 16,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+OutputPort,             17,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+LogFullFlag,            18,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+LogMode,                19,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+MessageSendCounter,     20,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+LogOverflowCounter,     22,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+LogEnabled,             24,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+Spare1,                 25,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+Spare2,                 26,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+Spare3,                 27,  1,  B, Dec, NULL,        NULL,        NULL,       NULL

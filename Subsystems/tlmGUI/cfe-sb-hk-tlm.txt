@@ -1,0 +1,17 @@
+#
+Command Counter,               16,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+Error Counter,                 17,  1,  B, Dec, NULL,        NULL,        NULL,       NULL  
+NoSubscribersCounter,          18,  1,  B, Dec, NULL,        NULL,        NULL,       NULL  
+MsgSendErrorCounter,           19,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+MsgReceiveErrorCounter,        20,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+InternalErrorCounter,          21,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+CreatePipeErrorCounter,        22,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+SubscribeErrorCounter,         23,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+PipeOptsErrorCounter,          24,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+DuplicateSubscriptionsCounter, 25,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+Spare2Align,                   26,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+PipeOverflowErrorCounter,      28,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+MsgLimitErrorCounter,          30,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+MemPoolHandle,                 32,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+MemInUse,                      36,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+UnmarkedMem,                   40,  4,  I, Dec, NULL,        NULL,        NULL,       NULL

@@ -6,31 +6,42 @@ This lab application is a non-flight utility ground system to interact with the 
 
 See Guide-GroundSystem.txt for more information.
 
-## Version Notes
+## Version History
 
-- 2.1.6: DEVELOPMENT
-  - Cmd code (and checksum) are always in the same place 
+##### Development Build: 2.1.7  
+  - Commands and Telemetry definitions now match code
+  - See https://github.com/nasa/cFS-GroundSystem/pull/74
+
+##### Development Build: 2.1.6
+  - Cmd code (and checksum) are always in the same place
   - See https://github.com/nasa/cFS-GroundSystem/pull/69
-- 2.1.5: DEVELOPMENT
+
+##### Development Build: 2.1.5
   - Updated build instructions for Python 3
   - See https://github.com/nasa/cFS-GroundSystem/pull/64
-- 2.1.4: DEVELOPMENT
+
+##### Development Build: 2.1.4
   - Finish conversion to python 3
   - cmdutil now accepts --word as alias to --long
   - See https://github.com/nasa/cFS-GroundSystem/pull/54
-- 2.1.3: DEVELOPMENT
+
+##### Development Build: 2.1.3
   - Minor updates to work with python 3
   - No longer compatible with python 2.7
   - Note issue #50 is to update the related documentation
   - See https://github.com/nasa/cFS-GroundSystem/pull/47
-- 2.1.2: DEVELOPMENT
+
+##### Development Build: 2.1.2
   - Minor updates (see https://github.com/nasa/cFS-GroundSystem/pull/39)
-- 2.1.1: DEVELOPMENT
+
+##### Development Build: 2.1.1
   - Minor updates (see https://github.com/nasa/cFS-GroundSystem/pull/36)
-- **2.1.0 OFFICIAL RELEASE**:
+
+### ***OFFICIAL RELEASE 2.1.0***
   - Minor updates (see https://github.com/nasa/cFS-GroundSystem/pull/26)
   - Released as part of cFE 6.7.0, Apache 2.0
-- **2.0.90a OFFICIAL RELEASE**:
+
+### ***OFFICIAL RELEASE 2.0.90a***
   - Released as part of cFE 6.6.0a, Apache 2.0
 
 ## Known issues

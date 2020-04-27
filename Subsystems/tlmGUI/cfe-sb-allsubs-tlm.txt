@@ -1,0 +1,3 @@
+PktSegment,                    16,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+TotalSegments,                 20,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+Entries,                       24,  4,  I, Dec, NULL,        NULL,        NULL,       NULL

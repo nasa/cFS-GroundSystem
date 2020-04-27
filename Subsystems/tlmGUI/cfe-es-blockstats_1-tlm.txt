@@ -1,0 +1,9 @@
+BlockSize,           16,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+NumCreated,          20,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+NumFree,             24,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+BlockSize,           28,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+NumCreated,          32,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+NumFree,             36,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+BlockSize,           40,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+NumCreated,          44,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+NumFree,             46,  4,  I, Dec, NULL,        NULL,        NULL,       NULL

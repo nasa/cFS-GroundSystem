@@ -1,0 +1,5 @@
+SubType,                    12,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+MsgId,                      13,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+QOS.Priority,               15,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+QOS.Reliability,            16,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+Pipe ID,                    17,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
