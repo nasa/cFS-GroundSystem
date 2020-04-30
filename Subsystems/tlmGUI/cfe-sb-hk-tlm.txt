@@ -12,6 +12,7 @@ DuplicateSubscriptionsCounter, 25,  1,  B, Dec, NULL,        NULL,        NULL, 
 Spare2Align,                   26,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
 PipeOverflowErrorCounter,      28,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
 MsgLimitErrorCounter,          30,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
-MemPoolHandle,                 32,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
-MemInUse,                      36,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
-UnmarkedMem,                   40,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+MemPoolHandle2,                36,  4,  I, Hex, NULL,        NULL,        NULL,       NULL
+MemPoolHandle1,                32,  4,  I, Hex, NULL,        NULL,        NULL,       NULL
+MemInUse,                      40,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+UnmarkedMem,                   44,  4,  I, Dec, NULL,        NULL,        NULL,       NULL

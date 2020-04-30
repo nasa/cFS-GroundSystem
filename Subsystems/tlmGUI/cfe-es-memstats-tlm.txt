@@ -1,4 +1,5 @@
-PoolHandle,                    20,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+PoolHandle1,                   16,  4,  I, Hex, NULL,        NULL,        NULL,       NULL
+PoolHandle2,                   20,  4,  I, Hex, NULL,        NULL,        NULL,       NULL
 PoolSize,                      24,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
 NumBlocksRequested,            28,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
 CheckErrCtr,                   32,  4,  I, Dec, NULL,        NULL,        NULL,       NULL

@@ -15,35 +15,35 @@
 #  Note(1): A line that begins with # is a comment
 #  Note(2): Remove any blank lines from the end of the file
 #
-Command Counter,       12,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
-Error Counter,         13,  1,  B, Dec, NULL,        NULL,        NULL,       NULL  
-Registered Core Apps,  48,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
-Registered CFS Apps,   52,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
-Registered Tasks,      56,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
-Registered Libs,       60,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
-Reset Type,            64,  4,  I, Enm, ResetType0,  ResetType1,  ResetType2, ResetType3
-Reset Subtype,         68,  4,  I, Enm, ResetSub0,   ResetSub1,   ResetSub2,  ResetSub3
-Processor Resets,      72,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
-Max Proc Resets,       76,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
-Boot Source,           80,  4,  I, Enm, BootSrc0,    BootSrc1,    BootSrc2,   BootSrc3 
-Perf Mon State,        84,  4,  I, Enm, PerfState0,  PerfState1,  PerfState2, PerfState3 
-Perf Mon Mode,         88,  4,  I, Enm, PerfMode0,   PerfMode1,   PerMode2,   PerfMode3
-Perf Trigger Count,    92,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
-Heap Bytes Free,       144, 4,  I, Dec, NULL,        NULL,        NULL,       NULL
-Heap Blocks Free,      148, 4,  I, Dec, NULL,        NULL,        NULL,       NULL
-Heap Max Blk Size,     152, 4,  I, Dec, NULL,        NULL,        NULL,       NULL
-cFE Core Checksum,     14,  2,  H, Hex, NULL,        NULL,        NULL,       NULL  
-cFE Major Version,     16,  1,  B, Dec, NULL,        NULL,        NULL,       NULL  
-cFE Minor Version,     17,  1,  B, Dec, NULL,        NULL,        NULL,       NULL  
-cFE Revision,          18,  1,  B, Dec, NULL,        NULL,        NULL,       NULL 
-cFE Mission Revision,  19,  1,  B, Dec, NULL,        NULL,        NULL,       NULL 
-OSAL Major Version,    20,  1,  B, Dec, NULL,        NULL,        NULL,       NULL 
-OSAL Minor Version,    21,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
-OSAL Revision,         22,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
-OSAL Mission Rev,      23,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
-Syslog Bytes Used,     24,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
-Syslog Size,           28,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
-Syslog Entries,        32,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
-Syslog Mode,           36,  4,  I, Enm, LogMode0,    LogMode1,    LogMode2,   LogMode3 
-ERlog Index,           40,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
-ERlog Entries,         44,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+Command Counter,       16,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+Error Counter,         17,  1,  B, Dec, NULL,        NULL,        NULL,       NULL 
+cFE Core Checksum,     18,  2,  H, Hex, NULL,        NULL,        NULL,       NULL  
+cFE Major Version,     20,  1,  B, Dec, NULL,        NULL,        NULL,       NULL  
+cFE Minor Version,     21,  1,  B, Dec, NULL,        NULL,        NULL,       NULL  
+cFE Revision,          22,  1,  B, Dec, NULL,        NULL,        NULL,       NULL 
+cFE Mission Revision,  23,  1,  B, Dec, NULL,        NULL,        NULL,       NULL 
+OSAL Major Version,    24,  1,  B, Dec, NULL,        NULL,        NULL,       NULL 
+OSAL Minor Version,    25,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+OSAL Revision,         26,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+OSAL Mission Rev,      27,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+Syslog Bytes Used,     28,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+Syslog Size,           32,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+Syslog Entries,        36,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+Syslog Mode,           40,  4,  I, Enm, LogMode0,    LogMode1,    LogMode2,   LogMode3 
+ERlog Index,           44,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+ERlog Entries,         48,  4,  I, Dec, NULL,        NULL,        NULL,       NULL 
+Registered Core Apps,  52,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+Registered CFS Apps,   56,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+Registered Tasks,      60,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+Registered Libs,       64,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+Reset Type,            68,  4,  I, Enm, ResetType0,  ResetType1,  ResetType2, ResetType3
+Reset Subtype,         72,  4,  I, Enm, ResetSub0,   ResetSub1,   ResetSub2,  ResetSub3
+Processor Resets,      76,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+Max Proc Resets,       80,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+Boot Source,           84,  4,  I, Enm, BootSrc0,    BootSrc1,    BootSrc2,   BootSrc3 
+Perf Mon State,        88,  4,  I, Enm, PerfState0,  PerfState1,  PerfState2, PerfState3 
+Perf Mon Mode,         92,  4,  I, Enm, PerfMode0,   PerfMode1,   PerMode2,   PerfMode3
+Perf Trigger Count,    96,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+Heap Bytes Free,       148, 4,  I, Dec, NULL,        NULL,        NULL,       NULL
+Heap Blocks Free,      152, 4,  I, Dec, NULL,        NULL,        NULL,       NULL
+Heap Max Blk Size,     156, 4,  I, Dec, NULL,        NULL,        NULL,       NULL
