@@ -97,15 +97,30 @@ class EventMessageTelemetry(QtGui.QDialog):
         self.ui.sequenceCount.setText(str(self.pktCount))
 
         #
-        # Not accounting for endian right now!
+        # Get App Name, Event ID, Type and Event Text!
         #
-        appName = datagram[12:32].decode('utf-8','ignore')
-        eventText = datagram[44:].decode('utf-8','ignore')
+        appName = datagram[16:36].decode('utf-8','ignore')
+        EventID = int.from_bytes(datagram[36:38], byteorder='little')
+        EventType = int.from_bytes(datagram[38:40], byteorder='little')
+        eventText = datagram[48:].decode('utf-8','ignore')
+        EventID = str(EventID)
+        EventType = str(EventType)
         appName = appName.split("\0")[0]
         eventText = eventText.split("\0")[0]
-        eventString = "EVENT ---> "+ appName + " : " + eventText
-        self.ui.eventOutput.append(eventString)
 
+        if ( EventType == "1" ):
+            EventType = "DEBUG"
+        elif ( EventType == "2" ):
+            EventType = "INFORMATION"
+        elif ( EventType == "3" ):
+            EventType = "ERROR"
+        elif ( EventType == "4" ):
+            EventType = "CRITICAL"
+        else:
+            EventType = "Invalid Event Type"
+
+        eventString = "EVENT --> "+ appName + "-" + EventType + " Event ID: " + EventID + " : " + eventText
+        self.ui.eventOutput.append(eventString)
 
 # Subscribes and receives zeroMQ messages
 class TlmReceiver(QtCore.QThread):
