@@ -253,7 +253,7 @@ if __name__ == '__main__':
     Command = CommandSystem()
 
     #
-    # Read in the contents of the telemetry packet defintion
+    # Read in the contents of the telemetry packet definition
     #
     cmdPageIsValid = []
     cmdPageDesc = []
