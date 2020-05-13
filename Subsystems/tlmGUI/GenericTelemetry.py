@@ -219,7 +219,7 @@ if __name__ == '__main__':
     Telem.ui.packetId.display(appId)
 
     #
-    # Read in the contents of the telemetry packet defintion
+    # Read in the contents of the telemetry packet definition
     #
     tlmItemIsValid = []
     tlmItemDesc = []

@@ -33,7 +33,7 @@ from time import sleep
 udpRecvPort = 1235
 
 #
-# Receive telemetry packets, apply the appropiate header
+# Receive telemetry packets, apply the appropriate header
 # and publish the message with zeroMQ
 #
 class RoutingService(QtCore.QThread):
