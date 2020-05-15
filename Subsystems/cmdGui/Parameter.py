@@ -122,7 +122,7 @@ if __name__ == '__main__':
         elif opt in ("-d", "--descrip"): 
             cmdDesc = arg # command name, eg No-Op
         elif opt in ("-i", "--idx"): 
-            idx = int(arg) # comand index in command definition file
+            idx = int(arg) # command index in command definition file
         elif opt in ("-h", "--host"): 
             pageAddress = arg # send to address
         elif opt in ("-p", "--port"): 

@@ -66,9 +66,10 @@ class HTMLDocsParser(HTMLParser):
 	# Determines character array size for string types
 	#
 	def findStringLen(self, keyword):
-		hdr_files = glob.glob('../../../build/cpu1/inc/*.h')
+		hdr_files = glob.glob('../../../build/inc/*.h')
+		hdr_files += glob.glob('../../../build/cpu1/inc/*.h')
+		hdr_files += glob.glob('../../../build/native/inc/*.h')
 		hdr_files += glob.glob('../../fsw/cfe-core/src/inc/cfe_*.h')
-		hdr_files += glob.glob('../../fsw/mission_inc/cfe_mission_cfg.h')
 		val = ''
 		found = False
 		i = 0

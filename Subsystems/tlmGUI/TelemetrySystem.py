@@ -301,7 +301,7 @@ if __name__ == '__main__':
 
     print ('Telemetry System started. Subscribed to ' + subscription)
     #
-    # Read in the contents of the telemetry packet defintion
+    # Read in the contents of the telemetry packet definition
     #
     tlmPageIsValid = []
     tlmPageDesc = []

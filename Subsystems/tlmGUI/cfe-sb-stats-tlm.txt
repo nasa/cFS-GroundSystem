@@ -1,0 +1,15 @@
+MsgIdsInUse,               12,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+PeakMsgIdsInUse,           16,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+MaxMsgIdsAllowed,          20,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+PipesInUse,                24,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+PeakPipesInUse,            28,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+MaxPipesAllowed,           32,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+MemInUse,                  36,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+PeakMemInUse,              40,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+MaxMemAllowed,             44,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+SubscriptionsInUse,        48,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+PeakSubscriptionsInUse,    52,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+MaxSubscriptionsAllowed,   56,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+SBBuffersInUse,            60,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+PeakSBBuffersInUse,        64,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+MaxPipeDepthAllowed,       68,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
