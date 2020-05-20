@@ -18,20 +18,20 @@ Future enhancements:
 
 
 Before launching the Ground System make sure that:
-  -> PyQt4 is installed.
+  -> PyQt5 is installed.
   -> PyZMQ is installed.
   -> cmdUtil is compiled.
 
 
 Installing and running cFS Ground System on Ubuntu:
-    $ sudo apt-get install python3-pyqt4
+    $ sudo apt-get install python3-pyqt5
     $ sudo apt-get install python3-zmq
     $ sudo apt-get install libcanberra-gtk-module
     $ ( cd Subsystems/cmdUtil/ && make )
     $ python3 GroundSystem.py
 
 
-The historically included instructions for running on Mac or CentOS are inluded at the bottom of this document for referance.
+The historically included instructions for running on Mac or CentOS are inluded at the bottom of this document for reference.
 Please note that instructions have not been maintained.
 Welcoming instruction contributions if any of these are your platform of choice.
 
@@ -160,8 +160,8 @@ Installing and running cFS Ground System on CentOS 6:
     $ ldconfig
     $ pip install pyzmq
 
-    #### Install pyQT4 ####
-    $ yum install -y PyQt4
+    #### Install pyQT5 ####
+    $ yum install -y PyQt5
     $ yum install -y qt qt-demos qt-designer qt4 qt4-designer
 
 

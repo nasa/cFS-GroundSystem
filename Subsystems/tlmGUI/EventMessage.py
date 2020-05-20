@@ -17,19 +17,19 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # EVS Events page
-# 
+#
 # The EVS Event Message has the following format
-# 
+#
 #
 # ES HK format:
 #
 # Packet Header
-#   uint16  StreamId;   0   
+#   uint16  StreamId;   0
 #   uint16  Sequence;   2
-#   uint16  Length;     4 
+#   uint16  Length;     4
 
 # Tlm Secondary Header
 #   uint32  seconds     6
@@ -40,141 +40,147 @@
 # Event format:
 #
 # Packet Header
-#   uint16  StreamId;    
-#   uint16  Sequence; 
-#   uint16  Length;   
+#   uint16  StreamId;
+#   uint16  Sequence;
+#   uint16  Length;
 
 # Tlm Secondary Header
 #   uint32  seconds
 #   uint16  subseconds
 
 # Packet ID
-#   char    AppName[20] 
-#   uint16  EventID;        
-#   uint16  EventType;     
-#   uint32  SpacecraftID; 
+#   char    AppName[20]
+#   uint16  EventID;
+#   uint16  EventType;
+#   uint32  SpacecraftID;
 #   uint32  ProcessorID;
 
 # Message
-#   char    Message[122]; 
-#   uint8   Spare1;                               
-#   uint8   Spare2;         
+#   char    Message[122];
+#   uint8   Spare1;
+#   uint8   Spare2;
 
-import sys
 import getopt
+import sys
+from struct import unpack
+from pathlib import Path
+
 import zmq
+from PyQt5.QtCore import QThread, pyqtSignal
+from PyQt5.QtWidgets import QApplication, QDialog
 
-from PyQt4 import QtGui, QtCore
 from EventMessageDialog import Ui_EventMessageDialog
-from struct import *
 
-class EventMessageTelemetry(QtGui.QDialog):
+ROOTDIR = Path(sys.argv[0]).resolve().parent
 
-    pktCount = 0
 
-    def __init__(self, appId):
-        QtGui.QDialog.__init__(self)
-        self.appId = appId
-        self.ui = Ui_EventMessageDialog()
-        self.ui.setupUi(self)
-    
-    def initTlmReceiver(self, subscription):
-        self.setWindowTitle(pageTitle + ' for: ' + subscription)
-        self.thread = TlmReceiver(self, subscription, self.appId)
-        self.connect(self.thread, self.thread.signalTlmDatagram, self.processPendingDatagrams)
+class EventMessageTelemetry(QDialog, Ui_EventMessageDialog):
+    def __init__(self, aid):
+        super().__init__()
+        self.setupUi(self)
+        self.appId = aid
+
+        self.eventTypes = {
+            1: "DEBUG",
+            2: "INFORMATION",
+            3: "ERROR",
+            4: "CRITICAL"
+        }
+
+    def initEMTlmReceiver(self, subscr):
+        self.setWindowTitle(f'{pageTitle} for: {subscr}')
+        self.thread = EMTlmReceiver(subscr, self.appId)
+        self.thread.emSignalTlmDatagram.connect(self.processPendingDatagrams)
+        self.thread.finished.connect(self.thread.deleteLater)
         self.thread.start()
 
     # This method processes packets. Called when the TelemetryReceiver receives a message/packet
     def processPendingDatagrams(self, datagram):
-        
-        self.pktCount += 1
-
         # Packet Header
-        #   uint16  StreamId;   0   
+        #   uint16  StreamId;   0
         #   uint16  Sequence;   2
-        #   uint16  Length;     4 
-        # PktSequence = unpack("<H",datagram[2:4])
-        self.ui.sequenceCount.setText(str(self.pktCount))
+        #   uint16  Length;     4
+        packetSeq = unpack(">H", datagram[2:4])
+        seqCount = packetSeq[0] & 0x3FFF
+        self.sequenceCount.setValue(seqCount)
 
         #
         # Get App Name, Event ID, Type and Event Text!
         #
-        appName = datagram[16:36].decode('utf-8','ignore')
-        EventID = int.from_bytes(datagram[36:38], byteorder='little')
-        EventType = int.from_bytes(datagram[38:40], byteorder='little')
-        eventText = datagram[48:].decode('utf-8','ignore')
-        EventID = str(EventID)
-        EventType = str(EventType)
+        appName = datagram[16:36].decode('utf-8', 'ignore')
+        eventID = int.from_bytes(datagram[36:38], byteorder='little')
+        eventType = int.from_bytes(datagram[38:40], byteorder='little')
+        eventText = datagram[48:].decode('utf-8', 'ignore')
         appName = appName.split("\0")[0]
         eventText = eventText.split("\0")[0]
+        eventTypeStr = self.eventTypes.get(eventType, "Invalid Event Type")
 
-        if ( EventType == "1" ):
-            EventType = "DEBUG"
-        elif ( EventType == "2" ):
-            EventType = "INFORMATION"
-        elif ( EventType == "3" ):
-            EventType = "ERROR"
-        elif ( EventType == "4" ):
-            EventType = "CRITICAL"
-        else:
-            EventType = "Invalid Event Type"
+        eventString = f"EVENT --> {appName}-{eventTypeStr} Event ID: {eventID} : {eventText}"
+        self.eventOutput.appendPlainText(eventString)
 
-        eventString = "EVENT --> "+ appName + "-" + EventType + " Event ID: " + EventID + " : " + eventText
-        self.ui.eventOutput.append(eventString)
+    ## Reimplements closeEvent
+    ## to properly quit the thread
+    ## and close the window
+    def closeEvent(self, event):
+        self.thread.runs = False
+        self.thread.wait(2000)
+        super().closeEvent(event)
+
 
 # Subscribes and receives zeroMQ messages
-class TlmReceiver(QtCore.QThread):
-    
-    def __init__(self, mainWindow, subscription, appId):
-        QtCore.QThread.__init__(self)
-        self.appId = appId
+class EMTlmReceiver(QThread):
+    # Setup signal to communicate with front-end GUI
+    emSignalTlmDatagram = pyqtSignal(bytes)
 
-        # Setup signal to communicate with front-end GUI
-        self.signalTlmDatagram = QtCore.SIGNAL("TlmDatagram")
+    def __init__(self, subscr, aid):
+        super().__init__()
+        self.appId = aid
+        self.runs = True
 
         # Init zeroMQ
-        self.context   = zmq.Context()
+        self.context = zmq.Context()
         self.subscriber = self.context.socket(zmq.SUB)
         self.subscriber.connect("ipc:///tmp/GroundSystem")
-        subscriptionString = str(subscription) + ".Spacecraft1.TelemetryPackets." + str(appId)
+        subscriptionString = f"{subscr}.Spacecraft1.TelemetryPackets.{appId}"
         self.subscriber.setsockopt_string(zmq.SUBSCRIBE, subscriptionString)
-    
-    def run(self):
-        while True:
-            # Read envelope with address
-            [address, datagram] = self.subscriber.recv_multipart()
 
+    def run(self):
+        while self.runs:
+            # Read envelope with address
+            address, datagram = self.subscriber.recv_multipart()
             # Ignore if not an event message
-            if self.appId not in str(address): continue
-            self.emit(self.signalTlmDatagram, datagram)
+            if self.appId in address.decode():
+                self.emSignalTlmDatagram.emit(datagram)
+
 
 #
 # Display usage
 #
 def usage():
-    print ("Must specify --title=<page name> --port=<udp_port> --appid=<packet_app_id(hex)> --endian=<endian(L|B) --file=<tlm_def_file>")
-    print ("     example: --title=Executive Services --port=10800 --appid=800 --file=cfe-es-hk-table.txt --endian=L")
-    print ("            (quotes are not on the title string in this example)")
+    print(("Must specify --title=\"<page name>\" --port=<udp_port> "
+           "--appid=<packet_app_id(hex)> --endian=<endian(L|B) "
+           "--file=<tlm_def_file>\n\nexample: --title=\"Executive Services\" "
+           "--port=10800 --appid=800 --file=cfe-es-hk-table.txt --endian=L"))
 
- 
+
 if __name__ == '__main__':
-
-
     #
     # Set defaults for the arguments
     #
     pageTitle = "Event Messages"
-    udpPort  = 10000
+    udpPort = 10000
     appId = 999
     tlmDefFile = "not-needed.txt"
     endian = "L"
     subscription = ""
 
     #
-    # process cmd line args 
+    # process cmd line args
     #
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "htpafl", ["help", "title=", "port=", "appid=","file=", "endian=", "sub="])
+        opts, args = getopt.getopt(
+            sys.argv[1:], "htpafl",
+            ["help", "title=", "port=", "appid=", "file=", "endian=", "sub="])
     except getopt.GetoptError:
         usage()
         sys.exit(2)
@@ -183,42 +189,35 @@ if __name__ == '__main__':
         if opt in ("-h", "--help"):
             usage()
             sys.exit()
-        elif opt in ("-p", "--port"):
+        if opt in ("-p", "--port"):
             udpPort = arg
         elif opt in ("-t", "--title"):
             pageTitle = arg
         elif opt in ("-f", "--file"):
             tlmDefFile = arg
-        elif opt in ("-t", "--appid"):
+        elif opt in ("-a", "--appid"):
             appId = arg
         elif opt in ("-e", "--endian"):
             endian = arg
         elif opt in ("-s", "--sub"):
             subscription = arg
 
-    if len(subscription) == 0:
+    if not subscription or len(subscription.split('.')) < 3:
         subscription = "GroundSystem"
 
-    arr = subscription.split('.')
-    if len(arr) < 3:
-        subscription = 'GroundSystem'
+    print('Event Messages Page started. Subscribed to', subscription)
 
-    print ('Event Messages Page started. Subscribed to ' + subscription)
-
-    if endian == 'L':
-       py_endian = '<'
-    else:
-       py_endian = '>'
+    py_endian = '<' if endian == 'L' else '>'
 
     #
     # Init the QT application and the Event Message class
     #
-    app = QtGui.QApplication(sys.argv)
+    app = QApplication(sys.argv)
     Telem = EventMessageTelemetry(appId)
 
     # Display the page
     Telem.show()
     Telem.raise_()
-    Telem.initTlmReceiver(subscription)
+    Telem.initEMTlmReceiver(subscription)
 
     sys.exit(app.exec_())

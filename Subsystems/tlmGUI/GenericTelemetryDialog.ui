@@ -2,69 +2,289 @@
 <ui version="4.0">
  <class>GenericTelemetryDialog</class>
  <widget class="QDialog" name="GenericTelemetryDialog">
-  <property name="windowModality">
-   <enum>Qt::NonModal</enum>
-  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>750</width>
-    <height>434</height>
+    <width>1046</width>
+    <height>816</height>
    </rect>
-  </property>
-  <property name="font">
-   <font>
-    <pointsize>13</pointsize>
-   </font>
   </property>
   <property name="windowTitle">
    <string>Telemetry Page</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_8">
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>22</y>
+     <width>841</width>
+     <height>65</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QLabel" name="subSystemTelemetryPageLabel">
+        <property name="text">
+         <string>Subsystem Telemetry Page</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="subSystemLineEdit">
+        <property name="minimumSize">
+         <size>
+          <width>141</width>
+          <height>31</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>141</width>
+          <height>31</height>
+         </size>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLabel" name="packetIdLabel">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>21</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Packet ID</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLCDNumber" name="packetId">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Sequence Count</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="sequenceCount">
+        <property name="minimumSize">
+         <size>
+          <width>101</width>
+          <height>31</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>101</width>
+          <height>31</height>
+         </size>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::NoButtons</enum>
+        </property>
+        <property name="maximum">
+         <number>16384</number>
+        </property>
+        <property name="value">
+         <number>0</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QDialogButtonBox" name="buttonBox">
+      <property name="standardButtons">
+       <set>QDialogButtonBox::Close</set>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>29</x>
+     <y>750</y>
+     <width>711</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>*No packets? Remember to select the IP address of your spacecraft in the Main Window.</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="layoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>100</y>
+     <width>451</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_4">
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>161</width>
+        <height>17</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Telemetry Point Label</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_8">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>161</width>
+        <height>17</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Telemetry Point Value</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QScrollArea" name="scrollArea">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>130</y>
+     <width>961</width>
+     <height>601</height>
+    </rect>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOn</enum>
+   </property>
+   <property name="widgetResizable">
+    <bool>true</bool>
+   </property>
+   <widget class="QWidget" name="scrollAreaWidgetContents">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>945</width>
+      <height>1000</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>1000</height>
+     </size>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout">
+      <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
-        <widget class="QLabel" name="subSystemTelemetryPageLabel">
-         <property name="text">
-          <string>Subsystem Telemetry Page</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <widget class="QTextBrowser" name="subSystemTextBrowser">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <item>
-        <widget class="QLabel" name="packetIdLabel">
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_1">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -73,57 +293,23 @@
          </property>
          <property name="minimumSize">
           <size>
-           <width>0</width>
-           <height>13</height>
+           <width>161</width>
+           <height>31</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>16777215</width>
-           <height>13</height>
+           <width>161</width>
+           <height>31</height>
           </size>
          </property>
-         <property name="text">
-          <string>Packet ID</string>
+         <property name="readOnly">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLCDNumber" name="packetId">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
-       <item>
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>Sequence Count</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QTextBrowser" name="sequenceCount">
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_2">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -132,2053 +318,1827 @@
          </property>
          <property name="minimumSize">
           <size>
-           <width>101</width>
+           <width>161</width>
            <height>31</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>101</width>
+           <width>161</width>
            <height>31</height>
           </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_3">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_4">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_5">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_6">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_7">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_8">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_9">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_10">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_11">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_12">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_13">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_14">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_15">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_16">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_17">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_18">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_19">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_20">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
       </layout>
      </item>
      <item>
-      <spacer name="horizontalSpacer_3">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_1">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_2">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_3">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_4">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_5">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_6">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_7">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_8">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_9">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_10">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_11">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_12">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_13">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_14">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_15">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_16">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_17">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_18">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_19">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_20">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
-      <spacer name="horizontalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>146</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QDialogButtonBox" name="buttonBox">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="focusPolicy">
-        <enum>Qt::NoFocus</enum>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="standardButtons">
-        <set>QDialogButtonBox::Close</set>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>161</width>
-         <height>17</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Telemetry Point Label</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_2">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>151</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>151</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Telemetry Point Value</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="Line" name="line_2">
+      <widget class="Line" name="line">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_4">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>161</width>
-         <height>17</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Telemetry Point Label</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_3">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>151</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>151</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Telemetry Point Value</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_4">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>0</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="QScrollArea" name="scrollArea">
-     <property name="verticalScrollBarPolicy">
-      <enum>Qt::ScrollBarAlwaysOn</enum>
-     </property>
-     <property name="widgetResizable">
-      <bool>true</bool>
-     </property>
-     <widget class="QWidget" name="scrollAreaWidgetContents">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>709</width>
-        <height>1000</height>
-       </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>1000</height>
-       </size>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <layout class="QVBoxLayout" name="verticalLayout_6">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_4">
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_1">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_2">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_3">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_4">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_5">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_6">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_7">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_8">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_9">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_10">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_11">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_12">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_13">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_14">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_15">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_16">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_17">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_18">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_19">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_20">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_5">
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_1">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_2">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_3">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_4">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_5">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_6">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_7">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_8">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_9">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_10">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_11">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_12">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_13">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_14">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_15">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_16">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_17">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_18">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_19">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_20">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <widget class="Line" name="line">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_21">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_6">
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_21">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_22">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_23">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_24">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_25">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_26">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_27">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_28">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_29">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_30">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_31">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_32">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_33">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_34">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_35">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_36">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_37">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_38">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_39">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_40">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>161</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_22">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_7">
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_21">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_22">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_23">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_24">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_25">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_26">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_27">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_28">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_29">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_30">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_31">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_32">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_33">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_34">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_35">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_36">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_37">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_38">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_39">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="itemValueTextBrowser_40">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>151</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_23">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_24">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_25">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_26">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_27">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_28">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_29">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_30">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_31">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_32">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_33">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_34">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_35">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_36">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_37">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_38">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_39">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="itemLabelPlainTextEdit_40">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
       </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_7">
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_21">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_22">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_23">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_24">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_25">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_26">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_27">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_28">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_29">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_30">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_31">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_32">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_33">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_34">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_35">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_36">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_37">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_38">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_39">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="itemValueLineEdit_40">
+         <property name="minimumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>151</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="layoutWidget_3">
+   <property name="geometry">
+    <rect>
+     <x>510</x>
+     <y>100</y>
+     <width>451</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_5">
+    <item>
+     <widget class="QLabel" name="label_2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>161</width>
+        <height>17</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Telemetry Point Label</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
      </widget>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="label_6">
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>*No packets? Remember to select the IP address of your spacecraft in the Main Window.</string>
-     </property>
-    </widget>
-   </item>
-  </layout>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_9">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>161</width>
+        <height>17</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Telemetry Point Value</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
  </widget>
  <resources/>
  <connections>
   <connection>
    <sender>buttonBox</sender>
-   <signal>accepted()</signal>
+   <signal>clicked(QAbstractButton*)</signal>
    <receiver>GenericTelemetryDialog</receiver>
-   <slot>accept()</slot>
+   <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>99</x>
+     <y>46</y>
     </hint>
     <hint type="destinationlabel">
-     <x>157</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>GenericTelemetryDialog</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>286</x>
-     <y>274</y>
+     <x>522</x>
+     <y>407</y>
     </hint>
    </hints>
   </connection>
