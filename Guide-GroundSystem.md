@@ -25,18 +25,17 @@ Future enhancements:
 ## Install and run
 
 Before launching the Ground System make sure that:
-
-- PyQt4 is installed,
+- PyQt5 is installed,
 - PyZMQ is installed,
 - cmdUtil is compiled.
 
 Installing and running cFS Ground System on Ubuntu:
 
-1. `sudo apt-get install python3-pyqt4`
-2. `sudo apt-get install python3-zmq`
-3. `sudo apt-get install libcanberra-gtk-module`
-4. `cd Subsystems/cmdUtil/ && make`
-5. `python3 GroundSystem.py`
+1. ```sudo apt-get install python3-pyqt5```
+1. ```sudo apt-get install python3-zmq```
+1. ```sudo apt-get install libcanberra-gtk-module```
+1. ```cd Subsystems/cmdUtil/ && make```
+1. ```python3 GroundSystem.py```
 
 The historically included instructions for running on macOS or CentOS are included at the bottom of this document for reference. Please note that instructions have not been maintained. Welcoming instruction contributions if any of these are your platform of choice.
 
@@ -46,7 +45,8 @@ This section was made to help developers who are adding core Flight Software (cF
 
 The `CHeaderParser.py` program that should be found in:
 
-````groundsystem/subsystems/cmdgui```
+```GroundSystem/Subsystems/cmdGui```
+
 Is an interactive, command-line based program to help walk developers through the process of adding custom cFS applications to the Ground System. Along with `CHeaderParser.py` is a configuration file that CHeaderParser uses to find the proper header files for your "new" cFS application. This file is named `CHeaderParser-hdr-paths.txt`, and should be placed in the same directory as `CHeaderParser.py`.
 
 Expected file structure:

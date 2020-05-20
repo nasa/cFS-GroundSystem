@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>786</width>
-    <height>466</height>
+    <height>534</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
    <property name="geometry">
     <rect>
      <x>330</x>
-     <y>70</y>
+     <y>120</y>
      <width>91</width>
      <height>31</height>
     </rect>
@@ -42,7 +42,7 @@
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>90</y>
+     <y>140</y>
      <width>551</width>
      <height>31</height>
     </rect>
@@ -58,7 +58,7 @@
    <property name="geometry">
     <rect>
      <x>670</x>
-     <y>430</y>
+     <y>490</y>
      <width>101</width>
      <height>31</height>
     </rect>
@@ -80,7 +80,7 @@
    <property name="geometry">
     <rect>
      <x>480</x>
-     <y>30</y>
+     <y>40</y>
      <width>201</width>
      <height>41</height>
     </rect>
@@ -94,15 +94,9 @@
     <rect>
      <x>480</x>
      <y>10</y>
-     <width>51</width>
+     <width>61</width>
      <height>21</height>
     </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Sans Serif</family>
-     <pointsize>10</pointsize>
-    </font>
    </property>
    <property name="text">
     <string>Status:</string>
@@ -112,13 +106,19 @@
    <property name="geometry">
     <rect>
      <x>690</x>
-     <y>40</y>
+     <y>47</y>
      <width>71</width>
      <height>27</height>
     </rect>
    </property>
    <property name="text">
     <string>Send</string>
+   </property>
+   <property name="autoDefault">
+    <bool>false</bool>
+   </property>
+   <property name="default">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QLabel" name="label_5">
@@ -140,7 +140,7 @@
      <x>30</x>
      <y>10</y>
      <width>91</width>
-     <height>17</height>
+     <height>24</height>
     </rect>
    </property>
    <property name="text">
@@ -151,7 +151,7 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>30</y>
+     <y>40</y>
      <width>221</width>
      <height>41</height>
     </rect>
@@ -161,7 +161,7 @@
    <property name="geometry">
     <rect>
      <x>260</x>
-     <y>30</y>
+     <y>40</y>
      <width>211</width>
      <height>41</height>
     </rect>
@@ -171,7 +171,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>120</y>
+     <y>180</y>
      <width>741</width>
      <height>301</height>
     </rect>
@@ -188,18 +188,12 @@
      <height>500</height>
     </size>
    </property>
-   <property name="verticalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOn</enum>
-   </property>
-   <property name="widgetResizable">
-    <bool>true</bool>
-   </property>
    <widget class="QWidget" name="scrollAreaWidgetContents_2">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>724</width>
+      <width>725</width>
       <height>1000</height>
      </rect>
     </property>
@@ -209,16 +203,6 @@
       <height>1000</height>
      </size>
     </property>
-    <widget class="QTextEdit" name="input_2">
-     <property name="geometry">
-      <rect>
-       <x>440</x>
-       <y>80</y>
-       <width>271</width>
-       <height>41</height>
-      </rect>
-     </property>
-    </widget>
     <widget class="QTextBrowser" name="descrip_1">
      <property name="geometry">
       <rect>
@@ -227,6 +211,18 @@
        <width>281</width>
        <height>41</height>
       </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>281</width>
+       <height>41</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>300</width>
+       <height>41</height>
+      </size>
      </property>
      <property name="font">
       <font>
@@ -251,16 +247,6 @@
      </property>
      <property name="text">
       <string>Input</string>
-     </property>
-    </widget>
-    <widget class="QTextEdit" name="input_5">
-     <property name="geometry">
-      <rect>
-       <x>440</x>
-       <y>230</y>
-       <width>271</width>
-       <height>41</height>
-      </rect>
      </property>
     </widget>
     <widget class="QLabel" name="label_param_title_3">
@@ -301,96 +287,6 @@
       <string>Description</string>
      </property>
     </widget>
-    <widget class="QTextEdit" name="input_1">
-     <property name="geometry">
-      <rect>
-       <x>440</x>
-       <y>30</y>
-       <width>271</width>
-       <height>41</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QTextBrowser" name="paramName_1">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>30</y>
-       <width>131</width>
-       <height>41</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QTextEdit" name="input_3">
-     <property name="geometry">
-      <rect>
-       <x>440</x>
-       <y>130</y>
-       <width>271</width>
-       <height>41</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QTextEdit" name="input_4">
-     <property name="geometry">
-      <rect>
-       <x>440</x>
-       <y>180</y>
-       <width>271</width>
-       <height>41</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QTextEdit" name="input_6">
-     <property name="geometry">
-      <rect>
-       <x>440</x>
-       <y>280</y>
-       <width>271</width>
-       <height>41</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QTextEdit" name="input_7">
-     <property name="geometry">
-      <rect>
-       <x>440</x>
-       <y>330</y>
-       <width>271</width>
-       <height>41</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QTextEdit" name="input_8">
-     <property name="geometry">
-      <rect>
-       <x>440</x>
-       <y>380</y>
-       <width>271</width>
-       <height>41</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QTextEdit" name="input_9">
-     <property name="geometry">
-      <rect>
-       <x>440</x>
-       <y>430</y>
-       <width>271</width>
-       <height>41</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QTextBrowser" name="paramName_2">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>80</y>
-       <width>131</width>
-       <height>41</height>
-      </rect>
-     </property>
-    </widget>
     <widget class="QTextBrowser" name="descrip_2">
      <property name="geometry">
       <rect>
@@ -419,26 +315,6 @@
       <font>
        <pointsize>8</pointsize>
       </font>
-     </property>
-    </widget>
-    <widget class="QTextBrowser" name="paramName_3">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>130</y>
-       <width>131</width>
-       <height>41</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QTextBrowser" name="paramName_4">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>180</y>
-       <width>131</width>
-       <height>41</height>
-      </rect>
      </property>
     </widget>
     <widget class="QTextBrowser" name="descrip_4">
@@ -471,16 +347,6 @@
       </font>
      </property>
     </widget>
-    <widget class="QTextBrowser" name="paramName_5">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>230</y>
-       <width>131</width>
-       <height>41</height>
-      </rect>
-     </property>
-    </widget>
     <widget class="QTextBrowser" name="descrip_6">
      <property name="geometry">
       <rect>
@@ -494,16 +360,6 @@
       <font>
        <pointsize>8</pointsize>
       </font>
-     </property>
-    </widget>
-    <widget class="QTextBrowser" name="paramName_6">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>280</y>
-       <width>131</width>
-       <height>41</height>
-      </rect>
      </property>
     </widget>
     <widget class="QTextBrowser" name="descrip_7">
@@ -521,26 +377,6 @@
       </font>
      </property>
     </widget>
-    <widget class="QTextBrowser" name="paramName_7">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>330</y>
-       <width>131</width>
-       <height>41</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QTextBrowser" name="paramName_8">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>380</y>
-       <width>131</width>
-       <height>41</height>
-      </rect>
-     </property>
-    </widget>
     <widget class="QTextBrowser" name="descrip_8">
      <property name="geometry">
       <rect>
@@ -554,16 +390,6 @@
       <font>
        <pointsize>8</pointsize>
       </font>
-     </property>
-    </widget>
-    <widget class="QTextBrowser" name="paramName_9">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>430</y>
-       <width>131</width>
-       <height>41</height>
-      </rect>
      </property>
     </widget>
     <widget class="QTextBrowser" name="descrip_9">
@@ -596,17 +422,97 @@
       </font>
      </property>
     </widget>
-    <widget class="QTextBrowser" name="paramName_10">
+    <widget class="QLineEdit" name="input_1">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>480</y>
-       <width>131</width>
+       <x>440</x>
+       <y>30</y>
+       <width>271</width>
        <height>41</height>
       </rect>
      </property>
     </widget>
-    <widget class="QTextEdit" name="input_10">
+    <widget class="QLineEdit" name="input_2">
+     <property name="geometry">
+      <rect>
+       <x>440</x>
+       <y>80</y>
+       <width>271</width>
+       <height>41</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="input_3">
+     <property name="geometry">
+      <rect>
+       <x>440</x>
+       <y>130</y>
+       <width>271</width>
+       <height>41</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="input_4">
+     <property name="geometry">
+      <rect>
+       <x>440</x>
+       <y>180</y>
+       <width>271</width>
+       <height>41</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="input_5">
+     <property name="geometry">
+      <rect>
+       <x>440</x>
+       <y>230</y>
+       <width>271</width>
+       <height>41</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="input_6">
+     <property name="geometry">
+      <rect>
+       <x>440</x>
+       <y>280</y>
+       <width>271</width>
+       <height>41</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="input_7">
+     <property name="geometry">
+      <rect>
+       <x>440</x>
+       <y>330</y>
+       <width>271</width>
+       <height>41</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="input_8">
+     <property name="geometry">
+      <rect>
+       <x>440</x>
+       <y>380</y>
+       <width>271</width>
+       <height>41</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="input_9">
+     <property name="geometry">
+      <rect>
+       <x>440</x>
+       <y>430</y>
+       <width>271</width>
+       <height>41</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="input_10">
      <property name="geometry">
       <rect>
        <x>440</x>
@@ -616,9 +522,176 @@
       </rect>
      </property>
     </widget>
+    <widget class="QLineEdit" name="paramName_1">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>131</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="paramName_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>131</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="paramName_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>130</y>
+       <width>131</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="paramName_4">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>180</y>
+       <width>131</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="paramName_5">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>230</y>
+       <width>131</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="paramName_6">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>280</y>
+       <width>131</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="paramName_7">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>330</y>
+       <width>131</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="paramName_8">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>380</y>
+       <width>131</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="paramName_9">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>430</y>
+       <width>131</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="paramName_10">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>480</y>
+       <width>131</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
    </widget>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>input_1</tabstop>
+  <tabstop>input_2</tabstop>
+  <tabstop>input_3</tabstop>
+  <tabstop>input_4</tabstop>
+  <tabstop>input_5</tabstop>
+  <tabstop>input_6</tabstop>
+  <tabstop>input_7</tabstop>
+  <tabstop>input_8</tabstop>
+  <tabstop>input_9</tabstop>
+  <tabstop>input_10</tabstop>
+  <tabstop>descrip_4</tabstop>
+  <tabstop>descrip_5</tabstop>
+  <tabstop>descrip_2</tabstop>
+  <tabstop>descrip_6</tabstop>
+  <tabstop>descrip_7</tabstop>
+  <tabstop>descrip_8</tabstop>
+  <tabstop>descrip_9</tabstop>
+  <tabstop>descrip_10</tabstop>
+  <tabstop>status_box</tabstop>
+  <tabstop>SendButton_1</tabstop>
+  <tabstop>subSystemTextBrowser</tabstop>
+  <tabstop>commandAddressTextBrowser</tabstop>
+  <tabstop>scrollArea_2</tabstop>
+  <tabstop>descrip_1</tabstop>
+  <tabstop>descrip_3</tabstop>
+  <tabstop>paramName_1</tabstop>
+  <tabstop>paramName_2</tabstop>
+  <tabstop>paramName_3</tabstop>
+  <tabstop>paramName_4</tabstop>
+  <tabstop>paramName_5</tabstop>
+  <tabstop>paramName_6</tabstop>
+  <tabstop>paramName_7</tabstop>
+  <tabstop>paramName_8</tabstop>
+  <tabstop>paramName_9</tabstop>
+  <tabstop>paramName_10</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

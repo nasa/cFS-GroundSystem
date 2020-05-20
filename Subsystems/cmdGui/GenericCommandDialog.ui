@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>549</width>
-    <height>504</height>
+    <height>1058</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,13 +31,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QTextBrowser" name="subSystemTextBrowser">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLineEdit" name="subSystemLineEdit">
            <property name="minimumSize">
             <size>
              <width>159</width>
@@ -172,7 +166,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>508</width>
+        <width>515</width>
         <height>1000</height>
        </rect>
       </property>
@@ -186,13 +180,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_1">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLineEdit" name="itemLabelTextBrowser_1">
            <property name="minimumSize">
             <size>
              <width>391</width>
@@ -204,6 +192,9 @@
              <width>1234</width>
              <height>31</height>
             </size>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -237,13 +228,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_2">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLineEdit" name="itemLabelTextBrowser_2">
            <property name="minimumSize">
             <size>
              <width>391</width>
@@ -255,6 +240,9 @@
              <width>1234</width>
              <height>31</height>
             </size>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -288,13 +276,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_3">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLineEdit" name="itemLabelTextBrowser_3">
            <property name="minimumSize">
             <size>
              <width>391</width>
@@ -306,6 +288,9 @@
              <width>1234</width>
              <height>31</height>
             </size>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -339,13 +324,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_5">
          <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_4">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLineEdit" name="itemLabelTextBrowser_4">
            <property name="minimumSize">
             <size>
              <width>391</width>
@@ -357,6 +336,9 @@
              <width>1234</width>
              <height>31</height>
             </size>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -390,13 +372,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_6">
          <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_5">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLineEdit" name="itemLabelTextBrowser_5">
            <property name="minimumSize">
             <size>
              <width>391</width>
@@ -408,6 +384,9 @@
              <width>1234</width>
              <height>31</height>
             </size>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -441,13 +420,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_7">
          <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_6">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLineEdit" name="itemLabelTextBrowser_6">
            <property name="minimumSize">
             <size>
              <width>391</width>
@@ -459,6 +432,9 @@
              <width>1234</width>
              <height>31</height>
             </size>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -492,13 +468,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_8">
          <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_7">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLineEdit" name="itemLabelTextBrowser_7">
            <property name="minimumSize">
             <size>
              <width>391</width>
@@ -510,6 +480,9 @@
              <width>1234</width>
              <height>31</height>
             </size>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -543,13 +516,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_9">
          <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_8">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLineEdit" name="itemLabelTextBrowser_8">
            <property name="minimumSize">
             <size>
              <width>391</width>
@@ -561,6 +528,9 @@
              <width>1234</width>
              <height>31</height>
             </size>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -594,13 +564,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_10">
          <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_9">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLineEdit" name="itemLabelTextBrowser_9">
            <property name="minimumSize">
             <size>
              <width>391</width>
@@ -612,6 +576,9 @@
              <width>1234</width>
              <height>31</height>
             </size>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -645,13 +612,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_11">
          <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_10">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLineEdit" name="itemLabelTextBrowser_10">
            <property name="minimumSize">
             <size>
              <width>391</width>
@@ -663,6 +624,9 @@
              <width>1234</width>
              <height>31</height>
             </size>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -696,13 +660,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_12">
          <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_11">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLineEdit" name="itemLabelTextBrowser_11">
            <property name="minimumSize">
             <size>
              <width>391</width>
@@ -714,6 +672,9 @@
              <width>1234</width>
              <height>31</height>
             </size>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -747,13 +708,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_13">
          <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_12">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLineEdit" name="itemLabelTextBrowser_12">
            <property name="minimumSize">
             <size>
              <width>391</width>
@@ -765,6 +720,9 @@
              <width>1234</width>
              <height>31</height>
             </size>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -798,13 +756,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_14">
          <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_13">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLineEdit" name="itemLabelTextBrowser_13">
            <property name="minimumSize">
             <size>
              <width>391</width>
@@ -816,6 +768,9 @@
              <width>1234</width>
              <height>31</height>
             </size>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -849,13 +804,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_15">
          <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_14">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLineEdit" name="itemLabelTextBrowser_14">
            <property name="minimumSize">
             <size>
              <width>391</width>
@@ -867,6 +816,9 @@
              <width>1234</width>
              <height>31</height>
             </size>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -900,13 +852,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_16">
          <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_15">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLineEdit" name="itemLabelTextBrowser_15">
            <property name="minimumSize">
             <size>
              <width>391</width>
@@ -918,6 +864,9 @@
              <width>1234</width>
              <height>31</height>
             </size>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -951,13 +900,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_17">
          <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_16">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLineEdit" name="itemLabelTextBrowser_16">
            <property name="minimumSize">
             <size>
              <width>391</width>
@@ -969,6 +912,9 @@
              <width>1234</width>
              <height>31</height>
             </size>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -1002,13 +948,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_18">
          <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_17">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLineEdit" name="itemLabelTextBrowser_17">
            <property name="minimumSize">
             <size>
              <width>391</width>
@@ -1020,6 +960,9 @@
              <width>1234</width>
              <height>31</height>
             </size>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -1053,13 +996,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_19">
          <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_18">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLineEdit" name="itemLabelTextBrowser_18">
            <property name="minimumSize">
             <size>
              <width>391</width>
@@ -1071,6 +1008,9 @@
              <width>1234</width>
              <height>31</height>
             </size>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -1104,13 +1044,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_20">
          <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_19">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLineEdit" name="itemLabelTextBrowser_19">
            <property name="minimumSize">
             <size>
              <width>391</width>
@@ -1122,6 +1056,9 @@
              <width>1234</width>
              <height>31</height>
             </size>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -1155,13 +1092,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_21">
          <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_20">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLineEdit" name="itemLabelTextBrowser_20">
            <property name="minimumSize">
             <size>
              <width>391</width>
@@ -1173,6 +1104,9 @@
              <width>1234</width>
              <height>31</height>
             </size>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -1206,13 +1140,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_22">
          <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_21">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLineEdit" name="itemLabelTextBrowser_21">
            <property name="minimumSize">
             <size>
              <width>391</width>
@@ -1224,6 +1152,9 @@
              <width>1234</width>
              <height>31</height>
             </size>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -1257,13 +1188,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_23">
          <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_22">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLineEdit" name="itemLabelTextBrowser_22">
            <property name="minimumSize">
             <size>
              <width>391</width>
@@ -1275,6 +1200,9 @@
              <width>1234</width>
              <height>31</height>
             </size>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -1308,13 +1236,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_24">
          <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_23">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLineEdit" name="itemLabelTextBrowser_23">
            <property name="minimumSize">
             <size>
              <width>391</width>
@@ -1326,6 +1248,9 @@
              <width>1234</width>
              <height>31</height>
             </size>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -1359,13 +1284,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_25">
          <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_24">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLineEdit" name="itemLabelTextBrowser_24">
            <property name="minimumSize">
             <size>
              <width>391</width>
@@ -1377,6 +1296,9 @@
              <width>1234</width>
              <height>31</height>
             </size>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -1410,13 +1332,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_26">
          <item>
-          <widget class="QTextBrowser" name="itemLabelTextBrowser_25">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLineEdit" name="itemLabelTextBrowser_25">
            <property name="minimumSize">
             <size>
              <width>391</width>
@@ -1428,6 +1344,9 @@
              <width>1234</width>
              <height>31</height>
             </size>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
           </widget>
          </item>

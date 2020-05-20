@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>515</width>
-    <height>600</height>
+    <width>625</width>
+    <height>908</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -108,24 +108,18 @@
         </widget>
        </item>
        <item>
-        <widget class="QTextBrowser" name="sequenceCount">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
+        <widget class="QSpinBox" name="packetCount">
+         <property name="readOnly">
+          <bool>true</bool>
          </property>
-         <property name="minimumSize">
-          <size>
-           <width>130</width>
-           <height>30</height>
-          </size>
+         <property name="buttonSymbols">
+          <enum>QAbstractSpinBox::NoButtons</enum>
          </property>
-         <property name="maximumSize">
-          <size>
-           <width>130</width>
-           <height>30</height>
-          </size>
+         <property name="maximum">
+          <number>16384</number>
+         </property>
+         <property name="value">
+          <number>0</number>
          </property>
         </widget>
        </item>
@@ -159,9 +153,6 @@
      </item>
      <item>
       <widget class="QDialogButtonBox" name="buttonBox">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
        <property name="standardButtons">
         <set>QDialogButtonBox::Close</set>
        </property>
@@ -231,7 +222,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>474</width>
+        <width>591</width>
         <height>1000</height>
        </rect>
       </property>
@@ -241,2101 +232,2045 @@
         <height>1000</height>
        </size>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <property name="spacing">
-        <number>0</number>
+      <widget class="QWidget" name="layoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>11</y>
+         <width>523</width>
+         <height>892</height>
+        </rect>
        </property>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_5">
-         <item>
-          <widget class="QLabel" name="label_3">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Subsystem/Page</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_4">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Packet ID</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_5">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Packet Count</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_10">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Fixed</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_6">
-         <item>
-          <widget class="QTextBrowser" name="SubsysBrowser_0">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="pktidBrowser_0">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="countBrowser_0">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_0">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Display Page</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_7">
-         <item>
-          <widget class="QTextBrowser" name="SubsysBrowser_1">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="pktidBrowser_1">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="countBrowser_1">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_1">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Display Page</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_8">
-         <item>
-          <widget class="QTextBrowser" name="SubsysBrowser_2">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="pktidBrowser_2">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="countBrowser_2">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_2">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Display Page</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_9">
-         <item>
-          <widget class="QTextBrowser" name="SubsysBrowser_3">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="pktidBrowser_3">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="countBrowser_3">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_3">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Display Page</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_10">
-         <item>
-          <widget class="QTextBrowser" name="SubsysBrowser_4">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="pktidBrowser_4">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="countBrowser_4">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_4">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Display Page</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_11">
-         <item>
-          <widget class="QTextBrowser" name="SubsysBrowser_5">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="pktidBrowser_5">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="countBrowser_5">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_5">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Display Page</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_12">
-         <item>
-          <widget class="QTextBrowser" name="SubsysBrowser_6">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="pktidBrowser_6">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="countBrowser_6">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_6">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Display Page</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_13">
-         <item>
-          <widget class="QTextBrowser" name="SubsysBrowser_7">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="pktidBrowser_7">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="countBrowser_7">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_7">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Display Page</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_14">
-         <item>
-          <widget class="QTextBrowser" name="SubsysBrowser_8">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="pktidBrowser_8">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="countBrowser_8">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_8">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Display Page</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_15">
-         <item>
-          <widget class="QTextBrowser" name="SubsysBrowser_9">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="pktidBrowser_9">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="countBrowser_9">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_9">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Display Page</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_16">
-         <item>
-          <widget class="QTextBrowser" name="SubsysBrowser_10">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="pktidBrowser_10">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="countBrowser_10">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_10">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Display Page</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_17">
-         <item>
-          <widget class="QTextBrowser" name="SubsysBrowser_11">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="pktidBrowser_11">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="countBrowser_11">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_11">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Display Page</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_18">
-         <item>
-          <widget class="QTextBrowser" name="SubsysBrowser_12">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="pktidBrowser_12">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="countBrowser_12">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_12">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Display Page</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_19">
-         <item>
-          <widget class="QTextBrowser" name="SubsysBrowser_13">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="pktidBrowser_13">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="countBrowser_13">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_13">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Display Page</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_20">
-         <item>
-          <widget class="QTextBrowser" name="SubsysBrowser_14">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="pktidBrowser_14">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="countBrowser_14">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_14">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Display Page</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_21">
-         <item>
-          <widget class="QTextBrowser" name="SubsysBrowser_15">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="pktidBrowser_15">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="countBrowser_15">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_15">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Display Page</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_22">
-         <item>
-          <widget class="QTextBrowser" name="SubsysBrowser_16">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="pktidBrowser_16">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="countBrowser_16">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_16">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Display Page</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_23">
-         <item>
-          <widget class="QTextBrowser" name="SubsysBrowser_17">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="pktidBrowser_17">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="countBrowser_17">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_17">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Display Page</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_24">
-         <item>
-          <widget class="QTextBrowser" name="SubsysBrowser_18">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="pktidBrowser_18">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="countBrowser_18">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_18">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Display Page</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_25">
-         <item>
-          <widget class="QTextBrowser" name="SubsysBrowser_19">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="pktidBrowser_19">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="countBrowser_19">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_19">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Display Page</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_26">
-         <item>
-          <widget class="QTextBrowser" name="SubsysBrowser_20">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>141</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="pktidBrowser_20">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>81</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="countBrowser_20">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>91</width>
-             <height>31</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_20">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>101</width>
-             <height>27</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Display Page</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_7">
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Subsystem/Page</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_4">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Packet ID</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_5">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>91</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Packet Count</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_10">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>110</width>
+              <height>27</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <item>
+           <widget class="QPlainTextEdit" name="SubsysBrowser_0">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="pktidBrowser_0">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="countSpinBox_0">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="maximum">
+             <number>16384</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_0">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>101</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>120</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Display Page</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="2" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QPlainTextEdit" name="SubsysBrowser_1">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="pktidBrowser_1">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="countSpinBox_1">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="maximum">
+             <number>16384</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_1">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>101</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>120</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Display Page</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="3" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_8">
+          <item>
+           <widget class="QPlainTextEdit" name="SubsysBrowser_2">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="pktidBrowser_2">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="countSpinBox_2">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="maximum">
+             <number>16384</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_2">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>101</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>120</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Display Page</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="4" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_9">
+          <item>
+           <widget class="QPlainTextEdit" name="SubsysBrowser_3">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="pktidBrowser_3">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="countSpinBox_3">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="maximum">
+             <number>16384</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_3">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>101</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>120</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Display Page</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="5" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_10">
+          <item>
+           <widget class="QPlainTextEdit" name="SubsysBrowser_4">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="pktidBrowser_4">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="countSpinBox_4">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="maximum">
+             <number>16384</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_4">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>101</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>120</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Display Page</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="6" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_11">
+          <item>
+           <widget class="QPlainTextEdit" name="SubsysBrowser_5">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="pktidBrowser_5">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="countSpinBox_5">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="maximum">
+             <number>16384</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_5">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>101</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>120</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Display Page</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="7" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_12">
+          <item>
+           <widget class="QPlainTextEdit" name="SubsysBrowser_6">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="pktidBrowser_6">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="countSpinBox_6">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="maximum">
+             <number>16384</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_6">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>101</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>120</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Display Page</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="8" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_13">
+          <item>
+           <widget class="QPlainTextEdit" name="SubsysBrowser_7">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="pktidBrowser_7">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="countSpinBox_7">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="maximum">
+             <number>16384</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_7">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>101</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>120</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Display Page</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="9" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_14">
+          <item>
+           <widget class="QPlainTextEdit" name="SubsysBrowser_8">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="pktidBrowser_8">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="countSpinBox_8">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="maximum">
+             <number>16384</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_8">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>101</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>120</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Display Page</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="10" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_15">
+          <item>
+           <widget class="QPlainTextEdit" name="SubsysBrowser_9">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="pktidBrowser_9">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="countSpinBox_9">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="maximum">
+             <number>16384</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_9">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>101</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>120</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Display Page</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="11" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_16">
+          <item>
+           <widget class="QPlainTextEdit" name="SubsysBrowser_10">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="pktidBrowser_10">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="countSpinBox_10">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="maximum">
+             <number>16384</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_10">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>101</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>120</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Display Page</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="12" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_17">
+          <item>
+           <widget class="QPlainTextEdit" name="SubsysBrowser_11">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="pktidBrowser_11">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="countSpinBox_11">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="maximum">
+             <number>16384</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_11">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>101</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>120</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Display Page</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="13" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_18">
+          <item>
+           <widget class="QPlainTextEdit" name="SubsysBrowser_12">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="pktidBrowser_12">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="countSpinBox_12">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="maximum">
+             <number>16384</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_12">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>101</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>120</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Display Page</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="14" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_19">
+          <item>
+           <widget class="QPlainTextEdit" name="SubsysBrowser_13">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="pktidBrowser_13">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="countSpinBox_13">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="maximum">
+             <number>16384</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_13">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>101</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>120</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Display Page</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="15" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_20">
+          <item>
+           <widget class="QPlainTextEdit" name="SubsysBrowser_14">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="pktidBrowser_14">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="countSpinBox_14">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="maximum">
+             <number>16384</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_14">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>101</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>120</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Display Page</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="16" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_21">
+          <item>
+           <widget class="QPlainTextEdit" name="SubsysBrowser_15">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="pktidBrowser_15">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="countSpinBox_15">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="maximum">
+             <number>16384</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_15">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>101</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>120</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Display Page</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="17" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_22">
+          <item>
+           <widget class="QPlainTextEdit" name="SubsysBrowser_16">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="pktidBrowser_16">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="countSpinBox_16">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="maximum">
+             <number>16384</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_16">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>101</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>120</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Display Page</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="18" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_23">
+          <item>
+           <widget class="QPlainTextEdit" name="SubsysBrowser_17">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="pktidBrowser_17">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="countSpinBox_17">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="maximum">
+             <number>16384</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_17">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>101</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>120</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Display Page</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="19" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_24">
+          <item>
+           <widget class="QPlainTextEdit" name="SubsysBrowser_18">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="pktidBrowser_18">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="countSpinBox_18">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="maximum">
+             <number>16384</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_18">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>101</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>120</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Display Page</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="20" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_25">
+          <item>
+           <widget class="QPlainTextEdit" name="SubsysBrowser_19">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="pktidBrowser_19">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="countSpinBox_19">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="maximum">
+             <number>16384</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_19">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>101</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>120</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Display Page</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="21" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_26">
+          <item>
+           <widget class="QPlainTextEdit" name="SubsysBrowser_20">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>141</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="pktidBrowser_20">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="countSpinBox_20">
+            <property name="minimumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>81</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="maximum">
+             <number>16384</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_20">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>101</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>120</width>
+              <height>27</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Display Page</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </widget>
    </item>
@@ -2345,33 +2280,17 @@
  <connections>
   <connection>
    <sender>buttonBox</sender>
-   <signal>accepted()</signal>
+   <signal>clicked(QAbstractButton*)</signal>
    <receiver>TelemetrySystemDialog</receiver>
-   <slot>accept()</slot>
+   <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>574</x>
+     <y>57</y>
     </hint>
     <hint type="destinationlabel">
-     <x>157</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>TelemetrySystemDialog</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>286</x>
-     <y>274</y>
+     <x>312</x>
+     <y>453</y>
     </hint>
    </hints>
   </connection>

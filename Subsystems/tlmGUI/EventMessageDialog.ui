@@ -32,12 +32,12 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>91</width>
-         <height>17</height>
+         <width>135</width>
+         <height>29</height>
         </size>
        </property>
        <property name="text">
-        <string>Packet Count</string>
+        <string>Sequence Count</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -45,24 +45,15 @@
       </widget>
      </item>
      <item>
-      <widget class="QTextBrowser" name="sequenceCount">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+      <widget class="QSpinBox" name="sequenceCount">
+       <property name="readOnly">
+        <bool>true</bool>
        </property>
-       <property name="minimumSize">
-        <size>
-         <width>81</width>
-         <height>31</height>
-        </size>
+       <property name="buttonSymbols">
+        <enum>QAbstractSpinBox::NoButtons</enum>
        </property>
-       <property name="maximumSize">
-        <size>
-         <width>81</width>
-         <height>31</height>
-        </size>
+       <property name="maximum">
+        <number>16384</number>
        </property>
       </widget>
      </item>
@@ -131,27 +122,6 @@
      </item>
      <item>
       <widget class="QDialogButtonBox" name="buttonBox">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>91</width>
-         <height>32</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>91</width>
-         <height>32</height>
-        </size>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
        <property name="standardButtons">
         <set>QDialogButtonBox::Close</set>
        </property>
@@ -160,7 +130,11 @@
     </layout>
    </item>
    <item>
-    <widget class="QTextBrowser" name="eventOutput"/>
+    <widget class="QPlainTextEdit" name="eventOutput">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
@@ -168,33 +142,17 @@
  <connections>
   <connection>
    <sender>buttonBox</sender>
-   <signal>accepted()</signal>
+   <signal>clicked(QAbstractButton*)</signal>
    <receiver>EventMessageDialog</receiver>
-   <slot>accept()</slot>
+   <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>540</x>
+     <y>25</y>
     </hint>
     <hint type="destinationlabel">
-     <x>157</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>EventMessageDialog</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>286</x>
-     <y>274</y>
+     <x>295</x>
+     <y>138</y>
     </hint>
    </hints>
   </connection>
