@@ -17,4 +17,9 @@
 **      See the License for the specific language governing permissions and
 **      limitations under the License.
 */
+#ifndef _sendudp_
+#define _sendudp_
+
 int SendUdp(char *hostname, char *portNum, char *packetData, int packetSize);
+
+#endif /* _sendudp_ */

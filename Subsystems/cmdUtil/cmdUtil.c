@@ -80,8 +80,7 @@ typedef struct
 /*
 ** Declare the global command data
 */
-CommandData_t CommandData;
-int           hostByteOrder;
+int hostByteOrder;
 
 /*
 ** getopts parameter passing options string
@@ -397,6 +396,7 @@ int main(int argc, char *argv[])
     int            longIndex = 0;
     int            retStat;
     unsigned short tempShort;
+    CommandData_t  CommandData;
 
     /*
     ** Initialize the CommandData struct
