@@ -8,6 +8,11 @@ See Guide-GroundSystem.txt for more information.
 
 ## Version History
 
+### Development Build: 2.1.9
+
+- Upgrading PyQt4 to PyQt5 and includes a lot of cleanup/refactoring, and changes to the GUI itself
+- See <https://github.com/nasa/cFS-GroundSystem/pull/90>
+
 ### Development Build: 2.1.8
 
 - No warnings when building with GCC9
