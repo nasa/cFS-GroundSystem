@@ -19,102 +19,114 @@
 #
 #cFS Ground System Version 2.0.0
 #
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
+import shlex
+import subprocess
 import sys
-import os
-import socket
-import zmq
+from pathlib import Path
 
-from PyQt4 import QtGui, QtNetwork, QtCore
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
+
 from MainWindow import Ui_MainWindow
 from RoutingService import RoutingService
+
+ROOTDIR = Path(sys.argv[0]).resolve().parent
+
 
 #
 # CFS Ground System: Setup and manage the main window
 #
-class GroundSystem(QtGui.QMainWindow):
-
+class GroundSystem(QMainWindow, Ui_MainWindow):
     #
     # Init the class
     #
-    def __init__(self, parent=None):
-        QtGui.QMainWindow.__init__(self)
+    def __init__(self):
+        super().__init__()
+        self.setupUi((self))
 
+        self.RoutingService = None
+        self.alert = QMessageBox()
+
+        self.pushButtonStartTlm.clicked.connect(self.startTlmSystem)
+        self.pushButtonStartCmd.clicked.connect(self.startCmdSystem)
         # Init lists
         self.ipAddressesList = ['All']
         self.spacecraftNames = ['All']
 
-        # Init GUI and set callback methods for buttons
-        self.ui = Ui_MainWindow()
-        self.ui.setupUi(self)
-        self.ui.pushButtonStartTlm.clicked.connect(self.startTlmSystem)
-        self.ui.pushButtonStartCmd.clicked.connect(self.startCmdSystem)
-
     def closeEvent(self, evnt):
         if self.RoutingService:
             self.RoutingService.stop()
-            print ("Stopped routing service")
+            print("Stopped routing service")
 
-        super(GroundSystem, self).closeEvent(evnt)
+        super().closeEvent(evnt)
 
     # Read the selected spacecraft from combo box on GUI
     def getSelectedSpacecraftAddress(self):
-        return str(self.ui.comboBoxIpAddresses.currentText())
+        return self.comboBoxIpAddresses.currentText().strip()
 
     # Returns the name of the selected spacecraft
     def getSelectedSpacecraftName(self):
-        return self.spacecraftNames[self.ipAddressesList.index(self.getSelectedSpacecraftAddress())]
+        return self.spacecraftNames[self.ipAddressesList.index(
+            self.getSelectedSpacecraftAddress())].strip()
 
     #
     # Display popup with error
     #
     def DisplayErrorMessage(self, message):
-        print (message)
-        alert = QtGui.QMessageBox()
-        alert.setText(message)
-        alert.setIcon(QtGui.QMessageBox.Warning)
-        alert.exec_()
+        print(message)
+        self.alert.setText(message)
+        self.alert.setIcon(QMessageBox.Warning)
+        self.alert.exec_()
 
     # Start the telemetry system for the selected spacecraft
     def startTlmSystem(self):
         selectedSpacecraft = self.getSelectedSpacecraftName()
 
-        # Setup the subscription (to let know the telemetry system the messages it will be receiving)
+        # Setup the subscription (to let know the
+        # telemetry system the messages it will be receiving)
         if selectedSpacecraft == 'All':
             subscription = '--sub=GroundSystem'
         else:
-            subscription = '--sub=GroundSystem.' + selectedSpacecraft + '.TelemetryPackets'
+            subscription = f'--sub=GroundSystem.{selectedSpacecraft}.TelemetryPackets'
 
         # Open Telemetry System
-        system_call = '( cd Subsystems/tlmGUI/ && python3 TelemetrySystem.py ' + subscription + ' ) & '
-        os.system(system_call)
+        system_call = f'python3 {ROOTDIR}/Subsystems/tlmGUI/TelemetrySystem.py {subscription}'
+        args = shlex.split(system_call)
+        subprocess.Popen(args)
 
     # Start command system
-    def startCmdSystem(self):
-        os.system('( cd Subsystems/cmdGui/ && python3 CommandSystem.py ) & ')
+    @staticmethod
+    def startCmdSystem():
+        subprocess.Popen(
+            ['python3', f'{ROOTDIR}/Subsystems/cmdGui/CommandSystem.py'])
 
     # Start FDL-FUL gui system
-    #def startFDLSystem(self):
-    #    selectedSpacecraft = self.getSelectedSpacecraftName()
-    #    if selectedSpacecraft == 'All':
-    #        subscription = ''
-    #        self.DisplayErrorMessage('Cannot open FDL manager.\nNo spacecraft selected.')
-    #    else:
-    #       subscription = '--sub=GroundSystem.' + selectedSpacecraft
-    #       os.system('( cd Subsystems/fdlGui/ && python FdlSystem.py ' + subscription + ' ) & ')
+    def startFDLSystem(self):
+        selectedSpacecraft = self.getSelectedSpacecraftName()
+        if selectedSpacecraft == 'All':
+            subscription = ''
+            self.DisplayErrorMessage(
+                'Cannot open FDL manager.\nNo spacecraft selected.')
+        else:
+            subscription = f'--sub=GroundSystem.{selectedSpacecraft}'
+            subprocess.Popen([
+                'python3', f'{ROOTDIR}/Subsystems/fdlGui/FdlSystem.py',
+                subscription
+            ])
 
     # Update the combo box list in gui
     def updateIpList(self, ip, name):
         self.ipAddressesList.append(ip)
         self.spacecraftNames.append(name)
-        self.ui.comboBoxIpAddresses.addItem(ip)
+        self.comboBoxIpAddresses.addItem(ip)
 
     # Start the routing service (see RoutingService.py)
     def initRoutingService(self):
-        self.RoutingService = RoutingService(self)
-        self.connect(self.RoutingService, self.RoutingService.signalUpdateIpList, self.updateIpList)
+        self.RoutingService = RoutingService()
+        self.RoutingService.signalUpdateIpList.connect(self.updateIpList)
         self.RoutingService.start()
+
 
 #
 # Main
@@ -122,7 +134,7 @@ class GroundSystem(QtGui.QMainWindow):
 if __name__ == "__main__":
 
     # Init app
-    app = QtGui.QApplication(sys.argv)
+    app = QApplication(sys.argv)
 
     # Init main window
     MainWindow = GroundSystem()
@@ -136,4 +148,3 @@ if __name__ == "__main__":
 
     # Execute the app
     sys.exit(app.exec_())
-

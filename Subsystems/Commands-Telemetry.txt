@@ -65,10 +65,10 @@ It provides a list of "command pages" with a list of commands to send to a subsy
 
 Start the command system using the Ground System's main window.
 
-The program is written in Python 2.x with the PyQT4 GUI. The dialogs were created
-in the QT4 designer program, and converted to python classes using the "pyuic4" 
+The program is written in Python 3.x with the PyQT5 GUI. The dialogs were created
+in the QT designer program, and converted to python classes using the "pyuic5" 
 utility:
-    pyuic4 -o MyDialog.py MyDialog.ui
+    pyuic5 -o MyDialog.py MyDialog.ui
 
 The list of pages along with the AppID and address for each page is defined in the
 file "command-pages.txt"
