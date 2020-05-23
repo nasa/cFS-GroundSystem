@@ -45,7 +45,7 @@ typedef int socklen_t;
 /*
 ** SendUdp
 */
-int SendUdp(char *hostname, char *portNum, char *packetData, int packetSize)
+int SendUdp(char *hostname, char *portNum, unsigned char *packetData, int packetSize)
 {
     SOCKET             sd;
     int                rc;
