@@ -125,8 +125,6 @@ typedef struct
     bool          OverridePktLen;          /* Override packet length field */
     bool          OverridePktEndian;       /* Override packet endian field */
     bool          OverridePktCksum;        /* Override packet checksum */
-    int           NumDataFields;           /* Number of data fields processed */
-    int           PacketLen;               /* Total packet length */
     unsigned char Packet[MAX_PACKET_SIZE]; /* Data packet to send */
 } CommandData_t;
 
