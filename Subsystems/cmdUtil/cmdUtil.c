@@ -395,10 +395,11 @@ void CopyData(unsigned char *pkt, unsigned int *startbyte, char *in, unsigned in
 
 /******************************************************************************
  * Calculate cFS Secondary Header Checksum
+ * Note - this matches cFS checksum calc in framework
  */
 unsigned char CalcChecksum(unsigned char *bbuf, unsigned int nbytes)
 {
-    unsigned char checksum = 0;
+    unsigned char checksum = 0xFF;
 
     for (unsigned int i = 0; i < nbytes; i++)
         checksum ^= bbuf[i];
