@@ -4,9 +4,14 @@ This repository contains NASA's Lab Ground System (cFS-GroundSystem), which is a
 
 This lab application is a non-flight utility ground system to interact with the cFS. It is intended to be located in the `tools/cFS-GroundSystem` subdirectory of a cFS Mission Tree. The Core Flight System is bundled at <https://github.com/nasa/cFS> (which includes cFS-GroundSystem as a submodule), which includes build and execution instructions.
 
-See Guide-GroundSystem.txt for more information.
+See [Guide-GroundSystem.md](https://github.com/nasa/cFS-GroundSystem/blob/master/Guide-GroundSystem.md) for more information.
 
 ## Version History
+
+### Development Build: 2.1.10
+
+- Change documentation for table loading guide to markdown
+- See <https://github.com/nasa/cFS-GroundSystem/pull/94>
 
 ### Development Build: 2.1.9
 
