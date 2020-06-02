@@ -1,531 +1,912 @@
 /*
-**      GSC-18128-1, "Core Flight Executive Version 6.7"
-**
-**      Copyright (c) 2006-2019 United States Government as represented by
-**      the Administrator of the National Aeronautics and Space Administration.
-**      All Rights Reserved.
-**
-**      Licensed under the Apache License, Version 2.0 (the "License");
-**      you may not use this file except in compliance with the License.
-**      You may obtain a copy of the License at
-**
-**        http://www.apache.org/licenses/LICENSE-2.0
-**
-**      Unless required by applicable law or agreed to in writing, software
-**      distributed under the License is distributed on an "AS IS" BASIS,
-**      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-**      See the License for the specific language governing permissions and
-**      limitations under the License.
-**
-** cmdUtil -- A CCSDS Command utility. This program will build a CCSDS Command packet
-**               with variable parameters and send it on a UDP network socket.
-**               this program is primarily used to command a cFE flight software system.
-**
-*/
-
+ *      GSC-18128-1, "Core Flight Executive Version 6.7"
+ *
+ *      Copyright (c) 2006-2019 United States Government as represented by
+ *      the Administrator of the National Aeronautics and Space Administration.
+ *      All Rights Reserved.
+ *
+ *      Licensed under the Apache License, Version 2.0 (the "License");
+ *      you may not use this file except in compliance with the License.
+ *      You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *      Unless required by applicable law or agreed to in writing, software
+ *      distributed under the License is distributed on an "AS IS" BASIS,
+ *      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *      See the License for the specific language governing permissions and
+ *      limitations under the License.
+ */
 
 /*
-** System includes
-*/
+ * Command utility. This program will build a Command packet
+ * with variable parameters and send it on a UDP network socket.
+ * this program is primarily used to command a cFS flight software system.
+ */
+
+/* System define for endian functions */
+#define _BSD_SOURCE_
+#define _DEFAULT_SOURCE
+#define __USE_BSD
+
+/*
+ * System includes
+ */
 #include <stdio.h>
 #include <stdlib.h>
+#include <endian.h>
 #include <getopt.h>
 #include <string.h>
-#include <limits.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <errno.h>
 #include "SendUdp.h"
 
 /*
-** Defines
-*/
-#define DEFAULT_HOSTNAME "127.0.0.1"
-#define HOSTNAME_SIZE     32
+ * Defines
+ */
 
-#define DEFAULT_PORTNUM  "1234"
-#define PORTNUM_SIZE      10
+/* Max sizes */
+#define MAX_HOSTNAME_SIZE 32   /* Maximum host name string size */
+#define MAX_PORT_SIZE     16   /* Maximum port number string size */
+#define MAX_ENDIAN_SIZE   3    /* Maximum endian string size */
+#define MAX_PACKET_SIZE   1024 /* Max packet size, ref: CCSDS max = 65542, IPv4 UDP max = 65507 */
 
-#define PKTID_SIZE        10
+/* Protocol names - for interpreting protocol argument */
+#define PROTOCOL_CCSDS_PRI "ccsdspri" /* CCSDS Primary header only */
+#define PROTOCOL_CCSDS_EXT "ccsdsext" /* CCSDS Primary and Extended header only */
+#define PROTOCOL_CFS_V1    "cfsv1"    /* CCSDS Primary header and cFS command secondary header */
+#define PROTOCOL_CFS_V2    "cfsv2"    /* CCSDS Primary, Extended header, and cFS command secondary header */
+#define PROTOCOL_RAW       "raw"      /* No predefined header */
 
-#define DEFAULT_ENDIAN   "BE"
-#define ENDIAN_SIZE       10
-#define PACKETHDR_SIZE    (sizeof(short) * 4)
-#define PACKETDATA_SIZE   512
+/* Endian strings - related to MAX_ENDIAN_SIZE, don't exceed */
+#define ENDIAN_BIG    "BE"
+#define ENDIAN_LITTLE "LE"
 
-#undef BIG_ENDIAN
-#undef LITTLE_ENDIAN
-#define BIG_ENDIAN    0
-#define LITTLE_ENDIAN 1
+/* Destination default values */
+#define DEFAULT_HOSTNAME "127.0.0.1" /* Local host */
+#define DEFAULT_PORT     "1234"      /* Default cFS cpu1 port */
 
 /*
-** Parameter datatype structure
-*/
-typedef struct {
-    char HostName[HOSTNAME_SIZE]; /* Hostname like "localhost" or "192.168.0.121" */
-    int  GotHostName;             /* did we get the hostname parameter ? */
+ * Packet default values
+ * NOTE: Defaulting for backwards compatibility, make sure values match protocol or override in cmd line
+ */
+#define DEFAULT_PROTOCOL  PROTOCOL_CFS_V1 /* cFS version 1 default */
+#define DEFAULT_BIGENDIAN true            /* Default to big endian */
 
-    char PortNum[PORTNUM_SIZE]; /* Portnum: Default "1234" */
-    int  GotPortNum;            /* did we get the port number parameter ? */
+#ifdef DEBUG
+#define DEFAULT_VERBOSE true /* Print all messages if DEBUG defined */
+#else
+#define DEFAULT_VERBOSE false /* Quiet by default */
+#endif
 
-    char PktId[PKTID_SIZE];     /* PktId:  0x18xx : Required */
-    int  GotPktId;              /* Did we get a PktID? */
-
-    int  CmdCode;               /* Command code: Function code */
-    int  GotCmdCode;            /* Did we get a command code? */
-
-    int  Endian;                /* Swap parameter: BE or LE. Can be defaulted */
-    int  GotEndian;             /* did we get the Endian parameter? */
-
-    int  Verbose;               /* Verbose option set? */
-
-    int  NumDataFields;         /* Number of data fields processed */
-    int  DataLen;               /* total length of data fields */
-    int  PacketLen;             /* Total packet length */
-
-    char PacketHdr[PACKETHDR_SIZE];  /* 0x1804,0xC000,0x0001 */
-    char PacketData[PACKETDATA_SIZE];/* Data buffer to build up parameters */
+/*
+ * Parameter datatype structure
+ */
+typedef struct
+{
+    char     HostName[MAX_HOSTNAME_SIZE];  /* Host name like "localhost" or "192.168.0.121" */
+    char     PortNum[MAX_PORT_SIZE];       /* Port number */
+    uint16_t CCSDS_Pri[3];                 /* CCSDS Primary Header (always big endian)
+                                            * index  mask    ------------ description ----------------
+                                            *   0   0xE000 : Packet Version number: CCSDS Version 1 = b000
+                                            *   0   0x1000 : Packet Type:           0 = TLM, 1 = CMD
+                                            *   0   0x0800 : Sec Hdr Flag:          0 = absent, 1 = present
+                                            *   0   0x07FF : Application Process Identifier
+                                            *   1   0xC000 : Sequence Flags:        b00 = continuation
+                                            *                                       b01 = first segment
+                                            *                                       b10 = last segment
+                                            *                                       b11 = unsegmented
+                                            *   1   0x3FFF : Packet Sequence Count or Packet Name
+                                            *   2   0xFFFF : Packet Data Length: (total packet length) - 7
+                                            */
+    uint16_t CCSDS_Ext[2];                 /* CCSDS Extended Header (always big endian)
+                                            * index  mask    ------------ description ----------------
+                                            *   0   0xF800 : EDS Version for packet definition used
+                                            *   0   0x0400 : Endian:        Big = 0, Little (Intel) = 1
+                                            *   0   0x0200 : Playback flag: 0 = original, 1 = playback
+                                            *   0   0x01FF : APID Qualifier (Subsystem Identifier)
+                                            *   1   0xFFFF : APID Qualifier (System Identifier)
+                                            */
+    uint16_t CFS_CmdSecHdr;                /* cFS standard secondary command header (always big endian)
+                                            * index  mask    ------------ description ----------------
+                                            *   0   0x8000 : Reserved
+                                            *   0   0x7F00 : Command Function Code
+                                            *   1   0x00FF : Command Checksum
+                                            */
+    bool          BigEndian;               /* Endian default, false means little endian */
+    bool          Verbose;                 /* Verbose option */
+    bool          IncludeCCSDSPri;         /* Include CCSDS Primary Header */
+    bool          IncludeCCSDSExt;         /* Include CCSDS Secondary Header */
+    bool          IncludeCFSSec;           /* Include cFS Command Secondary Header */
+    bool          OverridePktType;         /* Override packet type field */
+    bool          OverridePktSec;          /* Override packet secondary header exists field */
+    bool          OverridePktSeqFlg;       /* Override packet sequence flags */
+    bool          OverridePktLen;          /* Override packet length field */
+    bool          OverridePktEndian;       /* Override packet endian field */
+    bool          OverridePktCksum;        /* Override packet checksum */
+    unsigned char Packet[MAX_PACKET_SIZE]; /* Data packet to send */
 } CommandData_t;
 
 /*
-** Declare the global command data
-*/
-CommandData_t CommandData;
-int hostByteOrder;
+ * getopts parameter passing options string
+ */
+static const char *optString = "A:B:C:D:E:F:G:H:I:J:L:P:Q:R:S:T:U:V:Y:b:d:f:h:i:j:k:l:m:n:o:p:q:s:vw:x:y:?";
 
 /*
-** getopts parameter passing options string
-*/
-static const char *optString = "E:H:P:I:C:b:h:l:s:v?";
+ * getopts_long long form argument table
+ */
+static struct option longOpts[] = {{"pktapid", required_argument, NULL, 'A'},
+                                   {"pktpb", required_argument, NULL, 'B'},
+                                   {"cmdcode", required_argument, NULL, 'C'},
+                                   {"pktfc", required_argument, NULL, 'C'},
+                                   {"pktedsver", required_argument, NULL, 'D'},
+                                   {"endian", required_argument, NULL, 'E'},
+                                   {"pktseqflg", required_argument, NULL, 'F'},
+                                   {"pktname", required_argument, NULL, 'G'},
+                                   {"pktseqcnt", required_argument, NULL, 'G'},
+                                   {"host", required_argument, NULL, 'H'},
+                                   {"pktid", required_argument, NULL, 'I'},
+                                   {"pktendian", required_argument, NULL, 'J'},
+                                   {"pktlen", required_argument, NULL, 'L'},
+                                   {"port", required_argument, NULL, 'P'},
+                                   {"protocol", required_argument, NULL, 'Q'},
+                                   {"pktcksum", required_argument, NULL, 'R'},
+                                   {"pktsec", required_argument, NULL, 'S'},
+                                   {"pkttype", required_argument, NULL, 'T'},
+                                   {"pktsubsys", required_argument, NULL, 'U'},
+                                   {"pktver", required_argument, NULL, 'V'},
+                                   {"pktsys", required_argument, NULL, 'Y'},
+                                   {"byte", required_argument, NULL, 'b'},
+                                   {"int8", required_argument, NULL, 'b'},
+                                   {"double", required_argument, NULL, 'd'},
+                                   {"float", required_argument, NULL, 'f'},
+                                   {"half", required_argument, NULL, 'h'},
+                                   {"int16", required_argument, NULL, 'h'},
+                                   {"int16b", required_argument, NULL, 'i'},
+                                   {"int32b", required_argument, NULL, 'j'},
+                                   {"int64b", required_argument, NULL, 'k'},
+                                   {"long", required_argument, NULL, 'l'},
+                                   {"word", required_argument, NULL, 'l'},
+                                   {"int32", required_argument, NULL, 'l'},
+                                   {"uint8", required_argument, NULL, 'm'},
+                                   {"uint16", required_argument, NULL, 'n'},
+                                   {"uint32", required_argument, NULL, 'o'},
+                                   {"uint64", required_argument, NULL, 'p'},
+                                   {"int64", required_argument, NULL, 'q'},
+                                   {"string", required_argument, NULL, 's'},
+                                   {"verbose", no_argument, NULL, 'v'},
+                                   {"uint16b", required_argument, NULL, 'w'},
+                                   {"uint32b", required_argument, NULL, 'x'},
+                                   {"uint64b", required_argument, NULL, 'y'},
+                                   {"help", no_argument, NULL, '?'},
+                                   {0, 0, 0, 0}};
 
-/*
-** getopts_long long form argument table
-*/
-static struct option longOpts[] = {
-    { "host",      required_argument, NULL, 'H' },
-    { "port",      required_argument, NULL, 'P' },
-    { "pktid",     required_argument, NULL, 'I' },
-    { "cmdcode",   required_argument, NULL, 'C' },
-    { "endian",    required_argument, NULL, 'E' },
-    { "byte",      required_argument, NULL, 'b' },
-    { "half",      required_argument, NULL, 'h' },
-    { "long",      required_argument, NULL, 'l' },
-    { "double",    required_argument, NULL, 'd' },
-    { "string",    required_argument, NULL, 's' },
-    { "word",      required_argument, NULL, 'l' },
-    { "help",      no_argument,       NULL, '?' },
-    { "verbose",   no_argument,       NULL, 'v' },
-    { NULL,        no_argument,       NULL, 0   }
-};
-
-
-/*
-** IsLittleEndian -- This function returns 1 if the system uses little Endian
-**                   byte-order, otherwise 0 for big Endian.
-*/
-int IsLittleEndian(void) {
-    union {
-        long l;
-        unsigned char uc[sizeof(long)];
-    } u;
-
-    u.l = 1;
-    return u.uc[0];
-}
-
-/*
-* This function swaps bytes to the opposite byte-order format.
-* It's limited to only swapping 16, 32, and 64-bit variable types.
-*/
-void byteSwap(char *byte, int num) {
-    char temp;
-
-    switch (num) {
-        case 2:
-            temp = byte[1];
-            byte[1] = byte[0];
-            byte[0] = temp;
-            break;
-        case 4:
-            temp = byte[3];
-            byte[3] = byte[0];
-            byte[0] = temp;
-            temp = byte[2];
-            byte[2] = byte[1];
-            byte[1] = temp;
-            break;
-        case 8:
-            temp = byte[7];
-            byte[7] = byte[0];
-            byte[0] = temp;
-            temp = byte[6];
-            byte[6] = byte[1];
-            byte[1] = temp;
-            temp = byte[5];
-            byte[5] = byte[2];
-            byte[2] = temp;
-            temp = byte[4];
-            byte[4] = byte[3];
-            byte[3] = temp;
-            break;
-        default:
-            break;
-    }
-}
-
-
-/*
-** Display program usage, and exit.
-*/
-void DisplayUsage(char *Name )
+/*******************************************************************************
+ * Display program usage, and exit.
+ */
+void DisplayUsage(char *Name)
 {
-    printf("%s -- A CCSDS Command Client.\n",Name);
-    printf("      The parameters are:\n");
-    printf("      --host : The hostname or IP address to send the command to ( default = localhost )\n");
-    printf("      --port : The UDP port to send the command to ( default = 1234 )\n");
-    printf("      --pktid : The Packet ID for the command being sent\n");
-    printf("      --cmdcode : The command code for the command being sent\n");
-    printf("      --endian : Target's byte-order ( BE or LE )\n");
-    printf("      --half : Add a 16 bit parameter to the packet ( hex or dec )\n");
-    printf("      --long : Add a 32 bit parameter to the packet ( hex or dec )\n");
-    printf("      --double : Add a 64 bit parameter to the packet ( hex or dec )\n");
-    printf("      --string : Add a fixed length string to the packet\n");
-    printf("          The string parameter has the form \"NNN:StringData\"\n");
-    printf("          Where NNN is the length of the parameter in the\n");
-    printf("          command, and StringData is the string. So you could put\n");
-    printf("          --string=\"32:ES_APP\" and it will build the string\n");
-    printf("          parameter and pad the rest of the 32 bytes with 0's.\n");
-    printf("      --byte : Add an 8 bit parameter to the packet ( hex or dec )\n");
-    printf("          This one is not implemented yet, because I will have to\n");
-    printf("          pad the other 8 bits..\n");
+    char endian[] = ENDIAN_LITTLE;
+
+    if (DEFAULT_BIGENDIAN)
+        strcpy(endian, ENDIAN_BIG);
+
+    printf("%s -- Command Client.\n", Name);
+    printf("  - General options:\n");
+    printf("    -v, --verbose: Extra output\n");
+    printf("    -?, --help: print options and exit\n");
+    printf("  - Destination options:\n");
+    printf("    -H, --host: Destination hostname or IP address (Default = %s)\n", DEFAULT_HOSTNAME);
+    printf("    -P, --port: Destination port (default = %s)\n", DEFAULT_PORT);
+    printf("  - Packet format options:\n");
+    printf("    -E, --endian: Default endian for unnamed fields/payload: [%s|%s] (default = %s)\n", ENDIAN_BIG,
+           ENDIAN_LITTLE, endian);
+    printf("    -Q, --protocol: Sets allowed named fields and header layout (default = %s)\n", DEFAULT_PROTOCOL);
+    printf("        %8s = no predefined fields/layout\n", PROTOCOL_RAW);
+    printf("        %8s = CCSDS Pri header only\n", PROTOCOL_CCSDS_PRI);
+    printf("        %8s = CCSDS Pri and Ext headers\n", PROTOCOL_CCSDS_EXT);
+    printf("        %8s = CCSDS Pri and cFS Cmd Sec headers\n", PROTOCOL_CFS_V1);
+    printf("        %8s = CCSDS Pri, Ext, and cFS Cmd Sec headers\n", PROTOCOL_CFS_V2);
+    printf("  - CCSDS Primary Header named fields (protocol=[%s|%s|%s|%s])\n", PROTOCOL_CCSDS_PRI, PROTOCOL_CCSDS_EXT,
+           PROTOCOL_CFS_V1, PROTOCOL_CFS_V2);
+    printf("    -I, --pktid: macro for setting first 16 bits of CCSDS Primary header\n");
+    printf("    -V, --pktver: Packet version number (range=0-0x7)\n");
+    printf("    -T, --pkttype: !OVERRIDE! Packet type (default is cmd, 0=tlm, 1=cmd)\n");
+    printf("    -S, --pktsec: !OVERRIDE! Secondary header flag (default set from protocol, 0=absent, 1=present)\n");
+    printf("    -A, --pktapid: Application Process Identifier (range=0-0x7FF)\n");
+    printf("    -F, --pktseqflg: !OVERRIDE! Seqence Flags (default unsegmented, 0=continuation, 1=first, 2=last, "
+           "3=unsegmented)\n");
+    printf("    -G, --pktseqcnt, --pktname: Packet sequence count or Packet name (range=0-0x3FFF)\n");
+    printf("    -L, --pktlen: !OVERRIDE! Packet data length (default will calculate value, range=0-0xFFFF)\n");
+    printf("  - CCSDS Extended Header named fields (protocol=[%s|%s])\n", PROTOCOL_CCSDS_EXT, PROTOCOL_CFS_V2);
+    printf("    -D, --pktedsver: EDS version (range=0-0x1F)\n");
+    printf("    -J, --pktendian: !OVERRIDE! Endian (default uses endian, 0=big, 1=little(INTEL))\n");
+    printf("    -B, --pktpb: Playback field (0=original, 1=playback)\n");
+    printf("    -U, --pktsubsys: APID Qualifier Subsystem (range=0-0x1FF)\n");
+    printf("    -Y, --pktsys: APID Qualifier System (range=0-0xFFFF)\n");
+    printf("  - cFS Command Secondary Header named fields (protocol=[%s|%s])\n", PROTOCOL_CFS_V1, PROTOCOL_CFS_V2);
+    printf("    -C, --pktfc, --cmdcode: Command function code (range=0-0x7F)\n");
+    printf("    -R, --pktcksum: !OVERRIDE! Packet checksum (default will calculate value, range=0-0xFF)\n");
+    printf("  - Raw values converted to selected endian where applicable\n");
+    printf("    -b, --int8, --byte: Signed 8 bit int (range=-127-127)\n");
+    printf("    -m, --uint8: Unsigned 8 bit int (range=0-0xFF)\n");
+    printf("    -h, --int16, --half: Signed 16 bit int (range=-32767-32767)\n");
+    printf("    -n, --uint16: Unsigned 16 bit int (range=0-0xFFFF)\n");
+    printf("    -l, --int32, --long, --word: Signed 32 bit int (range=-2147483647-2147483647)\n");
+    printf("    -o, --uint32: Unsigned 32 bit int (range=0-0xFFFFFFFF)\n");
+    printf("    -q, --int64: Signed 64 bit int (range=-9223372036854775807-9223372036854775807)\n");
+    printf("    -p, --uint64: Unsigned 64 bit int (range=0-0xFFFFFFFFFFFFFFFF)\n");
+    printf("    -d, --double: Double format (caution - host format w/ converted endian, may not match target)\n");
+    printf("    -f, --float: Float format (caution - host format w/ converted endian, may not match target)\n");
+    printf("    -s, --string: Fixed length string, NNN:String where NNN is fixed length (0 padded)\n");
+    printf("  - Raw values always big endian (even if endian=%s)\n", ENDIAN_LITTLE);
+    printf("    -i, --int16b: Big endian signed 16 bit int (range=-32767-32767)\n");
+    printf("    -j, --int32b: Big endian signed 32 bit int (range=-2147483647-2147483647)\n");
+    printf("    -k, --int64b: Big endian signed 64 bit int (range=-9223372036854775807-9223372036854775807)\n");
+    printf("    -w, --uint16b: Big endian unsigned 16 bit int (range=0-0xFFFF)\n");
+    printf("    -x, --uint32b: Big endian unsigned 32 bit int (range=0-0xFFFFFFFF)\n");
+    printf("    -y, --uint64b: Big endian unsigned 64 bit int (range=0-0xFFFFFFFFFFFFFFFF)\n");
     printf(" \n");
-    printf("       An example of using this is:\n");
+    printf("Examples:\n");
+    printf("  ./cmdUtil --host=localhost --port=1234 --pktid=0x1803 --pktfc=3 --int16=100 --string=16:ES_APP\n");
+    printf("  ./cmdUtil -ELE -C2 -A6 -n2 # Processor reset on little endian, using defaults\n");
+    printf("  ./cmdUtil --endian=LE --protocol=raw --uint64b=0x1806C000000302DD --uint16=2\n");
+    printf("  ./cmdUtil --pktver=1 --pkttype=0 --pktsec=0 --pktseqflg=2 --pktlen=0xABC --pktcksum=0\n");
+    printf("  ./cmdUtil -Qcfsv2 --pktedsver=0xA --pktendian=1 --pktpb=1 --pktsubsys=0x123 --pktsys=0x4321 --pktfc=0xB\n");
     printf(" \n");
-    printf("  ./cmdUtil --host=localhost --port=1234 --pktid=0x1803 --cmdcode=3 --half=100 --string=\"16:ES_APP\"\n");
-    printf(" \n");
-
-    exit( EXIT_FAILURE );
+    exit(EXIT_SUCCESS);
 }
 
+/*******************************************************************************
+ * Set the header booleans based on protocol selection
+ */
+void SetProtocol(CommandData_t *cmd, const char *protocol)
+{
 
-/*
-** Process a string argument -- This function will add a padded string argument to the command data
-**                              The string has to be of the form "NNN:String" Where NNN is a number
-**                              specifying the total length of the command parameter ( because the
-**                              command is not variable length ).
-*/
-void ProcessStringArgument(char *optarg, CommandData_t *CommandData) {
-    char   stringLenString[10];
-    int    stringIndex = 0;
-    long   stringLength;
-
-    while (optarg[stringIndex] != ':') {
-        if (optarg[stringIndex] >= '0' && optarg[stringIndex] <= '9') {
-            stringLenString[stringIndex] = optarg[stringIndex];
-        } else {
-            fprintf(stderr,"String Argument: '%s' rejected. Must be in the form: '000:String' where 000 is the length of the padded string\n",optarg);
-            return;
-        }
-        stringIndex++;
-        if (stringIndex > 3) {
-            fprintf(stderr,"String Argument: '%s' rejected. The string length must be no more than 3 digits\n",optarg);
-            return;
-        }
-    } /* end while */
-
-    stringLenString[stringIndex] = '\0';
-    stringLength = strtol(stringLenString, NULL, 10);
-    if (CommandData->Verbose) {
-        printf("String Length is %ld.\n", stringLength);
-    }
-
-    if (stringLength > 128) {
-        fprintf(stderr,"String Argument: '%s' rejected. The string length cannot be more than 128\n", optarg);
-        return;
-    }
-
-    stringIndex++; /* go past the ':' character */
-    strncpy(&CommandData->PacketData[CommandData->DataLen], (char*)&(optarg[stringIndex]), 128);
-
-    CommandData->NumDataFields++;
-    CommandData->DataLen += stringLength;
-} /* End ProcessStringArgument */
-
-
-/*
-** Process a quad word (64-bit) argument
-*/
-void ProcessDoubleArgument(char *optarg, CommandData_t *CommandData) {
-    double tempDouble;
-
-    tempDouble = strtod(optarg, NULL);
-
-    if (hostByteOrder != CommandData->Endian) {
-        byteSwap((char*)&tempDouble, sizeof(tempDouble));
-    }
-
-    /* Pack the data as comes, which may not be aligned. */
-    memcpy(&CommandData->PacketData[CommandData->DataLen], &tempDouble, sizeof(tempDouble));
-
-    CommandData->NumDataFields++;
-    CommandData->DataLen += 8;
-}
-
-
-/*
-** Process a long word (32-bit) argument
-*/
-void ProcessLongArgument(char *optarg, CommandData_t *CommandData) {
-    long tempLong;
-
-    tempLong = strtol(optarg, NULL, 0);
-
-    if (hostByteOrder != CommandData->Endian) {
-        byteSwap((char*)&tempLong, sizeof(tempLong));
-    }
-
-    /* Pack the data as comes, which may not be aligned. */
-    memcpy(&CommandData->PacketData[CommandData->DataLen], &tempLong, sizeof(tempLong));
-
-    CommandData->NumDataFields++;
-    CommandData->DataLen += 4;
-}
-
-/*
-** Process a half word (16-bit) argument
-*/
-void ProcessHalfArgument(char *optarg, CommandData_t *CommandData) {
-    long  tempLong;
-    short tempShort;
-
-    tempLong = strtol(optarg, NULL, 0);
-    if (tempLong > 0xFFFF) {
-        fprintf(stderr, "Half-Word Argument: '%s' rejected. Number is too large.\n", optarg);
-        return;
-    }
-
-    tempShort = (short)tempLong;
-    if (hostByteOrder != CommandData->Endian) {
-        byteSwap((char*)&tempShort, sizeof(tempShort));
-    }
-
-    /* Pack the data as comes, which may not be aligned. */
-    memcpy(&CommandData->PacketData[CommandData->DataLen], &tempShort, sizeof(tempShort));
-
-    CommandData->NumDataFields++;
-    CommandData->DataLen += 2;
-}
-
-/*
-** Process a Byte (8-bit) argument
-*/
-void ProcessByteArgument(char *optarg, CommandData_t *CommandData) {
-    long tempLong;
-    char tempByte;
-
-    tempLong = strtol(optarg, NULL, 0);
-    if (tempLong > 0xFF) {
-        fprintf(stderr, "Byte Argument: '%s' rejected. Number is too large.\n", optarg);
-        return;
-    }
-
-    tempByte = (char)tempLong;
-    CommandData->PacketData[CommandData->DataLen] = tempByte;
-
-    CommandData->NumDataFields++;
-    CommandData->DataLen += 1;
-}
-
-/*
-** ProcessArgumentDefaults -- This function assigns defaults to parameters and checks to make sure
-**                             the user entered required parameters
-*/
-void ProcessArgumentDefaults(CommandData_t *CommandData) {
-    if (CommandData->GotHostName == 0) {
-        strncpy(CommandData->HostName, DEFAULT_HOSTNAME, HOSTNAME_SIZE);
-        if (CommandData->Verbose){
-            printf("No Hostname Given, defaulting to %s\n", DEFAULT_HOSTNAME);
-        }
-        CommandData->GotHostName = 1;
-    }
-
-    if (CommandData->GotPortNum == 0) {
-        strncpy(CommandData->PortNum, DEFAULT_PORTNUM, PORTNUM_SIZE);
-        if (CommandData->Verbose) {
-            printf("No Port Number Given, defaulting to %s\n",DEFAULT_PORTNUM);
-        }
-        CommandData->GotPortNum = 1;
-    }
-
-    if (CommandData->GotEndian == 0) {
-        if (CommandData->Verbose) {
-            printf("No Endian option given, defaulting to %s\n", DEFAULT_ENDIAN);
-            CommandData->GotEndian = 1;
-        }
-    }
-
-    /*
-    ** Make sure we got a minimum set of options passed in
-    */
-    if (CommandData->GotPktId == 0) {
-        fprintf(stderr,"Error: Need to specify a Packet ID using the --pktid or -I option.\n");
-        exit(EXIT_FAILURE);
-    }
-
-    if (CommandData->GotCmdCode == 0) {
-        fprintf(stderr,"Error: Need to specify a Command Code using the --cmdcode or -C option.\n");
-        exit(EXIT_FAILURE);
-    }
-
-}
-
-
-/*
-** main function
-*/
-int main(int argc, char *argv[]) {
-    int   opt = 0;
-    int   longIndex = 0;
-    int   retStat;
-    unsigned short tempShort;
-
-    /*
-    ** Initialize the CommandData struct
-    */
-    memset(&(CommandData), 0, sizeof(CommandData_t));
-
-    hostByteOrder = IsLittleEndian();
-
-    /*
-    ** Process the arguments with getopt_long(), then
-    ** Build the packet.
-    */
-    opt = getopt_long( argc, argv, optString, longOpts, &longIndex );
-    while( opt != -1 )
+    if (protocol == NULL || cmd == NULL)
     {
-        switch( opt )
+        fprintf(stderr, "ERROR: %s:%u - null input, exiting\n", __func__, __LINE__);
+        exit(EXIT_FAILURE);
+    }
+
+    /* Clear any default setting */
+    cmd->IncludeCCSDSPri = false;
+    cmd->IncludeCCSDSExt = false;
+    cmd->IncludeCFSSec   = false;
+
+    if (strcmp(protocol, PROTOCOL_CCSDS_PRI) == 0)
+    {
+        cmd->IncludeCCSDSPri = true;
+    }
+    else if (strcmp(protocol, PROTOCOL_CCSDS_EXT) == 0)
+    {
+        cmd->IncludeCCSDSPri = true;
+        cmd->IncludeCCSDSExt = true;
+    }
+    else if (strcmp(protocol, PROTOCOL_CFS_V1) == 0)
+    {
+        cmd->IncludeCCSDSPri = true;
+        cmd->IncludeCFSSec   = true;
+    }
+    else if (strcmp(protocol, PROTOCOL_CFS_V2) == 0)
+    {
+        cmd->IncludeCCSDSPri = true;
+        cmd->IncludeCCSDSExt = true;
+        cmd->IncludeCFSSec   = true;
+    }
+    else if (strcmp(protocol, PROTOCOL_RAW) != 0)
+    {
+        fprintf(stderr, "ERROR: %s:%u - Invalid protocol: %s\n", __func__, __LINE__, protocol);
+        exit(EXIT_FAILURE);
+    }
+
+    if (cmd->Verbose)
+        printf("%s:%u - Protocol selected: %s\n", __func__, __LINE__, protocol);
+}
+
+/*******************************************************************************
+ * Process string protocol field
+ *  - updates orig masked bits with big endian in masked/shifted
+ *  - in = input string(unshifted)
+ *  - mask = value mask, also used to calculate shift
+ *  - fieldexists = process helper, returns if false
+ */
+void ProcessField(uint16_t *orig, const char *in, const uint16_t mask, bool fieldexists)
+{
+    long int     templong;
+    unsigned int shift = 0;
+    char *       tail  = NULL;
+
+    /* Check for null pointer */
+    if (in == NULL)
+    {
+        fprintf(stderr, "ERROR: %s:%u - Null string input\n", __func__, __LINE__);
+        exit(EXIT_FAILURE);
+    }
+
+    /* Check for bad mask */
+    if (mask == 0)
+    {
+        fprintf(stderr, "ERROR: %s:%u - Zero mask returns 0\n", __func__, __LINE__);
+        exit(EXIT_FAILURE);
+    }
+
+    /* Check if protocol includes field */
+    if (!fieldexists)
+    {
+        fprintf(stderr, "ERROR: %s:%u - Field does not exist for selected protocol: %s\n", __func__, __LINE__, in);
+        exit(EXIT_FAILURE);
+    }
+
+    /* Find shift from mask (already checked for non-zero) */
+    while (((mask >> shift) & 0x1) == 0)
+    {
+        shift++;
+    }
+
+    errno    = 0;
+    templong = strtoul(in, &tail, 0);
+    if (errno != 0)
+    {
+        fprintf(stderr, "ERROR: %s:%u - String conversion (%s): %s\n", __func__, __LINE__, in, strerror(errno));
+        exit(EXIT_FAILURE);
+    }
+
+    if (strlen(tail))
+    {
+        fprintf(stderr, "ERROR: %s:%u - Trailing characters (%s) in parameter %s\n", __func__, __LINE__, tail, in);
+        exit(EXIT_FAILURE);
+    }
+
+    templong <<= shift;
+    if ((templong & ~mask) != 0)
+    {
+        fprintf(stderr, "ERROR: %s:%u - Parameter 0x%lX (%s<<%u) exceeds mask 0x%X\n", __func__, __LINE__, templong, in,
+                shift, mask);
+        exit(EXIT_FAILURE);
+    }
+
+    *orig = htobe16((be16toh(*orig) & ~mask) | (templong & mask));
+
+    return;
+}
+
+/******************************************************************************
+ * Copy data into packet buffer
+ */
+void CopyData(unsigned char *pkt, unsigned int *startbyte, char *in, unsigned int nbytes)
+{
+
+    /* Ensure space */
+    if ((*startbyte + nbytes) > MAX_PACKET_SIZE)
+    {
+        fprintf(stderr, "ERROR %s:%u - Exceeded packet size, startbyte = %u, nbytes = %u, max = %u\n", __func__,
+                __LINE__, *startbyte, nbytes, MAX_PACKET_SIZE);
+        exit(EXIT_FAILURE);
+    }
+
+    /* Copy data into packet buffer and move start byte */
+    memcpy(&pkt[*startbyte], in, nbytes);
+    *startbyte += nbytes;
+
+    return;
+}
+
+/******************************************************************************
+ * Calculate cFS Secondary Header Checksum
+ * Note - this matches cFS checksum calc in framework
+ */
+unsigned char CalcChecksum(unsigned char *bbuf, unsigned int nbytes)
+{
+    unsigned char checksum = 0xFF;
+
+    for (unsigned int i = 0; i < nbytes; i++)
+        checksum ^= bbuf[i];
+
+    return checksum;
+}
+
+/******************************************************************************
+ * Constructs packets given inputs and sends over UDP
+ */
+int main(int argc, char *argv[])
+{
+    int                    opt       = 0;
+    int                    longIndex = 0;
+    unsigned int           startbyte = 0;
+    unsigned int           pktnbytes = 0;
+    unsigned int           i;
+    char                   sbuf[MAX_PACKET_SIZE];
+    char *                 tail = NULL;
+    long long int          templl;
+    long long unsigned int tempull;
+    int8_t                 tempint8;
+    uint8_t                tempuint8;
+    int16_t                tempint16;
+    uint16_t               tempuint16;
+    int32_t                tempint32;
+    uint32_t               tempuint32;
+    int64_t                tempint64;
+    uint64_t               tempuint64;
+    double                 tempd;
+    float                  tempf;
+    bool                   forcebigendian;
+    CommandData_t          cmd;
+    int                    status;
+
+    /*
+     * Initialize the cmd struct
+     */
+    memset(&(cmd), 0, sizeof(cmd));
+
+    /* Set defaults */
+    strncpy(cmd.HostName, DEFAULT_HOSTNAME, MAX_HOSTNAME_SIZE - 1);
+    strncpy(cmd.PortNum, DEFAULT_PORT, MAX_PORT_SIZE - 1);
+    cmd.BigEndian = DEFAULT_BIGENDIAN;
+    cmd.Verbose   = DEFAULT_VERBOSE;
+    SetProtocol(&cmd, DEFAULT_PROTOCOL);
+
+    /* Process general options first, protocol is critical for checking */
+    while ((opt = getopt_long(argc, argv, optString, longOpts, &longIndex)) != -1)
+    {
+        switch (opt)
         {
-        case 'H':
-            printf("Host: %s\n",(char *)optarg);
-            strncpy(CommandData.HostName, optarg, HOSTNAME_SIZE-1);
-            CommandData.HostName[HOSTNAME_SIZE-1] = 0;
-            CommandData.GotHostName = 1;
-            break;
-
-        case 'P':
-            printf("Port: %s\n",(char *)optarg);
-            strncpy(CommandData.PortNum, optarg, PORTNUM_SIZE-1);
-            CommandData.PortNum[PORTNUM_SIZE-1] = 0;
-            CommandData.GotPortNum = 1;
-            break;
-
-        case 'I':
-            printf("Pkt ID: %s\n", (char*)optarg);
-            tempShort = (short)strtol(optarg, 0, 0);
-
-            /* 
-            ** The packet ID is supposed to be in Big Endian order 
-            ** If this is running on a little endian host, swap it 
-            */
-            if (hostByteOrder == LITTLE_ENDIAN )
-            {
-                byteSwap((char*)&tempShort, sizeof(tempShort));
-            }
-            memcpy(&CommandData.PacketHdr[0], &tempShort, sizeof(tempShort));
-            CommandData.GotPktId = 1;
-            break;
-
-        case 'v':
-            printf("Verbose messages on.\n");
-            CommandData.Verbose = 1;
-            break;
-
-        case 'C':
-            tempShort = strtol(optarg, NULL, 0);
-            if (tempShort > 0x7F) {
-                fprintf(stderr,"Command Code Argument: '%s' rejected. Number is too large.\n",optarg);
+            case 'H': /* host */
+                strncpy(cmd.HostName, optarg, MAX_HOSTNAME_SIZE - 1);
+                if (strcmp(cmd.HostName, optarg) != 0)
+                {
+                    fprintf(stderr, "ERROR: %s:%u - Trucating host name: %s -> %s\n", __func__, __LINE__, optarg,
+                            cmd.HostName);
+                    exit(EXIT_FAILURE);
+                }
                 break;
-            }
 
-            CommandData.PacketHdr[6] = tempShort;
-            CommandData.GotCmdCode = 1;
-            break;
+            case 'P': /* port */
+                strncpy(cmd.PortNum, optarg, MAX_PORT_SIZE - 1);
+                if (strcmp(cmd.PortNum, optarg) != 0)
+                {
+                    fprintf(stderr, "ERROR: %s:%u - Trucating port number: %s -> %s\n", __func__, __LINE__, optarg,
+                            cmd.HostName);
+                    exit(EXIT_FAILURE);
+                }
+                break;
 
-        case 'E':
-            if (strncmp(optarg, DEFAULT_ENDIAN, ENDIAN_SIZE) != 0) {
-                CommandData.Endian = LITTLE_ENDIAN;
-            }
-            CommandData.GotEndian = 1;
-            break;
+            case 'v': /* verbose */
+                cmd.Verbose = true;
+                break;
 
-        case 'b':
-            ProcessByteArgument(optarg, &CommandData);
-            break;
+            case 'E': /* endian */
+                if (strcmp(optarg, ENDIAN_LITTLE) == 0)
+                {
+                    cmd.BigEndian = false;
+                }
+                else if (strcmp(optarg, ENDIAN_BIG) == 0)
+                {
+                    cmd.BigEndian = true;
+                }
+                else
+                {
+                    fprintf(stderr, "ERROR: %s:%u - Unrecognized endian selection: %s\n", __func__, __LINE__, optarg);
+                    exit(EXIT_FAILURE);
+                }
+                break;
 
-        case 'h':
-            ProcessHalfArgument(optarg, &CommandData);
-            break;
+            case 'Q': /* protocol */
+                SetProtocol(&cmd, optarg);
+                break;
 
-        case 'l':
-            ProcessLongArgument(optarg, &CommandData);
-            break;
+            case '?': /* help */
+                DisplayUsage(argv[0]);
+                break;
 
-        case 'd':
-            ProcessDoubleArgument(optarg, &CommandData);
-            break;
+            default:
+                break;
+        }
+    }
 
-        case 's':
-            ProcessStringArgument(optarg, &CommandData);
-            break;
+    /* Reset op list for protocol field processing */
+    optind = 1;
 
-        case '?':
-            DisplayUsage(argv[0]);
-            break;
+    /* Process protocol field options */
+    while ((opt = getopt_long(argc, argv, optString, longOpts, &longIndex)) != -1)
+    {
+        switch (opt)
+        {
+            /* CCSDS Primary fields */
+            case 'I': /* pktid */
+                ProcessField(&cmd.CCSDS_Pri[0], optarg, 0xFFFF, cmd.IncludeCCSDSPri);
+                break;
 
-        default:
-            break;
+            case 'V': /* pktver */
+                ProcessField(&cmd.CCSDS_Pri[0], optarg, 0xE000, cmd.IncludeCCSDSPri);
+                break;
+
+            case 'T': /* pkttype */
+                ProcessField(&cmd.CCSDS_Pri[0], optarg, 0x1000, cmd.IncludeCCSDSPri);
+                cmd.OverridePktType = true;
+                break;
+
+            case 'S': /* pktsec */
+                ProcessField(&cmd.CCSDS_Pri[0], optarg, 0x0800, cmd.IncludeCCSDSPri);
+                cmd.OverridePktSec = true;
+                break;
+
+            case 'A': /* pktapid */
+                ProcessField(&cmd.CCSDS_Pri[0], optarg, 0x07FF, cmd.IncludeCCSDSPri);
+                break;
+
+            case 'F': /* pktseqflg */
+                ProcessField(&cmd.CCSDS_Pri[1], optarg, 0xC000, cmd.IncludeCCSDSPri);
+                cmd.OverridePktSeqFlg = true;
+                break;
+
+            case 'G': /* pktseqcnt */
+                ProcessField(&cmd.CCSDS_Pri[1], optarg, 0x3FFF, cmd.IncludeCCSDSPri);
+                break;
+
+            case 'L': /* pktlen */
+                ProcessField(&cmd.CCSDS_Pri[2], optarg, 0xFFFF, cmd.IncludeCCSDSPri);
+                cmd.OverridePktLen = true;
+                break;
+
+            /* CCSDS Extended fields */
+            case 'D': /* pktedsver */
+                ProcessField(&cmd.CCSDS_Ext[0], optarg, 0xF800, cmd.IncludeCCSDSExt);
+                break;
+
+            case 'J': /* pktendian */
+                ProcessField(&cmd.CCSDS_Ext[0], optarg, 0x0400, cmd.IncludeCCSDSExt);
+                cmd.OverridePktEndian = true;
+                break;
+
+            case 'B': /* pktpb */
+                ProcessField(&cmd.CCSDS_Ext[0], optarg, 0x0200, cmd.IncludeCCSDSExt);
+                break;
+
+            case 'U': /* pktsubsys */
+                ProcessField(&cmd.CCSDS_Ext[0], optarg, 0x01FF, cmd.IncludeCCSDSExt);
+                break;
+
+            case 'Y': /* pktsys */
+                ProcessField(&cmd.CCSDS_Ext[1], optarg, 0xFFFF, cmd.IncludeCCSDSExt);
+                break;
+
+            /* CFS Secondary fields */
+            case 'C': /* pktfc */
+                ProcessField(&cmd.CFS_CmdSecHdr, optarg, 0x7F00, cmd.IncludeCFSSec);
+                break;
+
+            case 'R': /* pktcksum */
+                ProcessField(&cmd.CFS_CmdSecHdr, optarg, 0x00FF, cmd.IncludeCFSSec);
+                cmd.OverridePktCksum = true;
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    /* Print arguments (useful when debugging internal call) */
+    if (cmd.Verbose)
+    {
+        printf("Call echo:\n");
+        for (i = 0; i < argc; i++)
+        {
+            printf(" %s", argv[i]);
+        }
+        printf("\n");
+    }
+
+    /* Calculate data start byte, these get copied over later */
+    if (cmd.IncludeCCSDSPri)
+        startbyte += sizeof(cmd.CCSDS_Pri);
+    if (cmd.IncludeCCSDSExt)
+        startbyte += sizeof(cmd.CCSDS_Ext);
+    if (cmd.IncludeCFSSec)
+        startbyte += sizeof(cmd.CFS_CmdSecHdr);
+
+    if (cmd.Verbose)
+    {
+        printf("Payload start byte = %u\n", startbyte);
+    }
+
+    /* Reset op list for payload processing */
+    optind = 1;
+
+    /* Process payload options */
+    while ((opt = getopt_long(argc, argv, optString, longOpts, &longIndex)) != -1)
+    {
+        errno          = 0;
+        forcebigendian = false;
+        switch (opt)
+        {
+            /* Payload parameters in configured endian */
+            case 'b': /* int8 */
+                templl   = strtoll(optarg, &tail, 0);
+                tempint8 = templl;
+                if (tempint8 != templl)
+                {
+                    fprintf(stderr, "ERROR %s:%u - Parameter not int8 %lld -> %d\n", __func__, __LINE__, templl,
+                            tempint8);
+                    exit(EXIT_FAILURE);
+                }
+                CopyData(cmd.Packet, &startbyte, (char *)&tempint8, sizeof(tempint8));
+                break;
+
+            case 'm': /* uint8 */
+                tempull   = strtoull(optarg, &tail, 0);
+                tempuint8 = tempull;
+                if (tempuint8 != tempull)
+                {
+                    fprintf(stderr, "ERROR %s:%u - Parameter not uint8 %llu -> %u\n", __func__, __LINE__, tempull,
+                            tempuint8);
+                    exit(EXIT_FAILURE);
+                }
+                CopyData(cmd.Packet, &startbyte, (char *)&tempuint8, sizeof(tempuint8));
+                break;
+
+            case 'i': /* int16b */
+                forcebigendian = true;
+
+            case 'h': /* int16 */
+                templl    = strtoll(optarg, &tail, 0);
+                tempint16 = templl;
+                if (tempint16 != templl)
+                {
+                    fprintf(stderr, "ERROR %s:%u - Parameter not int16 %lld -> %d\n", __func__, __LINE__, templl,
+                            tempint16);
+                    exit(EXIT_FAILURE);
+                }
+
+                /* Endian conversion */
+                if (cmd.BigEndian || forcebigendian)
+                    tempint16 = htobe16(tempint16);
+                else
+                    tempint16 = htole16(tempint16);
+
+                CopyData(cmd.Packet, &startbyte, (char *)&tempint16, sizeof(tempint16));
+                break;
+
+            case 'w': /* uint16b */
+                forcebigendian = true;
+
+            case 'n': /* uint16 */
+                tempull    = strtoull(optarg, &tail, 0);
+                tempuint16 = tempull;
+                if (tempuint16 != tempull)
+                {
+                    fprintf(stderr, "ERROR %s:%u - Parameter not uint16 %llu -> %u\n", __func__, __LINE__, tempull,
+                            tempuint16);
+                    exit(EXIT_FAILURE);
+                }
+
+                /* Endian conversion */
+                if (cmd.BigEndian || forcebigendian)
+                    tempuint16 = htobe16(tempuint16);
+                else
+                    tempuint16 = htole16(tempuint16);
+
+                CopyData(cmd.Packet, &startbyte, (char *)&tempuint16, sizeof(tempuint16));
+                break;
+
+            case 'j': /* int32b */
+                forcebigendian = true;
+
+            case 'l': /* int32 */
+                templl    = strtoll(optarg, &tail, 0);
+                tempint32 = templl;
+                if (tempint32 != templl)
+                {
+                    fprintf(stderr, "ERROR %s:%u - Parameter not int32 %lld -> %d\n", __func__, __LINE__, templl,
+                            tempint32);
+                    exit(EXIT_FAILURE);
+                }
+
+                /* Endian conversion */
+                if (cmd.BigEndian || forcebigendian)
+                    tempint32 = htobe32(tempint32);
+                else
+                    tempint32 = htole32(tempint32);
+
+                CopyData(cmd.Packet, &startbyte, (char *)&tempint32, sizeof(tempint32));
+                break;
+
+            case 'x': /* uint32b */
+                forcebigendian = true;
+
+            case 'o': /* uint32 */
+                tempull    = strtoull(optarg, &tail, 0);
+                tempuint32 = tempull;
+                if (tempuint32 != tempull)
+                {
+                    fprintf(stderr, "ERROR %s:%u - Parameter not uint32 %llu -> %u\n", __func__, __LINE__, tempull,
+                            tempuint32);
+                    exit(EXIT_FAILURE);
+                }
+
+                /* Endian conversion */
+                if (cmd.BigEndian || forcebigendian)
+                    tempuint32 = htobe32(tempuint32);
+                else
+                    tempuint32 = htole32(tempuint32);
+
+                CopyData(cmd.Packet, &startbyte, (char *)&tempuint32, sizeof(tempuint32));
+                break;
+
+            case 'k': /* int64b */
+                forcebigendian = true;
+
+            case 'q': /* int64 */
+                templl    = strtoll(optarg, &tail, 0);
+                tempint64 = templl;
+                if (tempint64 != templl)
+                {
+                    fprintf(stderr, "ERROR %s:%u - Parameter not int64 %lld -> %lld\n", __func__, __LINE__, templl,
+                            (long long int)tempint64);
+                    exit(EXIT_FAILURE);
+                }
+
+                /* Endian conversion */
+                if (cmd.BigEndian || forcebigendian)
+                    tempint64 = htobe64(tempint64);
+                else
+                    tempint64 = htole64(tempint64);
+
+                CopyData(cmd.Packet, &startbyte, (char *)&tempint64, sizeof(tempint64));
+                break;
+
+            case 'y': /* uint64b */
+                forcebigendian = true;
+
+            case 'p': /* uint64 */
+                tempull    = strtoull(optarg, &tail, 0);
+                tempuint64 = tempull;
+                if (tempuint64 != tempull)
+                {
+                    fprintf(stderr, "ERROR %s:%u - Parameter not uint64 %llu -> %llu\n", __func__, __LINE__, tempull,
+                            (unsigned long long int)tempuint64);
+                    exit(EXIT_FAILURE);
+                }
+
+                /* Endian conversion */
+                if (cmd.BigEndian || forcebigendian)
+                    tempuint64 = htobe64(tempuint64);
+                else
+                    tempuint64 = htole64(tempuint64);
+
+                CopyData(cmd.Packet, &startbyte, (char *)&tempuint64, sizeof(tempuint64));
+                break;
+
+            case 'f': /* float */
+                tempf = strtof(optarg, &tail);
+
+                /* Endian conversion */
+                if (cmd.BigEndian)
+                    tempint32 = htobe32(*((int32_t *)&tempf));
+                else
+                    tempint32 = htole32(*((int32_t *)&tempf));
+
+                CopyData(cmd.Packet, &startbyte, (char *)&tempint32, sizeof(tempint32));
+                break;
+
+            case 'd': /* double */
+                tempd = strtod(optarg, &tail);
+
+                /* Endian conversion */
+                if (cmd.BigEndian)
+                    tempint64 = htobe64(*((int64_t *)&tempd));
+                else
+                    tempint64 = htole64(*((int64_t *)&tempd));
+
+                CopyData(cmd.Packet, &startbyte, (char *)&tempint64, sizeof(tempint64));
+                break;
+
+            case 's': /* string */
+
+                tempull = strtoull(optarg, &tail, 0);
+
+                if ((tail[0] != ':') || (tempull == 0))
+                {
+                    fprintf(stderr, "ERROR: %s:%u - String format is NNN:string, not %s\n", __func__, __LINE__, optarg);
+                    exit(EXIT_FAILURE);
+                }
+
+                /* Copy the data over (zero fills) */
+                strncpy(sbuf, &tail[1], sizeof(sbuf));
+                CopyData(cmd.Packet, &startbyte, sbuf, tempull);
+
+                /* Reset tail so it doesn't trigger error */
+                tail = NULL;
+                break;
+
+            default:
+                break;
         }
 
-        opt = getopt_long( argc, argv, optString, longOpts, &longIndex );
+        if (errno != 0)
+        {
+            fprintf(stderr, "ERROR: %s:%u - String conversion (%s): %s\n", __func__, __LINE__, optarg, strerror(errno));
+            exit(EXIT_FAILURE);
+        }
+
+        if ((tail != NULL) && strlen(tail))
+        {
+            fprintf(stderr, "ERROR: %s:%u - Trailing characters (%s) in argument %s\n", __func__, __LINE__, tail,
+                    optarg);
+            exit(EXIT_FAILURE);
+        }
     }
 
-    /*
-    ** Set the defaults for values that were not given for the
-    ** optional arguments, and check for arguments that are required.
-    */
-    ProcessArgumentDefaults(&CommandData);
+    /* Save packet length */
+    pktnbytes = startbyte;
 
-    /*
-    ** Assemble the packet header
-    */
-    tempShort = 0xC000; /* Sequence word. */
-    if (hostByteOrder == LITTLE_ENDIAN)
+    /* Set non-overridden fields - PktType, PktSec, PktSeqFlg, PktLen, PktEndian */
+    if (!cmd.OverridePktType)
+        ProcessField(&cmd.CCSDS_Pri[0], "1", 0x1000, true);
+    if (!cmd.OverridePktSec && cmd.IncludeCFSSec)
+        ProcessField(&cmd.CCSDS_Pri[0], "1", 0x0800, true);
+    if (!cmd.OverridePktSeqFlg)
+        ProcessField(&cmd.CCSDS_Pri[1], "3", 0xC000, true);
+    if (!cmd.OverridePktLen)
     {
-        byteSwap((char*)&tempShort, sizeof(tempShort));
+        sprintf(sbuf, "%u", (uint16_t)(pktnbytes - 7));
+        ProcessField(&cmd.CCSDS_Pri[2], sbuf, 0xFFFF, true);
     }
-    memcpy(&CommandData.PacketHdr[2], &tempShort, sizeof(tempShort));
-
-    /* 
-    ** Process size field in header
-    ** Size field needs to be Size of packet data not including cmd secondary hdr + 1
-    */
-    tempShort = CommandData.DataLen + 1;
-    if (hostByteOrder == LITTLE_ENDIAN)
+    if (!cmd.OverridePktEndian && !cmd.BigEndian)
     {
-        byteSwap((char*)&tempShort, sizeof(tempShort));
+        ProcessField(&cmd.CCSDS_Ext[0], "1", 0x0400, true);
     }
-    memcpy(&CommandData.PacketHdr[4], &tempShort, sizeof(tempShort));
 
-    /*
-    ** Send the packet
-    */
-    retStat = SendUdp(CommandData.HostName, CommandData.PortNum, CommandData.PacketHdr, CommandData.DataLen + 8); 
+    /* Copy selected header data (pre-checksum) */
+    startbyte = 0;
+    if (cmd.IncludeCCSDSPri)
+        CopyData(cmd.Packet, &startbyte, (char *)cmd.CCSDS_Pri, sizeof(cmd.CCSDS_Pri));
+    if (cmd.IncludeCCSDSExt)
+        CopyData(cmd.Packet, &startbyte, (char *)cmd.CCSDS_Ext, sizeof(cmd.CCSDS_Ext));
+    if (cmd.IncludeCFSSec)
+        CopyData(cmd.Packet, &startbyte, (char *)&cmd.CFS_CmdSecHdr, sizeof(cmd.CFS_CmdSecHdr));
 
-    if (retStat < 0) 
+    /* Calculate checksum and insert into cFS Secondary header buffer if exists and not overridden */
+    if (!cmd.OverridePktCksum && cmd.IncludeCFSSec)
     {
-        fprintf(stderr,"Problem sending UDP packet: %d\n", retStat);
-        return ( retStat );
-    } 
-    else if (CommandData.Verbose) 
+        sprintf(sbuf, "%u", CalcChecksum(cmd.Packet, pktnbytes));
+        ProcessField(&cmd.CFS_CmdSecHdr, sbuf, 0x00FF, true);
+
+        /* Copy secondary header buffer into packet buffer with checksum */
+        startbyte = 0;
+        if (cmd.IncludeCCSDSPri)
+            startbyte += sizeof(cmd.CCSDS_Pri);
+        if (cmd.IncludeCCSDSExt)
+            startbyte += sizeof(cmd.CCSDS_Ext);
+        CopyData(cmd.Packet, &startbyte, (char *)&cmd.CFS_CmdSecHdr, sizeof(cmd.CFS_CmdSecHdr));
+    }
+
+    if (cmd.Verbose)
+        printf("Command checksum (cFS version): 0x%02X\n", CalcChecksum(cmd.Packet, pktnbytes));
+
+    /* Echo command buffer */
+    if (cmd.Verbose)
     {
-        printf("Command packet sent OK.\n");
+        printf("Command Data:\n");
+        for (i = 0; i < pktnbytes / 2; i++)
+        {
+            printf(" %02X%02X", cmd.Packet[i * 2], cmd.Packet[(i * 2) + 1]);
+            if ((i > 0) && (i % 16 == 0))
+                printf("\n");
+        }
+        if (pktnbytes % 2 != 0)
+            printf(" %02X", cmd.Packet[pktnbytes]);
+        printf("\n");
+    }
+
+    /* Send the packet */
+    status = SendUdp(cmd.HostName, cmd.PortNum, cmd.Packet, pktnbytes);
+
+    if (status < 0)
+    {
+        fprintf(stderr, "Problem sending UDP packet: %d\n", status);
+        exit(EXIT_FAILURE);
     }
 
     return EXIT_SUCCESS;
