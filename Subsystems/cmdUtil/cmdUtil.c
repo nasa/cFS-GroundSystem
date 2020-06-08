@@ -780,24 +780,26 @@ int main(int argc, char *argv[])
 
             case 'f': /* float */
                 tempf = strtof(optarg, &tail);
+                memcpy(&tempint32, &tempf, sizeof(tempint32));
 
                 /* Endian conversion */
                 if (cmd.BigEndian)
-                    tempint32 = htobe32(*((int32_t *)&tempf));
+                    tempint32 = htobe32(tempint32);
                 else
-                    tempint32 = htole32(*((int32_t *)&tempf));
+                    tempint32 = htole32(tempint32);
 
                 CopyData(cmd.Packet, &startbyte, (char *)&tempint32, sizeof(tempint32));
                 break;
 
             case 'd': /* double */
                 tempd = strtod(optarg, &tail);
+                memcpy(&tempint64, &tempd, sizeof(tempint64));
 
                 /* Endian conversion */
                 if (cmd.BigEndian)
-                    tempint64 = htobe64(*((int64_t *)&tempd));
+                    tempint64 = htobe64(tempint64);
                 else
-                    tempint64 = htole64(*((int64_t *)&tempd));
+                    tempint64 = htole64(tempint64);
 
                 CopyData(cmd.Packet, &startbyte, (char *)&tempint64, sizeof(tempint64));
                 break;
