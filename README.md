@@ -8,6 +8,11 @@ See [Guide-GroundSystem.md](https://github.com/nasa/cFS-GroundSystem/blob/master
 
 ## Version History
 
+### Development Build: 2.1.11
+
+- Default behavior is the same except adds checksum and doesn't actually require fields. Adds all the packet fields, overrides, more supported data types, etc.
+- See <https://github.com/nasa/cFS-GroundSystem/pull/101>
+
 ### Development Build: 2.1.10
 
 - Change documentation for table loading guide to markdown

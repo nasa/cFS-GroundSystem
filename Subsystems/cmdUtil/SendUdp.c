@@ -23,99 +23,107 @@
 #include "SendUdp.h"
 
 #ifdef WIN32
-    #pragma warning (disable:4786)
-    #include <winsock2.h>
-    #include <ws2tcpip.h>
-    #include <windows.h>
-    typedef int socklen_t;
+#pragma warning(disable : 4786)
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#include <windows.h>
+typedef int socklen_t;
 #else
-    #include <sys/types.h>
-    #include <sys/socket.h>
-    #include <arpa/inet.h>
-    #include <netdb.h>
-    #include <unistd.h>
-    #include <ctype.h>
-    #include <stdio.h>
-    #include <string.h>
-    #include <stdlib.h>
-    #define SOCKET int
-    #define closesocket(fd) close(fd)
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <netdb.h>
+#include <unistd.h>
+#include <ctype.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#define SOCKET          int
+#define closesocket(fd) close(fd)
 #endif
 
 /*
 ** SendUdp
 */
-int SendUdp(char *hostname, char *portNum, char *packetData, int packetSize) {
-    SOCKET              sd;
-    int                 rc;
-    int                 port;
-    int                 errcode;
-    unsigned int        i;
-    struct sockaddr_in  cliAddr;
-    struct addrinfo     hints;
-    struct addrinfo     *result;
+int SendUdp(char *hostname, char *portNum, unsigned char *packetData, int packetSize)
+{
+    SOCKET             sd;
+    int                rc;
+    int                port;
+    int                errcode;
+    unsigned int       i;
+    struct sockaddr_in cliAddr;
+    struct addrinfo    hints;
+    struct addrinfo *  result;
 
-    #ifdef WIN32
-        WSADATA  wsaData;
-        WSAStartup(WINSOCK_VERSION, &wsaData);
-    #endif
+#ifdef WIN32
+    WSADATA wsaData;
+    WSAStartup(WINSOCK_VERSION, &wsaData);
+#endif
 
-    if (hostname == NULL) {
+    if (hostname == NULL)
+    {
         return -1;
     }
-	
+
     /*
     ** Check port
     */
     port = atoi(portNum);
-    if (port == -1) {
+    if (port == -1)
+    {
         return -2;
     }
-    
+
     /*
-    **Criteria for selecting socket address 
+    **Criteria for selecting socket address
     */
     memset(&hints, 0, sizeof(struct addrinfo));
-    hints.ai_family   = AF_INET; /*IPv4*/
+    hints.ai_family   = AF_INET;    /*IPv4*/
     hints.ai_socktype = SOCK_DGRAM; /*Datagram socket*/
-    hints.ai_flags    = AI_CANONNAME; 
+    hints.ai_flags    = AI_CANONNAME;
     hints.ai_protocol = 0; /*Any Protocol*/
-	
+
     errcode = getaddrinfo(hostname, portNum, &hints, &result);
-    if (errcode != 0) {
+    if (errcode != 0)
+    {
         return -3;
     }
 
     printf("sending data to '%s' (IP : %s); port %d\n", result->ai_canonname,
-        inet_ntoa(((struct sockaddr_in*)result->ai_addr)->sin_addr), port);
+           inet_ntoa(((struct sockaddr_in *)result->ai_addr)->sin_addr), port);
 
     /*
     ** Create Socket
     */
     sd = socket(AF_INET, SOCK_DGRAM, 0);
 
-    if(sd < 0){
+    if (sd < 0)
+    {
         return -4;
     }
 
     /*
     ** bind any port
     */
-    cliAddr.sin_family = AF_INET;
+    cliAddr.sin_family      = AF_INET;
     cliAddr.sin_addr.s_addr = htonl(INADDR_ANY);
-    cliAddr.sin_port = htons(0);
+    cliAddr.sin_port        = htons(0);
 
-    rc = bind(sd, (struct sockaddr *) &cliAddr, sizeof(cliAddr));
-    if (rc < 0) {
+    rc = bind(sd, (struct sockaddr *)&cliAddr, sizeof(cliAddr));
+    if (rc < 0)
+    {
         printf("%s: cannot bind port\n", portNum);
         return -5;
     }
 
     printf("Data to send:\n");
     i = 0;
-    while (i < packetSize) {
+    while (i < packetSize)
+    {
         printf("0x%02X ", packetData[i] & 0xFF);
-        if (++i % 8 == 0) {
+        if (++i % 8 == 0)
+        {
             puts("");
         }
     }
@@ -124,11 +132,10 @@ int SendUdp(char *hostname, char *portNum, char *packetData, int packetSize) {
     /*
     ** send the event
     */
-    rc = sendto(sd, (char*)packetData, packetSize, 0, 
-           result->ai_addr, result->ai_addrlen); 
+    rc = sendto(sd, (char *)packetData, packetSize, 0, result->ai_addr, result->ai_addrlen);
 
-
-    if (rc < 0) {
+    if (rc < 0)
+    {
         freeaddrinfo(result);
         closesocket(sd);
         return -6;
