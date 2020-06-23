@@ -105,7 +105,6 @@ class GroundSystem(QMainWindow, Ui_MainWindow):
     def startFDLSystem(self):
         selectedSpacecraft = self.getSelectedSpacecraftName()
         if selectedSpacecraft == 'All':
-            subscription = ''
             self.DisplayErrorMessage(
                 'Cannot open FDL manager.\nNo spacecraft selected.')
         else:

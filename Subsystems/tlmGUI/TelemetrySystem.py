@@ -29,9 +29,10 @@ from struct import unpack
 
 import zmq
 from PyQt5.QtCore import QThread, pyqtSignal
-from PyQt5.QtWidgets import QApplication, QDialog
+from PyQt5.QtWidgets import (QApplication, QDialog, QHeaderView, QPushButton,
+                             QTableWidgetItem)
 
-from TelemetrySystemDialog import Ui_TelemetrySystemDialog
+from Ui_TelemetrySystemDialog import Ui_TelemetrySystemDialog
 
 ROOTDIR = Path(sys.argv[0]).resolve().parent
 
@@ -49,10 +50,10 @@ class TelemetrySystem(QDialog, Ui_TelemetrySystemDialog):
         self.pktCount = 0
         self.subscription = None
 
-        for k in range(21):
-            pushButton = getattr(self, f"pushButton_{k}")
-            pushButton.clicked.connect(
-                lambda _, x=k: self.ProcessButtonGeneric(x))
+        # for k in range(21):
+        #     pushButton = getattr(self, f"pushButton_{k}")
+        #     pushButton.clicked.connect(
+        #         lambda _, x=k: self.ProcessButtonGeneric(x))
 
     #
     # convert a string of binary bytes to ascii hex
@@ -97,7 +98,8 @@ class TelemetrySystem(QDialog, Ui_TelemetrySystemDialog):
         self.thread.start()
 
     #
-    # This method processes packets. Called when the TelemetryReceiver receives a message/packet
+    # This method processes packets.
+    # Called when the TelemetryReceiver receives a message/packet
     #
     def processPendingDatagrams(self, datagram):
         #
@@ -108,29 +110,31 @@ class TelemetrySystem(QDialog, Ui_TelemetrySystemDialog):
         # sendSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
         #
-        # Decode the packet and forward it to the correct port (if there is one)
+        # Decode the packet and forward it to the
+        # correct port (if there is one)
         #
         streamId = unpack(">H", datagram[:2])
 
-        # Uncomment the next two lines to debug
+        ## Uncomment the next two lines to debug
         # print("Packet ID =", hex(streamId[0]))
         # self.dumpPacket(datagram)
-        for l in range(21):
+        for l in range(self.tblTlmSys.rowCount()):
             if streamId[0] == tlmPageAppid[l]:
                 # send_host = "127.0.0.1"
                 # send_port = tlmPagePort[l]
                 # sendSocket.sendto(datagram, (send_host, send_port))
 
                 tlmPageCount[l] += 1
-                #
-                # I wish I knew a better way to update the count field in the GUI
-                # Maybe store a pointer to the field in the gui
-                #
-                if l < 15:
-                    countSpinBox_l = getattr(self, f"countSpinBox_{l}")
-                else:
-                    countSpinBox_l = getattr(self, f"countSpinBox_{l+1}")
-                countSpinBox_l.setValue(tlmPageCount[l])
+                ## I wish I knew a better way to update the count field
+                ## in the GUI. Maybe store a pointer to the field in the gui
+                self.tblTlmSys.item(l, 2).setText(str(tlmPageCount[l]))
+
+                ## Unclear why line 15 is skipped. Removing for now, need
+                ## to evaluate long term (lbleier 06/01/2020)
+                # if l < 15:
+                #     self.tblTlmSys.item(l, 2).setText(str(tlmPageCount[l]))
+                # else:
+                #     self.tblTlmSys.item(l + 1, 2).setText(str(tlmPageCount[l]))
 
     ## Reimplements closeEvent
     ## to properly quit the thread
@@ -159,7 +163,7 @@ class TSTlmReceiver(QThread):
     def run(self):
         while self.runs:
             # Receive and read envelope with address
-            address, datagram = self.subscriber.recv_multipart()
+            _, datagram = self.subscriber.recv_multipart()
             # Send signal with received packet to front-end/GUI
             self.tsSignalTlmDatagram.emit(datagram)
 
@@ -173,6 +177,7 @@ if __name__ == '__main__':
     #
     app = QApplication(sys.argv)
     Telem = TelemetrySystem()
+    tbl = Telem.tblTlmSys
 
     #
     # Set defaults for the arguments
@@ -207,7 +212,7 @@ if __name__ == '__main__':
     with open(tlmDefFile) as tlmfile:
         reader = csv.reader(tlmfile, skipinitialspace=True)
         for row in reader:
-            if row[0][0] != '#':
+            if not row[0].startswith('#'):
                 tlmPageIsValid.append(True)
                 tlmPageDesc.append(row[0])
                 tlmClass.append(row[1])
@@ -217,25 +222,27 @@ if __name__ == '__main__':
                 tlmPageCount.append(0)
                 i += 1
     #
-    # Mark the remaining values ad invalid
+    # Mark the remaining values as invalid
     #
-    for j in range(i, 21):
-        tlmPageAppid.append(0)
-        tlmPageIsValid.append(False)
+    # for _ in range(i, 21):
+    #     tlmPageAppid.append(0)
+    #     tlmPageIsValid.append(False)
 
     #
     # fill the data fields on the page
     #
-    for i in range(21):
-        subsysBrowser = getattr(Telem, f"SubsysBrowser_{i}")
+    for i, desc in enumerate(tlmPageDesc):
         if tlmPageIsValid[i]:
-            pktidBrowser = getattr(Telem, f"pktidBrowser_{i}")
-            countSpinBox = getattr(Telem, f"countSpinBox_{i}")
-            subsysBrowser.setPlainText(tlmPageDesc[i])
-            pktidBrowser.setText(hex(tlmPageAppid[i]))
-            countSpinBox.setValue(tlmPageCount[0])
-        else:
-            subsysBrowser.setPlainText("(unused)")
+            tbl.insertRow(i)
+            for col, text in enumerate(
+                (desc, hex(tlmPageAppid[i]), tlmPageCount[0])):
+                tblItem = QTableWidgetItem(str(text))
+                tbl.setItem(i, col, tblItem)
+            btn = QPushButton("Display Page")
+            btn.clicked.connect(lambda _, x=i: Telem.ProcessButtonGeneric(x))
+            tbl.setCellWidget(i, tbl.columnCount() - 1, btn)
+    tbl.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+    tbl.horizontalHeader().setStretchLastSection(True)
 
     #
     # Display the page

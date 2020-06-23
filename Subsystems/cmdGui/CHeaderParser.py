@@ -103,13 +103,11 @@ def getFileList(filename='CHeaderParser-hdr-paths.txt'):
                 l = l.strip()
                 if l and not l.startswith("#"):
                     paths.append(l)
-            print(f"Using header files found in {filename}")
-            # Send paths back to caller function
-            return paths
+        print(f"Using header files found in {filename}")
+        # Send paths back to caller function
+        return paths
     except IOError:
         print("Couldn't find default file. Check command line arguments.")
-    except:
-        print("Unexpected error:", sys.exc_info()[0])
 
     print("No header files found. Please make sure to provide the\n"
           "default file for loading headers (CHeaderParser-hdr-paths.txt)")
@@ -449,7 +447,7 @@ if __name__ == '__main__':
                                 input((f"Please enter the defined value for "
                                        f"{array_name_size[1]} (0 - 128): ")))
                         except ValueError:
-                            pass
+                            pass     # Ignore non-integer and try again
 
                     # Add string length argument to parameter list
                     stringLens.append(array_size)
