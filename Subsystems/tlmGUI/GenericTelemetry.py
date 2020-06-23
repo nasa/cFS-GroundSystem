@@ -28,12 +28,12 @@ from struct import unpack
 
 import zmq
 from PyQt5.QtCore import QThread, pyqtSignal
-from PyQt5.QtWidgets import QApplication, QDialog
+from PyQt5.QtWidgets import (QApplication, QDialog, QHeaderView,
+                             QTableWidgetItem)
 
-from GenericTelemetryDialog import Ui_GenericTelemetryDialog
+from Ui_GenericTelemetryDialog import Ui_GenericTelemetryDialog
 
 ROOTDIR = Path(sys.argv[0]).resolve().parent
-
 
 class SubsystemTelemetry(QDialog, Ui_GenericTelemetryDialog):
     #
@@ -63,9 +63,7 @@ class SubsystemTelemetry(QDialog, Ui_GenericTelemetryDialog):
                 valueField.setText(tlmItemEnum[tlmIndex][int(TlmField[0])])
             elif tlmItemDisplayType[tlmIndex] == 'Str':
                 valueField.setText(TlmField[0].decode('utf-8', 'ignore'))
-            labelField.setPlainText(tlmItemDesc[tlmIndex])
-        else:
-            labelField.setPlainText("(unused)")
+            labelField.setText(tlmItemDesc[tlmIndex])
 
     # Start the telemetry receiver (see GTTlmReceiver class)
     def initGTTlmReceiver(self, subscr):
@@ -90,10 +88,10 @@ class SubsystemTelemetry(QDialog, Ui_GenericTelemetryDialog):
         #
         # Decode and display all packet elements
         #
-        for k in range(40):
-            itemLabelpte = getattr(self, f"itemLabelPlainTextEdit_{k+1}")
-            itemValuele = getattr(self, f"itemValueLineEdit_{k+1}")
-            self.displayTelemetryItem(datagram, k, itemLabelpte, itemValuele)
+        for k in range(self.tblTelemetry.rowCount()):
+            itemLabel = self.tblTelemetry.item(k, 0)
+            itemValue = self.tblTelemetry.item(k, 1)
+            self.displayTelemetryItem(datagram, k, itemLabel, itemValue)
 
     ## Reimplements closeEvent
     ## to properly quit the thread
@@ -124,7 +122,7 @@ class GTTlmReceiver(QThread):
     def run(self):
         while self.runs:
             # Read envelope with address
-            address, datagram = self.subscriber.recv_multipart()
+            _, datagram = self.subscriber.recv_multipart()
             # Send signal with received packet to front-end/GUI
             self.gtSignalTlmDatagram.emit(datagram)
 
@@ -147,7 +145,7 @@ if __name__ == '__main__':
     # Set defaults for the arguments
     #
     pageTitle = "Telemetry Page"
-    udpPort = 10000
+    # udpPort = 10000
     appId = 999
     tlmDefFile = f"{ROOTDIR}/telemetry_def.txt"
     endian = "L"
@@ -169,7 +167,7 @@ if __name__ == '__main__':
             usage()
             sys.exit()
         elif opt in ("-p", "--port"):
-            udpPort = arg
+            _ = arg
         elif opt in ("-t", "--title"):
             pageTitle = arg
         elif opt in ("-f", "--file"):
@@ -193,40 +191,42 @@ if __name__ == '__main__':
     #
     app = QApplication(sys.argv)
     Telem = SubsystemTelemetry()
+    tbl = Telem.tblTelemetry
     Telem.subSystemLineEdit.setText(pageTitle)
     Telem.packetId.display(appId)
 
     #
     # Read in the contents of the telemetry packet definition
     #
-    tlmItemIsValid, tlmItemDesc, tlmItemStart, tlmItemSize, tlmItemDisplayType, tlmItemFormat = (
-        [] for _ in range(6))
-    tlmItemEnum = [[]] * 40
+    tlmItemIsValid, tlmItemDesc, \
+    tlmItemStart, tlmItemSize, \
+    tlmItemDisplayType, tlmItemFormat = ([] for _ in range(6))
+
+    tlmItemEnum = [None] * 40
 
     i = 0
     with open(f"{ROOTDIR}/{tlmDefFile}") as tlmfile:
         reader = csv.reader(tlmfile, skipinitialspace=True)
         for row in reader:
-            if row[0][0] != '#':
+            if not row[0].startswith('#'):
                 tlmItemIsValid.append(True)
                 tlmItemDesc.append(row[0])
                 tlmItemStart.append(row[1])
                 tlmItemSize.append(row[2])
-                if row[3] == 's':
-                    tlmItemFormat.append(row[2] + row[3])
+                if row[3].lower() == 's':
+                    tlmItemFormat.append(f'{row[2]}{row[3]}')
                 else:
-                    tlmItemFormat.append(py_endian + row[3])
+                    tlmItemFormat.append(f'{py_endian}{row[3]}')
                 tlmItemDisplayType.append(row[4])
                 if row[4] == 'Enm':
-                    for m in range(5, 9):
-                        tlmItemEnum[i].append(row[m])
+                    tlmItemEnum[i] = row[5:9]
+                Telem.tblTelemetry.insertRow(i)
+                lblItem, valItem = QTableWidgetItem(), QTableWidgetItem()
+                Telem.tblTelemetry.setItem(i, 0, lblItem)
+                Telem.tblTelemetry.setItem(i, 1, valItem)
                 i += 1
-
-    #
-    # Mark the remaining values as invalid
-    #
-    for j in range(i, 40):
-        tlmItemIsValid.append(False)
+    tbl.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+    tbl.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
     #
     # Display the page

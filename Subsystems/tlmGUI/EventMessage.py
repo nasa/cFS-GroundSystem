@@ -69,7 +69,7 @@ import zmq
 from PyQt5.QtCore import QThread, pyqtSignal
 from PyQt5.QtWidgets import QApplication, QDialog
 
-from EventMessageDialog import Ui_EventMessageDialog
+from Ui_EventMessageDialog import Ui_EventMessageDialog
 
 ROOTDIR = Path(sys.argv[0]).resolve().parent
 
@@ -168,9 +168,7 @@ if __name__ == '__main__':
     # Set defaults for the arguments
     #
     pageTitle = "Event Messages"
-    udpPort = 10000
     appId = 999
-    tlmDefFile = "not-needed.txt"
     endian = "L"
     subscription = ""
 
@@ -190,11 +188,11 @@ if __name__ == '__main__':
             usage()
             sys.exit()
         if opt in ("-p", "--port"):
-            udpPort = arg
+            _ = arg
         elif opt in ("-t", "--title"):
             pageTitle = arg
         elif opt in ("-f", "--file"):
-            tlmDefFile = arg
+            _ = arg
         elif opt in ("-a", "--appid"):
             appId = arg
         elif opt in ("-e", "--endian"):
@@ -206,8 +204,6 @@ if __name__ == '__main__':
         subscription = "GroundSystem"
 
     print('Event Messages Page started. Subscribed to', subscription)
-
-    py_endian = '<' if endian == 'L' else '>'
 
     #
     # Init the QT application and the Event Message class

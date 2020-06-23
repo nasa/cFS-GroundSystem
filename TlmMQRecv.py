@@ -36,9 +36,12 @@ def main():
     subscriber.setsockopt(zmq.SUBSCRIBE, b"GroundSystem")
 
     while True:
-        # Read envelope with address
-        address, contents = subscriber.recv_multipart()
-        print(f"[{address}] {contents}")
+        try:
+            # Read envelope with address
+            address, contents = subscriber.recv_multipart()
+            print(f"[{address}] {contents}")
+        except KeyboardInterrupt:
+            break
 
     # We never get here but clean up anyhow
     subscriber.close()

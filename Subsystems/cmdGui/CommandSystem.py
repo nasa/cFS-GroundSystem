@@ -26,9 +26,10 @@ import subprocess
 import sys
 from pathlib import Path
 
-from PyQt5.QtWidgets import QApplication, QDialog
+from PyQt5.QtWidgets import (QApplication, QDialog, QHeaderView, QPushButton,
+                             QTableWidgetItem)
 
-from CommandSystemDialog import Ui_CommandSystemDialog
+from Ui_CommandSystemDialog import Ui_CommandSystemDialog
 
 ROOTDIR = Path(sys.argv[0]).resolve().parent
 
@@ -43,23 +44,13 @@ class CommandSystem(QDialog, Ui_CommandSystemDialog):
         self.setupUi(self)
         self.move(800, 100)
 
-        for n in range(21):
-            btn = getattr(self, f"pushButton_{n}")
-            btn.clicked.connect(lambda _, x=n: self.ProcessButtonGeneric(x))
-
-        for l in range(22):
-            btn = getattr(self, f"quickButton_{l+1}")
-            btn.clicked.connect(lambda _, x=l: self.ProcessQuickButton(x))
-
     #
     # Processes 'Display Page' button
     #
     def ProcessButtonGeneric(self, idx):
         if cmdPageIsValid[idx]:
-            lePID = getattr(self, f'lineEditPktId_{idx}')
-            leAddr = getattr(self, f'lineEdit_{idx}')
-            pktId = lePID.text()
-            address = leAddr.text()
+            pktId = self.tblCmdSys.item(idx, 1).text()
+            address = self.tblCmdSys.item(idx, 2).text()
             launch_string = (
                 f'python3 {ROOTDIR}/{cmdClass[0]} '
                 f'--title=\"{cmdPageDesc[idx]}\" --pktid={pktId} '
@@ -87,10 +78,8 @@ class CommandSystem(QDialog, Ui_CommandSystemDialog):
     def ProcessQuickButton(self, idx):
         if cmdPageIsValid[idx] and quickIndices[idx] >= 0:
             qIdx = quickIndices[idx]
-            lePID = getattr(self, f'lineEditPktId_{idx}')
-            leAddr = getattr(self, f'lineEdit_{idx}')
-            pktId = lePID.text()
-            address = leAddr.text()
+            pktId = self.tblCmdSys.item(idx, 1).text()
+            address = self.tblCmdSys.item(idx, 2).text()
 
             # if requires parameters
             if self.checkParams(qIdx):
@@ -128,6 +117,7 @@ if __name__ == '__main__':
     #
     app = QApplication(sys.argv)
     Command = CommandSystem()
+    tbl = Command.tblCmdSys
 
     #
     # Read in the contents of the telemetry packet definition
@@ -141,7 +131,7 @@ if __name__ == '__main__':
         reader = csv.reader(cmdfile, skipinitialspace=True)
         for cmdRow in reader:
             try:
-                if cmdRow[0][0] != '#':
+                if not cmdRow[0].startswith('#'):
                     cmdPageIsValid.append(True)
                     cmdPageDesc.append(cmdRow[0])
                     cmdPageDefFile.append(cmdRow[1])
@@ -161,7 +151,7 @@ if __name__ == '__main__':
     #
     # Mark the remaining values as invalid
     #
-    for j in range(i, 22):
+    for _ in range(i, 22):
         cmdPageAppid.append(0)
         cmdPageIsValid.append(False)
 
@@ -190,24 +180,30 @@ if __name__ == '__main__':
     #
     # fill the data fields on the page
     #
-    for k in range(22):
-        subsysBrowser = getattr(Command, f'SubsysBrowser_{k}')
+    for k, desc in enumerate(cmdPageDesc):
         if cmdPageIsValid[k]:
-            lineEditPktId = getattr(Command, f'lineEditPktId_{k}')
-            lineEditAddress = getattr(Command, f'lineEdit_{k}')
-            quickButton = getattr(Command, f'quickButton_{k+1}')
-            subsysBrowser.setText(cmdPageDesc[k])
-            lineEditPktId.setText(hex(cmdPageAppid[k]))
-            lineEditAddress.setText(cmdPageAddress[k])
+            tbl.insertRow(k)
+            for col, text in enumerate(
+                (desc, hex(cmdPageAppid[k]), cmdPageAddress[k])):
+                tblItem = QTableWidgetItem(text)
+                tbl.setItem(k, col, tblItem)
+            tblBtn = QPushButton("Display Page")
+            tblBtn.clicked.connect(
+                lambda _, x=k: Command.ProcessButtonGeneric(x))
+            tbl.setCellWidget(k, 3, tblBtn)
             quickIdx = -1
             try:
-                quickIdx = subsys.index(cmdPageDesc[k])
-                quickButton.setText(quickCmd[quickIdx])
+                quickIdx = subsys.index(desc)
             except ValueError:
-                pass
+                pass  # Ignore quick button
+            else:
+                quickBtn = QPushButton(quickCmd[quickIdx])
+                quickBtn.clicked.connect(
+                    lambda _, x=k: Command.ProcessQuickButton(x))
+                tbl.setCellWidget(k, 4, quickBtn)
             quickIndices.append(quickIdx)
-        else:
-            subsysBrowser.setText("(unused)")
+    tbl.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+    tbl.horizontalHeader().setStretchLastSection(True)
 
     #
     # Display the page
