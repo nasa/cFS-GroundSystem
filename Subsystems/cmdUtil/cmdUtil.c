@@ -25,9 +25,8 @@
  */
 
 /* System define for endian functions */
-#define _BSD_SOURCE_
+#define _BSD_SOURCE
 #define _DEFAULT_SOURCE
-#define __USE_BSD
 
 /*
  * System includes
