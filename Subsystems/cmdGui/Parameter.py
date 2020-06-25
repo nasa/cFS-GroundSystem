@@ -25,10 +25,12 @@ import subprocess
 import sys
 from pathlib import Path
 
-from PyQt5.QtWidgets import QApplication, QDialog
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import (QApplication, QDialog, QHeaderView,
+                             QTableWidgetItem)
 
 from HTMLDocsParser import HTMLDocsParser
-from ParameterDialog import Ui_Dialog
+from Ui_ParameterDialog import Ui_Dialog
 
 ROOTDIR = Path(sys.argv[0]).resolve().parent
 
@@ -49,20 +51,17 @@ class Parameter(QDialog, Ui_Dialog):
     #
     def ProcessSendButton(self):
         input_list = []
-        for j in range(1, 11):
-            inputStr = getattr(self, f"input_{j}")
-            input_list.append(inputStr.text().strip())
+        for j in range(self.tblParameters.rowCount()):
+            item = tbl.item(j, 2)
+            input_list.append(item.text().strip())
 
-        k = 0
         param_list = []
-        while input_list[k]:
+        for k, inpt in enumerate(input_list):
             dataType = dataTypesNew[k]
             if dataType == '--string':
-                param_list.append(
-                    f'{dataType}=\"{stringLen[k]}:{input_list[k]}\"')
+                param_list.append(f'{dataType}=\"{stringLen[k]}:{inpt}\"')
             else:
-                param_list.append(f'{dataType}={input_list[k]}')  # --byte=4
-            k += 1
+                param_list.append(f'{dataType}={inpt}')  # --byte=4
         param_string = ' '.join(param_list)
         launch_string = (
             f'{ROOTDIR}/../cmdUtil/cmdUtil --host={pageAddress} '
@@ -82,7 +81,7 @@ if __name__ == '__main__':
     #
     subsysTitle, cmdDesc, pageEndian, pageAddress, cmdCode, params = (
         '' for _ in range(6))
-    idx, pagePktId, pagePort = (0 for _ in range(3))
+    pagePktId, pagePort = 0, 0
     param_file = 'struct_c_f_e___e_s___start_app_cmd__t.html'
 
     #
@@ -99,7 +98,7 @@ if __name__ == '__main__':
         elif opt in ("-d", "--descrip"):
             cmdDesc = arg  # command name, eg No-Op
         elif opt in ("-i", "--idx"):
-            idx = int(arg)  # comand index in command definition file
+            _ = int(arg)  # comand index in command definition file
         elif opt in ("-h", "--host"):
             pageAddress = arg  # send to address
         elif opt in ("-p", "--port"):
@@ -118,6 +117,7 @@ if __name__ == '__main__':
     #
     app = QApplication(sys.argv)  # creates instance of QtApplication class
     param = Parameter()  # creates instance of Parameter class
+    tbl = param.tblParameters
 
     #
     # Gets parameter information from pickle files
@@ -134,14 +134,22 @@ if __name__ == '__main__':
     param.commandAddressTextBrowser.setText(
         f'{cmdDesc} Command')  # command name
 
-    for i in range(10):
-        paramName = getattr(param, f"paramName_{i+1}")
-        descrip = getattr(param, f"descrip_{i+1}")
+    for i, name in enumerate(paramNames):
+        tbl.insertRow(i)
+        ## Create and insert the table items
+        for n in range(tbl.columnCount()):
+            tblItem = QTableWidgetItem()
+            tbl.setItem(i, n, tblItem)
+        ## Make the first two items in each row uneditable
+        for n in range(tbl.columnCount() - 1):
+            tbl.item(i, n).setFlags(Qt.ItemIsEnabled)
         try:
-            paramName.setText(paramNames[i])
-            descrip.setText(paramDesc[i])
+            tbl.item(i, 0).setText(name)
+            tbl.item(i, 1).setText(paramDesc[i])
         except IndexError:
-            pass
+            pass  # Ignore nonexistent array items
+    tbl.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+    # tbl.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
     #
     # Displays the dialog

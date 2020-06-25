@@ -8,6 +8,12 @@ See [Guide-GroundSystem.md](https://github.com/nasa/cFS-GroundSystem/blob/master
 
 ## Version History
 
+### Development Build: 2.1.12
+
+- Change all individual UI elements to table widgets. Update backend code accordingly
+- Temporary fix for implicit declaration of endian functions on some systems (RH/CentOs). No build errors on CentOS
+- See <https://github.com/nasa/cFS-GroundSystem/pull/107>
+ 
 ### Development Build: 2.1.11
 
 - Default behavior is the same except adds checksum and doesn't actually require fields. Adds all the packet fields, overrides, more supported data types, etc.

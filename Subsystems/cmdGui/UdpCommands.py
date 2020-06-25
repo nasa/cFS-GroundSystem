@@ -39,12 +39,12 @@ import subprocess
 import sys
 from pathlib import Path
 
-from PyQt5.QtWidgets import QApplication, QDialog
+from PyQt5.QtWidgets import (QApplication, QDialog, QHeaderView, QPushButton,
+                             QTableWidgetItem)
 
-from GenericCommandDialog import Ui_GenericCommandDialog
+from Ui_GenericCommandDialog import Ui_GenericCommandDialog
 
 ROOTDIR = Path(sys.argv[0]).resolve().parent
-
 
 class SubsystemCommands(QDialog, Ui_GenericCommandDialog):
     #
@@ -55,10 +55,10 @@ class SubsystemCommands(QDialog, Ui_GenericCommandDialog):
         self.setupUi(self)
         self.setWindowTitle(pageTitle)
 
-        for j in range(25):
-            btn = getattr(self, f"SendButton_{j+1}")
-            btn.clicked.connect(
-                lambda _, x=j: self.ProcessSendButtonGeneric(x))
+        # for j in range(self.tblCommands.rowCount()):
+        #     btn = self.tblCommands.cellWidget(j, 1)
+        #     btn.clicked.connect(
+        #         lambda _, x=j: self.ProcessSendButtonGeneric(x))
 
     #
     # Determines if command requires parameters
@@ -163,6 +163,7 @@ if __name__ == '__main__':
     Commands.subSystemLineEdit.setText(pageTitle)
     Commands.packetId.display(pagePktId)
     Commands.commandAddressLineEdit.setText(pageAddress)
+    tbl = Commands.tblCommands
 
     #
     # Reads commands from command definition file
@@ -174,18 +175,22 @@ if __name__ == '__main__':
     cmdItemIsValid = []
     for i in range(len(cmdDesc)):
         cmdItemIsValid.append(True)
-    for i in range(len(cmdDesc), 26):
-        cmdItemIsValid.append(False)
 
     #
     # Fill the data fields on the page
     #
-    for i in range(25):
-        itemLabelTextBrowser = getattr(Commands, f"itemLabelTextBrowser_{i+1}")
+    for i, cmd in enumerate(cmdDesc):
         if cmdItemIsValid[i]:
-            itemLabelTextBrowser.setText(cmdDesc[i])
-        else:
-            itemLabelTextBrowser.setText("(unused)")
+            tbl.insertRow(i)
+            tblItem = QTableWidgetItem(cmdDesc[i])
+            tbl.setItem(i, 0, tblItem)
+            tblBtn = QPushButton("Send")
+            tblBtn.clicked.connect(
+                lambda _, x=i: Commands.ProcessSendButtonGeneric(x))
+            tbl.setCellWidget(i, 1, tblBtn)
+    tbl.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+    tbl.horizontalHeader().setStretchLastSection(True)
+    # tbl.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
     #
     # Display the page
