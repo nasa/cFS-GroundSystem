@@ -30,6 +30,7 @@ from PyQt5.QtWidgets import (QApplication, QDialog, QHeaderView,
                              QTableWidgetItem)
 
 from HTMLDocsParser import HTMLDocsParser
+from MiniCmdUtil import MiniCmdUtil
 from Ui_ParameterDialog import Ui_Dialog
 
 ROOTDIR = Path(sys.argv[0]).resolve().parent
@@ -45,6 +46,7 @@ class Parameter(QDialog, Ui_Dialog):
         self.parser = HTMLDocsParser()
         self.setWindowTitle("Parameter Dialog")
         self.SendButton_1.clicked.connect(self.ProcessSendButton)
+        self.mcu = None
 
     #
     # Button method
@@ -63,13 +65,24 @@ class Parameter(QDialog, Ui_Dialog):
             else:
                 param_list.append(f'{dataType}={inpt}')  # --byte=4
         param_string = ' '.join(param_list)
-        launch_string = (
-            f'{ROOTDIR}/../cmdUtil/cmdUtil --host={pageAddress} '
-            f'--port={pagePort} --pktid={pagePktId} --endian={pageEndian} '
-            f'--cmdcode={cmdCode} {param_string.strip()}')
-        cmd_args = shlex.split(launch_string)
-        subprocess.Popen(cmd_args)
-        self.status_box.setText('Command sent!')
+        self.mcu = MiniCmdUtil(pageAddress, pagePort, pageEndian, pagePktId,
+                               cmdCode, param_string.strip())
+        sendSuccess = self.mcu.sendPacket()
+        # launch_string = (
+        #     f'{ROOTDIR.parent}/cmdUtil/cmdUtil --host={pageAddress} '
+        #     f'--port={pagePort} --pktid={pagePktId} --endian={pageEndian} '
+        #     f'--cmdcode={cmdCode} {param_string.strip()}')result
+        # cmd_args = shlex.split(launch_string)
+        # subprocess.Popen(cmd_args)
+        if sendSuccess:
+            self.status_box.setText('Command sent!')
+        else:
+            self.status_box.setText('Error occured')
+
+    def closeEvent(self, event):
+        if self.mcu:
+            self.mcu.mm.close()
+        super().closeEvent(event)
 
 
 #
@@ -98,7 +111,7 @@ if __name__ == '__main__':
         elif opt in ("-d", "--descrip"):
             cmdDesc = arg  # command name, eg No-Op
         elif opt in ("-i", "--idx"):
-            _ = int(arg)  # comand index in command definition file
+            _ = int(arg)  # command index in command definition file
         elif opt in ("-h", "--host"):
             pageAddress = arg  # send to address
         elif opt in ("-p", "--port"):
@@ -124,7 +137,7 @@ if __name__ == '__main__':
     #
     pickle_file = f'{ROOTDIR}/ParameterFiles/' + re.split(r'\.', param_file)[0]
     with open(pickle_file, 'rb') as pickle_obj:
-        dataTypesOrig, paramNames, paramLen, paramDesc, dataTypesNew, stringLen = pickle.load(
+        _, paramNames, _, paramDesc, dataTypesNew, stringLen = pickle.load(
             pickle_obj)
 
     #
