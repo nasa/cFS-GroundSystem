@@ -17,7 +17,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
-#cFS Ground System Version 2.0.0
+# cFS Ground System Version 2.0.0
 #
 #!/usr/bin/env python3
 #
@@ -28,8 +28,8 @@ from pathlib import Path
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 
-from MainWindow import Ui_MainWindow
 from RoutingService import RoutingService
+from Ui_MainWindow import Ui_MainWindow
 
 ROOTDIR = Path(sys.argv[0]).resolve().parent
 
@@ -38,18 +38,25 @@ ROOTDIR = Path(sys.argv[0]).resolve().parent
 # CFS Ground System: Setup and manage the main window
 #
 class GroundSystem(QMainWindow, Ui_MainWindow):
+    HDR_VER_1_OFFSET = 0
+    HDR_VER_2_OFFSET = 4
+
     #
     # Init the class
     #
     def __init__(self):
         super().__init__()
-        self.setupUi((self))
+        self.setupUi(self)
 
         self.RoutingService = None
         self.alert = QMessageBox()
 
         self.pushButtonStartTlm.clicked.connect(self.startTlmSystem)
         self.pushButtonStartCmd.clicked.connect(self.startCmdSystem)
+        self.cbTlmHeaderVer.currentIndexChanged.connect(self.setTlmOffset)
+        self.cbCmdHeaderVer.currentIndexChanged.connect(self.setCmdOffsets)
+        for sb in (self.sbTlmOffset, self.sbCmdOffsetPri, self.sbCmdOffsetSec):
+            sb.valueChanged.connect(self.saveOffsets)
         # Init lists
         self.ipAddressesList = ['All']
         self.spacecraftNames = ['All']
@@ -81,14 +88,12 @@ class GroundSystem(QMainWindow, Ui_MainWindow):
 
     # Start the telemetry system for the selected spacecraft
     def startTlmSystem(self):
+        # Setup the subscription (to let the telemetry
+        # system know the messages it will be receiving)
+        subscription = '--sub=GroundSystem'
         selectedSpacecraft = self.getSelectedSpacecraftName()
-
-        # Setup the subscription (to let know the
-        # telemetry system the messages it will be receiving)
-        if selectedSpacecraft == 'All':
-            subscription = '--sub=GroundSystem'
-        else:
-            subscription = f'--sub=GroundSystem.{selectedSpacecraft}.TelemetryPackets'
+        if selectedSpacecraft != 'All':
+            subscription += f'.{selectedSpacecraft}.TelemetryPackets'
 
         # Open Telemetry System
         system_call = f'python3 {ROOTDIR}/Subsystems/tlmGUI/TelemetrySystem.py {subscription}'
@@ -113,6 +118,37 @@ class GroundSystem(QMainWindow, Ui_MainWindow):
                 'python3', f'{ROOTDIR}/Subsystems/fdlGui/FdlSystem.py',
                 subscription
             ])
+
+    def setTlmOffset(self):
+        selectedVer = self.cbTlmHeaderVer.currentText().strip()
+        if selectedVer == "Custom":
+            self.sbTlmOffset.setEnabled(True)
+        else:
+            self.sbTlmOffset.setEnabled(False)
+            if selectedVer == "1":
+                self.sbTlmOffset.setValue(self.HDR_VER_1_OFFSET)
+            elif selectedVer == "2":
+                self.sbTlmOffset.setValue(self.HDR_VER_2_OFFSET)
+
+    def setCmdOffsets(self):
+        selectedVer = self.cbCmdHeaderVer.currentText().strip()
+        if selectedVer == "Custom":
+            self.sbCmdOffsetPri.setEnabled(True)
+            self.sbCmdOffsetSec.setEnabled(True)
+        else:
+            self.sbCmdOffsetPri.setEnabled(False)
+            self.sbCmdOffsetSec.setEnabled(False)
+            if selectedVer == "1":
+                self.sbCmdOffsetPri.setValue(self.HDR_VER_1_OFFSET)
+            elif selectedVer == "2":
+                self.sbCmdOffsetPri.setValue(self.HDR_VER_2_OFFSET)
+            self.sbCmdOffsetSec.setValue(self.HDR_VER_1_OFFSET)
+
+    def saveOffsets(self):
+        offsets = bytes((self.sbTlmOffset.value(), self.sbCmdOffsetPri.value(),
+                         self.sbCmdOffsetSec.value()))
+        with open("/tmp/OffsetData", "wb") as f:
+            f.write(offsets)
 
     # Update the combo box list in gui
     def updateIpList(self, ip, name):
@@ -144,6 +180,7 @@ if __name__ == "__main__":
 
     # Start the Routing Service
     MainWindow.initRoutingService()
+    MainWindow.saveOffsets()
 
     # Execute the app
     sys.exit(app.exec_())

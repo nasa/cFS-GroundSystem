@@ -24,41 +24,30 @@
 # The EVS Event Message has the following format
 #
 #
-# ES HK format:
-#
-# Packet Header
-#   uint16  StreamId;   0
-#   uint16  Sequence;   2
-#   uint16  Length;     4
+# Packet Header         Start Byte
+# uint16  StreamId;     0
+# uint16  Sequence;     2
+# uint16  Length;       4
 
-# Tlm Secondary Header
-#   uint32  seconds     6
-#   uint16  subseconds  10
+# Start byte values after primary header depend
+# on header version.
+# Add 4 to ALL the values below if header version 2
 
-#  Packet data
-#
-# Event format:
-#
-# Packet Header
-#   uint16  StreamId;
-#   uint16  Sequence;
-#   uint16  Length;
-
-# Tlm Secondary Header
-#   uint32  seconds
-#   uint16  subseconds
+# Tlm Secondary Header  Start Byte
+# uint32  seconds       6
+# uint16  subseconds    10
 
 # Packet ID
-#   char    AppName[20]
-#   uint16  EventID;
-#   uint16  EventType;
-#   uint32  SpacecraftID;
-#   uint32  ProcessorID;
+# char    AppName[20]   12
+# uint16  EventID;      32
+# uint16  EventType;    34
+# uint32  SpacecraftID; 36
+# uint32  ProcessorID;  40
 
 # Message
-#   char    Message[122];
-#   uint8   Spare1;
-#   uint8   Spare2;
+# char    Message[122]; 44
+# uint8   Spare1;       166
+# uint8   Spare2;       167
 
 import getopt
 import sys
@@ -72,6 +61,10 @@ from PyQt5.QtWidgets import QApplication, QDialog
 from Ui_EventMessageDialog import Ui_EventMessageDialog
 
 ROOTDIR = Path(sys.argv[0]).resolve().parent
+sys.path.append(str(ROOTDIR.parent.parent))
+## The two preceding lines must be above
+## the next import or the import will fail
+from shareddata import tlmOffset
 
 
 class EventMessageTelemetry(QDialog, Ui_EventMessageDialog):
@@ -107,13 +100,17 @@ class EventMessageTelemetry(QDialog, Ui_EventMessageDialog):
         #
         # Get App Name, Event ID, Type and Event Text!
         #
-        appName = datagram[16:36].decode('utf-8', 'ignore')
-        eventID = int.from_bytes(datagram[36:38], byteorder='little')
-        eventType = int.from_bytes(datagram[38:40], byteorder='little')
-        eventText = datagram[48:].decode('utf-8', 'ignore')
+        print(tlmOffset)
+        startByte = 12 + tlmOffset
+        appName = datagram[startByte:startByte + 20].decode('utf-8', 'ignore')
+        eventID = int.from_bytes(datagram[startByte + 20:startByte + 22],
+                                 byteorder='little')
+        eventType = int.from_bytes(datagram[startByte + 22:startByte + 24],
+                                   byteorder='little')
+        eventText = datagram[startByte + 32:].decode('utf-8', 'ignore')
         appName = appName.split("\0")[0]
         eventText = eventText.split("\0")[0]
-        eventTypeStr = self.eventTypes.get(eventType, "Invalid Event Type")
+        eventTypeStr = self.eventTypes.get(eventType, "INVALID EVENT TYPE")
 
         eventString = f"EVENT --> {appName}-{eventTypeStr} Event ID: {eventID} : {eventText}"
         self.eventOutput.appendPlainText(eventString)
@@ -188,11 +185,11 @@ if __name__ == '__main__':
             usage()
             sys.exit()
         if opt in ("-p", "--port"):
-            _ = arg
+            pass
         elif opt in ("-t", "--title"):
             pageTitle = arg
         elif opt in ("-f", "--file"):
-            _ = arg
+            pass
         elif opt in ("-a", "--appid"):
             appId = arg
         elif opt in ("-e", "--endian"):

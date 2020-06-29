@@ -19,9 +19,9 @@
 #
 #!/usr/bin/env python3
 #
-
 import csv
 import getopt
+import mmap
 import sys
 from pathlib import Path
 from struct import unpack
@@ -33,7 +33,14 @@ from PyQt5.QtWidgets import (QApplication, QDialog, QHeaderView,
 
 from Ui_GenericTelemetryDialog import Ui_GenericTelemetryDialog
 
+## ../cFS/tools/cFS-GroundSystem/Subsystems/tlmGUI
 ROOTDIR = Path(sys.argv[0]).resolve().parent
+
+## Adds ../cFS/tools/cFS-GroundSystem to module search path
+## for shared data import
+# sys.path.append(str(ROOTDIR.parent.parent))
+# import shareddata as shared
+
 
 class SubsystemTelemetry(QDialog, Ui_GenericTelemetryDialog):
     #
@@ -42,18 +49,25 @@ class SubsystemTelemetry(QDialog, Ui_GenericTelemetryDialog):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        with open("/tmp/OffsetData", "r+b") as f:
+            self.mm = mmap.mmap(f.fileno(), 0, prot=mmap.PROT_READ)
 
     #
-    # This method Decodes a telemetry item from the packet and displays it
+    # This method decodes a telemetry item from the packet and displays it
     #
-    @staticmethod
-    def displayTelemetryItem(datagram, tlmIndex, labelField, valueField):
+    def displayTelemetryItem(self, datagram, tlmIndex, labelField, valueField):
         if tlmItemIsValid[tlmIndex]:
+            try:
+                tlmOffset = self.mm[0]
+            except ValueError:
+                pass
+            print(tlmOffset)
             TlmField1 = tlmItemFormat[tlmIndex]
             if TlmField1[0] == "<":
                 TlmField1 = TlmField1[1:]
-            TlmField2 = datagram[int(tlmItemStart[tlmIndex]):(
-                int(tlmItemStart[tlmIndex]) + int(tlmItemSize[tlmIndex]))]
+            itemStart = int(tlmItemStart[tlmIndex]) + tlmOffset
+            TlmField2 = datagram[itemStart:itemStart +
+                                 int(tlmItemSize[tlmIndex])]
             TlmField = unpack(TlmField1, TlmField2)
             if tlmItemDisplayType[tlmIndex] == 'Dec':
                 valueField.setText(str(TlmField[0]))
@@ -99,6 +113,7 @@ class SubsystemTelemetry(QDialog, Ui_GenericTelemetryDialog):
     def closeEvent(self, event):
         self.thread.runs = False
         self.thread.wait(2000)
+        self.mm.close()
         super().closeEvent(event)
 
 
@@ -167,7 +182,7 @@ if __name__ == '__main__':
             usage()
             sys.exit()
         elif opt in ("-p", "--port"):
-            _ = arg
+            pass
         elif opt in ("-t", "--title"):
             pageTitle = arg
         elif opt in ("-f", "--file"):
@@ -184,7 +199,7 @@ if __name__ == '__main__':
 
     print('Generic Telemetry Page started. Subscribed to', subscription)
 
-    py_endian = '<' if endian == 'L' else '>'
+    py_endian = '<' if endian.upper() == 'L' else '>'
 
     #
     # Init the QT application and the telemetry class
@@ -208,7 +223,7 @@ if __name__ == '__main__':
     with open(f"{ROOTDIR}/{tlmDefFile}") as tlmfile:
         reader = csv.reader(tlmfile, skipinitialspace=True)
         for row in reader:
-            if not row[0].startswith('#'):
+            if not row[0].startswith("#"):
                 tlmItemIsValid.append(True)
                 tlmItemDesc.append(row[0])
                 tlmItemStart.append(row[1])

@@ -42,8 +42,10 @@ from pathlib import Path
 from PyQt5.QtWidgets import (QApplication, QDialog, QHeaderView, QPushButton,
                              QTableWidgetItem)
 
+from MiniCmdUtil import MiniCmdUtil
 from Ui_GenericCommandDialog import Ui_GenericCommandDialog
 
+## ../cFS/tools/cFS-GroundSystem/Subsystems/cmdGui/
 ROOTDIR = Path(sys.argv[0]).resolve().parent
 
 class SubsystemCommands(QDialog, Ui_GenericCommandDialog):
@@ -54,6 +56,7 @@ class SubsystemCommands(QDialog, Ui_GenericCommandDialog):
         super().__init__()
         self.setupUi(self)
         self.setWindowTitle(pageTitle)
+        self.mcu = None
 
         # for j in range(self.tblCommands.rowCount()):
         #     btn = self.tblCommands.cellWidget(j, 1)
@@ -89,16 +92,22 @@ class SubsystemCommands(QDialog, Ui_GenericCommandDialog):
                     f'--host=\"{address}\" --port={pagePort} '
                     f'--pktid={pagePktId} --endian={pageEndian} '
                     f'--cmdcode={cmdCodes[idx]} --file={param_files[idx]}')
-
+                cmd_args = shlex.split(launch_string)
+                subprocess.Popen(cmd_args)
             # If parameters not required, directly calls cmdUtil to send command
             else:
-                launch_string = (
-                    f'{ROOTDIR}/../cmdUtil/cmdUtil --host=\"{address}\" '
-                    f'--port={pagePort} --pktid={pagePktId} '
-                    f'--endian={pageEndian} --cmdcode={cmdCodes[idx]}')
+                self.mcu = MiniCmdUtil(address, pagePort, pageEndian,
+                                       pagePktId, cmdCodes[idx])
+                sendSuccess = self.mcu.sendPacket()
+                print("Command sent successfully:", sendSuccess)
+                # launch_string = (
+                #     f'{ROOTDIR.parent}/cmdUtil/cmdUtil --host=\"{address}\" '
+                #     f'--port={pagePort} --pktid={pagePktId} '
+                #     f'--endian={pageEndian} --cmdcode={cmdCodes[idx]}')
 
-            cmd_args = shlex.split(launch_string)
-            subprocess.Popen(cmd_args)
+    def closeEvent(self, event):
+        self.mcu.mm.close()
+        super().closeEvent(event)
 
 
 #
