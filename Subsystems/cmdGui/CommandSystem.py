@@ -110,7 +110,8 @@ class CommandSystem(QDialog, Ui_CommandSystemDialog):
             #         f'--cmdcode={quickCode[qIdx]}')
 
     def closeEvent(self, event):
-        self.mcu.mm.close()
+        if self.mcu.mm:
+            self.mcu.mm.close()
         super().closeEvent(event)
 
 

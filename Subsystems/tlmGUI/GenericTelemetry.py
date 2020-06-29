@@ -36,11 +36,6 @@ from Ui_GenericTelemetryDialog import Ui_GenericTelemetryDialog
 ## ../cFS/tools/cFS-GroundSystem/Subsystems/tlmGUI
 ROOTDIR = Path(sys.argv[0]).resolve().parent
 
-## Adds ../cFS/tools/cFS-GroundSystem to module search path
-## for shared data import
-# sys.path.append(str(ROOTDIR.parent.parent))
-# import shareddata as shared
-
 
 class SubsystemTelemetry(QDialog, Ui_GenericTelemetryDialog):
     #
@@ -61,23 +56,28 @@ class SubsystemTelemetry(QDialog, Ui_GenericTelemetryDialog):
                 tlmOffset = self.mm[0]
             except ValueError:
                 pass
-            print(tlmOffset)
             TlmField1 = tlmItemFormat[tlmIndex]
             if TlmField1[0] == "<":
                 TlmField1 = TlmField1[1:]
-            itemStart = int(tlmItemStart[tlmIndex]) + tlmOffset
+            try:
+                itemStart = int(tlmItemStart[tlmIndex]) + tlmOffset
+            except UnboundLocalError:
+                pass
             TlmField2 = datagram[itemStart:itemStart +
                                  int(tlmItemSize[tlmIndex])]
-            TlmField = unpack(TlmField1, TlmField2)
-            if tlmItemDisplayType[tlmIndex] == 'Dec':
-                valueField.setText(str(TlmField[0]))
-            elif tlmItemDisplayType[tlmIndex] == 'Hex':
-                valueField.setText(hex(TlmField[0]))
-            elif tlmItemDisplayType[tlmIndex] == 'Enm':
-                valueField.setText(tlmItemEnum[tlmIndex][int(TlmField[0])])
-            elif tlmItemDisplayType[tlmIndex] == 'Str':
-                valueField.setText(TlmField[0].decode('utf-8', 'ignore'))
-            labelField.setText(tlmItemDesc[tlmIndex])
+            if TlmField2:
+                TlmField = unpack(TlmField1, TlmField2)
+                if tlmItemDisplayType[tlmIndex] == 'Dec':
+                    valueField.setText(str(TlmField[0]))
+                elif tlmItemDisplayType[tlmIndex] == 'Hex':
+                    valueField.setText(hex(TlmField[0]))
+                elif tlmItemDisplayType[tlmIndex] == 'Enm':
+                    valueField.setText(tlmItemEnum[tlmIndex][int(TlmField[0])])
+                elif tlmItemDisplayType[tlmIndex] == 'Str':
+                    valueField.setText(TlmField[0].decode('utf-8', 'ignore'))
+                labelField.setText(tlmItemDesc[tlmIndex])
+            else:
+                print("ERROR: Can't unpack buffer of length", len(TlmField2))
 
     # Start the telemetry receiver (see GTTlmReceiver class)
     def initGTTlmReceiver(self, subscr):
