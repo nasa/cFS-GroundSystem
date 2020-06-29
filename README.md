@@ -71,7 +71,7 @@ See [Guide-GroundSystem.md](https://github.com/nasa/cFS-GroundSystem/blob/master
 
 - Minor updates (see <https://github.com/nasa/cFS-GroundSystem/pull/36>)
 
-### **_OFFICIAL RELEASE 2.1.0_**
+### **_OFFICIAL RELEASE 2.1.0 - Aquila_**
 
 - Minor updates (see <https://github.com/nasa/cFS-GroundSystem/pull/26>)
 - Released as part of cFE 6.7.0, Apache 2.0
