@@ -80,7 +80,8 @@ class Parameter(QDialog, Ui_Dialog):
             self.status_box.setText('Error occured')
 
     def closeEvent(self, event):
-        self.mcu.mm.close()
+        if self.mcu:
+            self.mcu.mm.close()
         super().closeEvent(event)
 
 

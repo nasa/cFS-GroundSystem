@@ -106,7 +106,8 @@ class SubsystemCommands(QDialog, Ui_GenericCommandDialog):
                 #     f'--endian={pageEndian} --cmdcode={cmdCodes[idx]}')
 
     def closeEvent(self, event):
-        self.mcu.mm.close()
+        if self.mcu:
+            self.mcu.mm.close()
         super().closeEvent(event)
 
 

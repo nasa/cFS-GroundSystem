@@ -22,20 +22,13 @@
 ## to support the GroundSystem GUI
 
 import mmap
-import sys
-from pathlib import Path
+import socket
 from collections import namedtuple
-
-ROOTDIR = Path(sys.argv[0]).resolve().parent
-sys.path.append(str(ROOTDIR.parent.parent))
-## The two preceding lines must be above
-## the next import or the import will fail
-from shareddata import sock
 
 
 class MiniCmdUtil:
-    checksum = 0xFF
-    cfsCmdSecHdr = bytearray(2)
+    ## Class objects
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     TypeSignature = namedtuple("TypeSignature", 'byteLen, signed, endian')
     dataTypes = {
         ("b", "int8", "byte"): TypeSignature(1, True, None),
@@ -75,9 +68,10 @@ class MiniCmdUtil:
 
         self.cmdOffsetPri = 0
         self.cmdOffsetSec = 0
+        self.checksum = 0xFF
+        self.cfsCmdSecHdr = bytearray(2)
 
     def assemblePriHeader(self):
-        self._getOffsets()
         ccsdsPri = bytearray(6)
         ccsdsPri[:2] = self.pktID.to_bytes(2, byteorder='big')
         ccsdsPri[2:4] = (0xC000).to_bytes(2, byteorder='big')
@@ -125,14 +119,14 @@ class MiniCmdUtil:
 
     def assemblePacket(self):
         self._getOffsets()
-        pri = self.assemblePriHeader()
-        self.packet.extend(pri)
+        priHeader = self.assemblePriHeader()
+        self.packet.extend(priHeader)
         priOffset = bytearray(self.cmdOffsetPri)
         self.packet.extend(priOffset)
         self.cfsCmdSecHdr[0] = self.cmdCode
         secOffset = bytearray(self.cmdOffsetSec)
-        for b in b''.join(
-            (pri, priOffset, self.cfsCmdSecHdr, secOffset, self.payload)):
+        for b in b''.join((priHeader, priOffset, self.cfsCmdSecHdr, secOffset,
+                           self.payload)):
             self.checksum ^= b
         self.cfsCmdSecHdr[1] = self.checksum
         self.packet.extend(self.cfsCmdSecHdr)
@@ -148,7 +142,7 @@ class MiniCmdUtil:
             if (i + 1) % 8 == 0:
                 print()
         print()
-        bytesSent = sock.sendto(self.packet, (self.host, self.port))
+        bytesSent = self.sock.sendto(self.packet, (self.host, self.port))
         return bytesSent > 0
 
     def _getOffsets(self):

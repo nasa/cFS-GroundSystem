@@ -50,9 +50,10 @@
 # uint8   Spare2;       167
 
 import getopt
+import mmap
 import sys
-from struct import unpack
 from pathlib import Path
+from struct import unpack
 
 import zmq
 from PyQt5.QtCore import QThread, pyqtSignal
@@ -61,10 +62,6 @@ from PyQt5.QtWidgets import QApplication, QDialog
 from Ui_EventMessageDialog import Ui_EventMessageDialog
 
 ROOTDIR = Path(sys.argv[0]).resolve().parent
-sys.path.append(str(ROOTDIR.parent.parent))
-## The two preceding lines must be above
-## the next import or the import will fail
-from shareddata import tlmOffset
 
 
 class EventMessageTelemetry(QDialog, Ui_EventMessageDialog):
@@ -79,6 +76,9 @@ class EventMessageTelemetry(QDialog, Ui_EventMessageDialog):
             3: "ERROR",
             4: "CRITICAL"
         }
+
+        with open("/tmp/OffsetData", "r+b") as f:
+            self.mm = mmap.mmap(f.fileno(), 0, prot=mmap.PROT_READ)
 
     def initEMTlmReceiver(self, subscr):
         self.setWindowTitle(f'{pageTitle} for: {subscr}')
@@ -100,7 +100,10 @@ class EventMessageTelemetry(QDialog, Ui_EventMessageDialog):
         #
         # Get App Name, Event ID, Type and Event Text!
         #
-        print(tlmOffset)
+        try:
+            tlmOffset = self.mm[0]
+        except ValueError:
+            pass
         startByte = 12 + tlmOffset
         appName = datagram[startByte:startByte + 20].decode('utf-8', 'ignore')
         eventID = int.from_bytes(datagram[startByte + 20:startByte + 22],
