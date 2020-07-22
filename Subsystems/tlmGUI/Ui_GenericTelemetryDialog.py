@@ -109,9 +109,5 @@ class Ui_GenericTelemetryDialog(object):
         item.setText(_translate("GenericTelemetryDialog", "Telemetry Point Value"))
         self.packetIdLabel.setText(_translate("GenericTelemetryDialog", "Packet ID"))
         self.label_5.setText(_translate("GenericTelemetryDialog", "Sequence Count"))
-        self.label_6.setText(_translate("GenericTelemetryDialog", "*No packets? Remember to select the IP address of your spacecraft in the Main Window."))
-        self.label.setText(_translate("GenericTelemetryDialog", "Telemetry Point Label"))
-        self.label_8.setText(_translate("GenericTelemetryDialog", "Telemetry Point Value"))
-        self.label_2.setText(_translate("GenericTelemetryDialog", "Telemetry Point Label"))
-        self.label_9.setText(_translate("GenericTelemetryDialog", "Telemetry Point Value"))
+        self.subSystemTelemetryPageLabel.setText(_translate("GenericTelemetryDialog", "Subsystem Telemetry Page"))
 
