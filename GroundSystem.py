@@ -31,6 +31,12 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from RoutingService import RoutingService
 from Ui_MainWindow import Ui_MainWindow
 
+from _version import __version__ as _version
+from _version import _version_string
+
+__version__ = _version
+
+
 ROOTDIR = Path(sys.argv[0]).resolve().parent
 
 
@@ -167,7 +173,10 @@ class GroundSystem(QMainWindow, Ui_MainWindow):
 # Main
 #
 if __name__ == "__main__":
-
+    
+    # Report Version Number upon startup
+    print(_version_string)
+    
     # Init app
     app = QApplication(sys.argv)
 
