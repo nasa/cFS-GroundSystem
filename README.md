@@ -8,6 +8,13 @@ See [Guide-GroundSystem.md](https://github.com/nasa/cFS-GroundSystem/blob/master
 
 ## Version History
 
+### Development Build: 2.1.0+dev76
+
+- Fixes more lgtm warnings
+- Allows users to change the byte offsets for sending commands and parsing telemetry, to support different header versions or other implementations of cFS
+- Adds a file to store version information and reports version upon ground-system startup.
+- See <https://github.com/nasa/cFS-GroundSystem/pull/109>
+
 ### Development Build: 2.1.12
 
 - Change all individual UI elements to table widgets. Update backend code accordingly

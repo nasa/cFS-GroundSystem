@@ -1,3 +1,6 @@
 *.pyc
 cmdUtil
+!/Subsystems/cmdUtil
+CMakeFiles
+CMakeCache.txt
 .DS_Store

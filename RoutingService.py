@@ -100,8 +100,7 @@ class RoutingService(QThread):
 
                 # Handle errors
                 except socket.error:
-                    print(
-                        f'Ignored socket error for attempt {socketErrorCount}')
+                    print('Ignored socket error for attempt', socketErrorCount)
                     socketErrorCount += 1
                     sleep(1)
 

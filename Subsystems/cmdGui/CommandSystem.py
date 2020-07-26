@@ -29,8 +29,10 @@ from pathlib import Path
 from PyQt5.QtWidgets import (QApplication, QDialog, QHeaderView, QPushButton,
                              QTableWidgetItem)
 
+from MiniCmdUtil import MiniCmdUtil
 from Ui_CommandSystemDialog import Ui_CommandSystemDialog
 
+## ../cFS/tools/cFS-GroundSystem/Subsystems/cmdGui/
 ROOTDIR = Path(sys.argv[0]).resolve().parent
 
 
@@ -43,6 +45,7 @@ class CommandSystem(QDialog, Ui_CommandSystemDialog):
         super().__init__()
         self.setupUi(self)
         self.move(800, 100)
+        self.mcu = None
 
     #
     # Processes 'Display Page' button
@@ -91,15 +94,25 @@ class CommandSystem(QDialog, Ui_CommandSystemDialog):
                     f'--port={quickPort[qIdx]} '
                     f'--pktid={pktId} --endian={quickEndian[qIdx]} '
                     f'--cmdcode={quickCode[qIdx]} --file={quickParam[qIdx]}')
+                cmd_args = shlex.split(launch_string)
+                subprocess.Popen(cmd_args)
             # if doesn't require parameters
             else:
-                launch_string = (
-                    f'{ROOTDIR}/../cmdUtil/cmdUtil '
-                    f'--host=\"{address}\" --port={quickPort[qIdx]} '
-                    f'--pktid={pktId} --endian={quickEndian[qIdx]} '
-                    f'--cmdcode={quickCode[qIdx]}')
-            cmd_args = shlex.split(launch_string)
-            subprocess.Popen(cmd_args)
+                self.mcu = MiniCmdUtil(address, quickPort[qIdx],
+                                       quickEndian[qIdx], pktId,
+                                       quickCode[qIdx])
+                sendSuccess = self.mcu.sendPacket()
+                print("Command sent successfully:", sendSuccess)
+            #     launch_string = (
+            #         f'{ROOTDIR.parent}/cmdUtil/cmdUtil '
+            #         f'--host=\"{address}\" --port={quickPort[qIdx]} '
+            #         f'--pktid={pktId} --endian={quickEndian[qIdx]} '
+            #         f'--cmdcode={quickCode[qIdx]}')
+
+    def closeEvent(self, event):
+        if self.mcu:
+            self.mcu.mm.close()
+        super().closeEvent(event)
 
 
 #
@@ -166,7 +179,7 @@ if __name__ == '__main__':
     with open(f'{ROOTDIR}/{quickDefFile}') as subFile:
         reader = csv.reader(subFile)
         for fileRow in reader:
-            if fileRow[0][0] != '#':
+            if not fileRow[0].startswith('#'):
                 subsys.append(fileRow[0])
                 subsysFile.append(fileRow[1])
                 quickCmd.append(fileRow[2].strip())

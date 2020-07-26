@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>630</width>
-    <height>816</height>
+    <width>574</width>
+    <height>836</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,9 +16,9 @@
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>730</y>
-     <width>431</width>
+     <x>29</x>
+     <y>750</y>
+     <width>711</width>
      <height>61</height>
     </rect>
    </property>
@@ -28,29 +28,30 @@
     </font>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;*No packets? Remember to select the IP address of your&lt;br/&gt;spacecraft in the Main Window.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;*No packets? Remember to select the IP address of&lt;br /&gt;your spacecraft in the Main Window.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
   <widget class="QTableWidget" name="tblTelemetry">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>110</y>
-     <width>470</width>
-     <height>601</height>
+     <x>20</x>
+     <y>100</y>
+     <width>431</width>
+     <height>621</height>
     </rect>
-   </property>
-   <property name="horizontalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOff</enum>
-   </property>
-   <property name="sizeAdjustPolicy">
-    <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
    </property>
    <property name="editTriggers">
     <set>QAbstractItemView::NoEditTriggers</set>
    </property>
    <attribute name="horizontalHeaderDefaultSectionSize">
-    <number>225</number>
+    <number>200</number>
+   </attribute>
+   <attribute name="verticalHeaderVisible">
+    <bool>false</bool>
    </attribute>
    <column>
     <property name="text">
@@ -66,9 +67,9 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>510</x>
-     <y>50</y>
-     <width>81</width>
+     <x>450</x>
+     <y>100</y>
+     <width>100</width>
      <height>31</height>
     </rect>
    </property>
@@ -76,13 +77,13 @@
     <set>QDialogButtonBox::Close</set>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>270</x>
-     <y>25</y>
+     <x>260</x>
+     <y>24</y>
      <width>73</width>
-     <height>60</height>
+     <height>54</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -123,10 +124,10 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>370</x>
+     <x>350</x>
      <y>23</y>
      <width>125</width>
      <height>62</height>
@@ -167,7 +168,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>42</x>
