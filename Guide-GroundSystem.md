@@ -50,33 +50,37 @@ The `CHeaderParser.py` program that should be found in:
 Is an interactive, command-line based program to help walk developers through the process of adding custom cFS applications to the Ground System. Along with `CHeaderParser.py` is a configuration file that CHeaderParser uses to find the proper header files for your "new" cFS application. This file is named `CHeaderParser-hdr-paths.txt`, and should be placed in the same directory as `CHeaderParser.py`.
 
 Expected file structure:
-````
-
-cFE-6.4.x-OSS-release/cfe/tools/cFS-GroundSystem/Subsystems/cmdGui/CHeaderParser.py cFE-6.4.x-OSS-release/cfe/tools/cFS-GroundSystem/Subsystems/cmdGui/CHeaderParser-hdr-paths.txt cFE-6.4.x-OSS-release/cfe/tools/cFS-GroundSystem/Subsystems/cmdGui/CommandFiles/ cFE-6.4.x-OSS-release/cfe/tools/cFS-GroundSystem/Subsystems/cmdGui/ParameterFiles/ cFE-6.4.x-OSS-release/cfe/tools/cFS-GroundSystem/Subsystems/cmdGui/command-pages.txt
 
 ```
+cFE-6.4.x-OSS-release/cfe/tools/cFS-GroundSystem/Subsystems/cmdGui/CHeaderParser.py
+cFE-6.4.x-OSS-release/cfe/tools/cFS-GroundSystem/Subsystems/cmdGui/CHeaderParser-hdr-paths.txt
+cFE-6.4.x-OSS-release/cfe/tools/cFS-GroundSystem/Subsystems/cmdGui/CommandFiles/
+cFE-6.4.x-OSS-release/cfe/tools/cFS-GroundSystem/Subsystems/cmdGui/ParameterFiles/
+cFE-6.4.x-OSS-release/cfe/tools/cFS-GroundSystem/Subsystems/cmdGui/command-pages.txt
+```
+
 Steps to adding application commands to the Ground System:
 
-1\. Edit `CHeaderParser-hdr-paths.txt`:
-   1\. Locate any header files that contain command code definitions or command structure definitions. These files typically end in `*app_msg.h` or `*app_msgdefs.h` but could be named anything.
-   1\. Add each one of the paths to a new line in `CHeaderParser-hdr-paths.txt`.
-   1\. Comment out any paths/lines that aren't needed with `#` (at the beginning of the line).
+1. Edit `CHeaderParser-hdr-paths.txt`:
+   1. Locate any header files that contain command code definitions or command structure definitions. These files typically end in `*app_msg.h` or `*app_msgdefs.h` but could be named anything.
+   1. Add each one of the paths to a new line in `CHeaderParser-hdr-paths.txt`.
+   1. Comment out any paths/lines that aren't needed with `#` (at the beginning of the line).
 
-1\. Run CHeaderParser:
-   1\. Call CHeaderParser using python: `python3 CHeaderParser.py`
-   1\. The program will prompt you to enter a filename for the application. This will create a pickle file for your application named `CommandFiles/<user_defined_name>`. Notice that this file will be stored in the `CommandFiles` directory. This same filename will be used in `command-pages.txt` later.
-   1\. Type `yes` if any commands in your application have parameters. The program will then look through the provided header files for `definitions.pick` which-ever definitions describe related command codes (one at a time, the program will prompt you for the next command code after all parameters have been added for the current command).
-   1\. Select the appropriate command structure for the selected command. The program will show all structures that it could find in the provided header files. Enter the index of the command structure (the corresponding index should be above the command structure).
-   1\. Select any parameters from the structure that apply. Once you have selected all applicable lines from the command structure, enter `-1` to finish. This will create a pickle file for the command/parameters named `ParameterFiles/<command_name>`. Notice that this file will be stored in the `ParameterFiles` directory.
+1. Run CHeaderParser:
+   1. Call CHeaderParser using python: `python3 CHeaderParser.py`
+   1. The program will prompt you to enter a filename for the application. This will create a pickle file for your application named `CommandFiles/<user_defined_name>`. Notice that this file will be stored in the `CommandFiles` directory. This same filename will be used in `command-pages.txt` later.
+   1. Type `yes` if any commands in your application have parameters. The program will then look through the provided header files for `definitions.pick` which-ever definitions describe related command codes (one at a time, the program will prompt you for the next command code after all parameters have been added for the current command).
+   1. Select the appropriate command structure for the selected command. The program will show all structures that it could find in the provided header files. Enter the index of the command structure (the corresponding index should be above the command structure).
+   1. Select any parameters from the structure that apply. Once you have selected all applicable lines from the command structure, enter `-1` to finish. This will create a pickle file for the command/parameters named `ParameterFiles/<command_name>`. Notice that this file will be stored in the `ParameterFiles` directory.
 
-1\. Update `command-pages.txt` (CSV):
-   1\. Column 1 - Title of your application (whatever you want it called).
-   1\. Column 2 - filename of your application (chosen in Step 2.ii) under `CommandFiles` directory.
-   1\. Column 3 - Message ID for Application Commands (typically defined in `mission_msgids.h`).
-   1\. Column 4 - Endianess (default little endian: `LE`).
-   1\. Column 5 - PyGUI Page (default: `UdpCommands.py`).
-   1\. Column 6 - Command Send Address (default: `127.0.0.1`).
-   1\. Column 7 - Command Send Port (default: `1234`).
+1. Update `command-pages.txt` (CSV):
+   1. Column 1 - Title of your application (whatever you want it called).
+   1. Column 2 - filename of your application (chosen in Step 2.ii) under `CommandFiles` directory.
+   1. Column 3 - Message ID for Application Commands (typically defined in `mission_msgids.h`).
+   1. Column 4 - Endianess (default little endian: `LE`).
+   1. Column 5 - PyGUI Page (default: `UdpCommands.py`).
+   1. Column 6 - Command Send Address (default: `127.0.0.1`).
+   1. Column 7 - Command Send Port (default: `1234`).
 
    Notes:
    - USE ONLY SPACES, NO TABS (Remember, it's Python).
@@ -90,61 +94,66 @@ After completing these steps, restart the Ground System and the changes should h
 
 Traceback:
 ```
-
 Calling cmdUtil from Parameter.py Traceback (most recent call last): File "Parameter.py", line 100, in ProcessSendButton subprocess.Popen(cmd_args, stdout=subprocess.PIPE) File "/usr/lib/python3.7/subprocess.py", line 642, in __init__ errread, errwrite) File "/usr/lib/python3.7/subprocess.py", line 1234, in _execute_child raise child_exception OSError: [Errno 8] Exec format error
-
 ```
 Fix: This problem is most likely caused by calling `cmdUtil` without compiling it.  This issue has also been found to occur when the `cmdUtil` executable has been compressed/decompressed. To fix this problem, use the `Makefile` inside of the `cmdUtil` directory to compile or recompile (in the case after decompressing).
 ```
-
 $ cd Subsystems/cmdUtil $ make $ cd ../.. $ python3 GroundSystem.py
-
 ```
 ## Historically included instructions for running on macOS or CentOS
 
+These are NOT kept up-to-date, but included for historical reference (may be easier than starting from scratch)
+
 ### Installing and running cFS Ground System on macOS, using Homebrew
 ```
-
-$ brew install pyqt $ brew install zeromq $ ( cd Subsystems/cmdUtil/ && make ) $ python GroundSystem.py
-
+$ brew install pyqt
+$ brew install zeromq
+$ ( cd Subsystems/cmdUtil/ && make )
+$ python GroundSystem.py
 ```
 ### Installing and running cFS Ground System on CentOS 6
 
 #### Update yum
 ```
-
-$ su $
-
-<type password="">
+$ su
+$ <type password="">
 $ yum -y update</type>
-
 ```
 #### Install pip and python-development ####
 If you are on a 64-bit CentOS / RHEL based system:
 ```
-
-$ wget <http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm> $ rpm -ivh epel-release-6-8.noarch.rpm
-
+$ wget <http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm>
+$ rpm -ivh epel-release-6-8.noarch.rpm
 ```
 If you are on a 32-bit CentOS / RHEL based system:
 ```
-
-$ wget <http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm> $ rpm -ivh epel-release-6-8.noarch.rpm $ yum install -y python-pip $ yum install -y python-devel
-
+$ wget <http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm>
+$ rpm -ivh epel-release-6-8.noarch.rpm
+$ yum install -y python-pip
+$ yum install -y python-devel
 ```
 #### Install zeroMQ and pyZMQ messaging system ####
 ```
-
-$ yum install -y uuid-devel $ yum install -y pkgconfig $ yum install -y libtool $ yum install -y gcc-c++ $ wget <http://download.zeromq.org/zeromq-4.0.5.tar.gz> $ tar xzvf zeromq-4.0.5.tar.gz $ cd zeromq-4.0.5 $ ./configure $ make $ make install $ echo /usr/local/lib > /etc/ld.so.conf.d/local.conf $ ldconfig $ pip install pyzmq
-
+$ yum install -y uuid-devel
+$ yum install -y pkgconfig
+$ yum install -y libtool
+$ yum install -y gcc-c++
+$ wget <http://download.zeromq.org/zeromq-4.0.5.tar.gz>
+$ tar xzvf zeromq-4.0.5.tar.gz
+$ cd zeromq-4.0.5
+$ ./configure
+$ make
+$ make install
+$ echo /usr/local/lib > /etc/ld.so.conf.d/local.conf
+$ ldconfig
+$ pip install pyzmq
 ```
 #### Install pyQT4 ####
 ```
-
-$ yum install -y PyQt4 $ yum install -y qt qt-demos qt-designer qt4 qt4-designer
-
+$ yum install -y PyQt4
+$ yum install -y qt qt-demos qt-designer qt4 qt4-designer
 ```
 #### Running Ground System ###
 ```
-
-$ python GroundSystem.py ```
+$ python GroundSystem.py
+```
