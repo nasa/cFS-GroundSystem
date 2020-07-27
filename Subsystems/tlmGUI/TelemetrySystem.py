@@ -50,11 +50,6 @@ class TelemetrySystem(QDialog, Ui_TelemetrySystemDialog):
         self.pktCount = 0
         self.subscription = None
 
-        # for k in range(21):
-        #     pushButton = getattr(self, f"pushButton_{k}")
-        #     pushButton.clicked.connect(
-        #         lambda _, x=k: self.ProcessButtonGeneric(x))
-
     #
     # convert a string of binary bytes to ascii hex
     #
