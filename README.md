@@ -8,6 +8,11 @@ See [Guide-GroundSystem.md](https://github.com/nasa/cFS-GroundSystem/blob/master
 
 ## Version History
 
+### Development Build: 2.1.0+dev85
+
+- Remove unused code/packages to fix LGTM warnings
+- See <https://github.com/nasa/cFS-GroundSystem/pull/120>
+
 ### Development Build: 2.1.0+dev76
 
 - Fixes more lgtm warnings

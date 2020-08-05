@@ -20,8 +20,6 @@
 import getopt
 import pickle
 import re
-import shlex
-import subprocess
 import sys
 from pathlib import Path
 
@@ -68,12 +66,6 @@ class Parameter(QDialog, Ui_Dialog):
         self.mcu = MiniCmdUtil(pageAddress, pagePort, pageEndian, pagePktId,
                                cmdCode, param_string.strip())
         sendSuccess = self.mcu.sendPacket()
-        # launch_string = (
-        #     f'{ROOTDIR.parent}/cmdUtil/cmdUtil --host={pageAddress} '
-        #     f'--port={pagePort} --pktid={pagePktId} --endian={pageEndian} '
-        #     f'--cmdcode={cmdCode} {param_string.strip()}')result
-        # cmd_args = shlex.split(launch_string)
-        # subprocess.Popen(cmd_args)
         if sendSuccess:
             self.status_box.setText('Command sent!')
         else:
