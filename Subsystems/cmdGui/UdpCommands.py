@@ -58,11 +58,6 @@ class SubsystemCommands(QDialog, Ui_GenericCommandDialog):
         self.setWindowTitle(pageTitle)
         self.mcu = None
 
-        # for j in range(self.tblCommands.rowCount()):
-        #     btn = self.tblCommands.cellWidget(j, 1)
-        #     btn.clicked.connect(
-        #         lambda _, x=j: self.ProcessSendButtonGeneric(x))
-
     #
     # Determines if command requires parameters
     #
