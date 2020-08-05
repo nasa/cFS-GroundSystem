@@ -20,7 +20,7 @@
 #
 
 # Development Build Macro Definitions
-_cFS_GrndSys_build_number = 76
+_cFS_GrndSys_build_number = 85
 _cFS_GrndSys_build_baseline = "v2.1.0"
 
 # Version Number Definitions
@@ -35,7 +35,7 @@ _cFS_GrndSys_MISSIONREV = 0
 __version__ = "+dev".join((_cFS_GrndSys_build_baseline,str(_cFS_GrndSys_build_number)))
 
 # Development Build format for __version_string__ 
-_version_string = " cFS-GroundSystem Development Build\n " + __version__ + " (Codename: Bootes)"
+_version_string = " cFS-GroundSystem DEVELOPMENT BUILD\n " + __version__
 
 # Use the following templates for Official Releases ONLY 
 
