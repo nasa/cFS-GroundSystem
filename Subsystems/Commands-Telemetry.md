@@ -30,10 +30,10 @@ field of the packet. This is comma-delimited text, and has no error checking.
                               For strings, the number of characters (such as 16)
 
 4. Python type -- Python type for the field
-                             B = unsigned byte
-                             H = unsigned 16-bit integer
-                             I = unsigned 32-bit integer
-                             s = String
+* B = unsigned byte
+* H = unsigned 16-bit integer
+* I = unsigned 32-bit integer
+* s = String
 
 Notes: Floating point types are not supported yet, but are planned. Also the
 type should match the length from #3 above.
