@@ -1,6 +1,6 @@
-#Commands and Telemetry:
+# Commands and Telemetry:
 
-##Telemetry ( tlmGUI/ directory ):
+## Telemetry ( tlmGUI/ directory ):
 Telemetry is sent from the running cFE/CFS as CCSDS telemetry packets encapsulated in 
 UDP/IP packets. The `enable telemetry` command tells the TO_LAB application to start 
 sending packets to a UDP port (port #1234 by default) on the `localhost` or a specified IP. 
@@ -20,7 +20,7 @@ For example: `cfe-es-hk-tlm.txt` is for the cFE Executive Services housekeeping 
 That file contains the information needed to decode and display each data
 field of the packet. This is comma-delimited text, and has no error checking. 
 
-###The fields are:
+### The fields are:
 
 1. Field Description -- This is displayed on the GUI telemetry page
 
@@ -59,7 +59,7 @@ and the value is 2
 9. Enumerated type 3 -- This string is displayed if the display type is Enm
 and the value is 3
 
-###What needs to be done:
+### What needs to be done:
 
 1. Expand number of enumerated types
 
@@ -69,7 +69,7 @@ and the value is 3
 
 4. Be able to record/graph data? May be beyond the scope of this. 
 
-#Commands (cmdGUI/ directory)
+# Commands (cmdGUI/ directory)
 
 This is a simple Python / QT based Command GUI for the cmdUtil utility. 
 It provides a list of "command pages" with a list of commands to send to a subsystem.
