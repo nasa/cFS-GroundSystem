@@ -239,8 +239,11 @@ if __name__ == '__main__':
         # Continue to ask user for commands with parameters until we get -1 to exit.
         while True:
             # Get user input
-            command_choice = int(
-                input("Choose from the list above or choose -1 to exit."))
+            try:
+                command_choice = int(
+                    input("Enter a value from the list above or -1 to exit: "))
+            except ValueError:
+                pass
 
             # Check for exit condition
             if command_choice == -1:
@@ -248,258 +251,267 @@ if __name__ == '__main__':
                 break
 
             # Make sure the choice is within range
-            if command_choice not in range(len(unused_cmdDesc)):
+            if command_choice not in range(1, len(unused_cmdDesc) + 1):
                 print(
                     f"You entered {command_choice}, but that isn't an option.")
             else:
-                cmdName = unused_cmdDesc[command_choice]
+                cmdName = unused_cmdDesc[command_choice - 1]
 
-            # Initialize Parameter variables to empty lists
-            paramNames, paramDesc, dataTypesOrig,\
-                dataTypesNew, paramLens, stringLens = ([] for _ in range(6))
+                # Initialize Parameter variables to empty lists
+                paramNames, paramDesc, dataTypesOrig,\
+                    dataTypesNew, paramLens, stringLens = ([] for _ in range(6))
 
-            # This empty list will hold possibly multiple lists of line numbers
-            # each list representing where inside the App Header file the
-            # structure can be found
-            list_cmd_structs = []
+                # This empty list will hold possibly multiple lists of line numbers
+                # each list representing where inside the App Header file the
+                # structure can be found
+                list_cmd_structs = []
 
-            print(
-                "This program will now attempt to find the command structure for",
-                cmdName)
+                print(
+                    "This program will now attempt to find the command structure for",
+                    cmdName)
 
-            # create a copy of file_lines for parsing structures
-            file_lines = list(master_hdr)
+                # create a copy of file_lines for parsing structures
+                file_lines = list(master_hdr)
 
-            # inside_struct will keep track of where the next
-            # for loop is while it's scanning the file
-            # if it is between '{' and '}', it will assume
-            # it's inside of a struct
-            inside_struct = False
+                # inside_struct will keep track of where the next
+                # for loop is while it's scanning the file
+                # if it is between '{' and '}', it will assume
+                # it's inside of a struct
+                inside_struct = False
 
-            # line_num will keep track of what line we are looking at in the header file
-            line_num = 0
+                # line_num will keep track of what line we are looking at in the header file
+                line_num = 0
 
-            # Look through each line of the header file for command structures
-            while line_num in range(len(file_lines)):
+                # Look through each line of the header file for command structures
+                while line_num in range(len(file_lines)):
 
-                # check for the start of a structure
-                if '{' in file_lines[line_num]:
-                    inside_struct = True
+                    # check for the start of a structure
+                    if '{' in file_lines[line_num]:
+                        inside_struct = True
 
-                # if none is found, pass by and keep searching
-                else:
-                    line_num += 1
+                    # if none is found, pass by and keep searching
+                    else:
+                        line_num += 1
 
-                # This empty list will hold the line numbers containing structure data
-                lines_of_struct = []
+                    # This empty list will hold the line numbers containing structure data
+                    lines_of_struct = []
 
-                while inside_struct:
-                    # Check for the end of the structure
-                    # We will still want to know what line this is
-                    if '}' in file_lines[line_num]:
-                        # Clear the flag, we found the end.
-                        inside_struct = False
+                    while inside_struct:
+                        # Check for the end of the structure
+                        # We will still want to know what line this is
+                        if '}' in file_lines[line_num]:
+                            # Clear the flag, we found the end.
+                            inside_struct = False
 
-                        # Add line number to list, even if it has a '}'
+                            # Add line number to list, even if it has a '}'
+                            lines_of_struct.append(line_num)
+
+                            # Now that we know the struct is over, add list of lines
+                            # to the sets of command structures
+                            list_cmd_structs.append(lines_of_struct)
+                            break
+
+                        # Add line number to list
                         lines_of_struct.append(line_num)
+                        line_num += 1
 
-                        # Now that we know the struct is over, add list of lines
-                        # to the sets of command structures
-                        list_cmd_structs.append(lines_of_struct)
+                # After exiting this while loop, cmdStruct should contain a list of lists
+                # The nested lists should contain line numbers to each structure in file
+                for line_list in list_cmd_structs:
+                    print("\nShowing structure",
+                          list_cmd_structs.index(line_list), "of",
+                          len(list_cmd_structs) - 1, "below")
+                    print("--------------------------------------------")
+                    for line_num in line_list:
+                        # Print the line from the file using the index from the list
+                        print(file_lines[line_num].strip())
+                    print("--------------------------------------------")
+
+                while True:
+                    # Give the user the option to exit too.
+                    try:
+                        struct_choice = int(
+                            input(
+                                "Enter a value from the list above or -1 to exit: "
+                            ))
+                    except ValueError:
+                        pass
+
+                    # Check for exit condition
+                    if struct_choice == -1:
+                        print("Exiting.")
+                        sys.exit()
+
+                    # Make sure the choice is valid
+                    if struct_choice not in range(len(list_cmd_structs)):
+                        print(
+                            f"You entered {struct_choice}, but that isn't an option."
+                        )
+                    else:
                         break
 
-                    # Add line number to list
-                    lines_of_struct.append(line_num)
-                    line_num += 1
+                # After exiting the while loop, user's structure choice should be a valid assignment
+                # Take the appropriate list of lines from the list of command structures
+                cmd_struct_lines = list(list_cmd_structs[struct_choice])
 
-            # After exiting this while loop, cmdStruct should contain a list of lists
-            # The nested lists should contain line numbers to each structure in file
-            for line_list in list_cmd_structs:
-                print("\nShowing structure", list_cmd_structs.index(line_list),
-                      "of",
-                      len(list_cmd_structs) - 1, "below")
-                print("--------------------------------------------")
-                for line_num in line_list:
-                    # Print the line from the file using the index from the list
-                    print(file_lines[line_num].strip())
-                print("--------------------------------------------")
-
-            while True:
-                # Give the user the option to exit too.
-                struct_choice = int(
-                    input("Choose from the list above or choose -1 to exit."))
-
-                # Check for exit condition
-                if struct_choice == -1:
-                    print("Exiting.")
-                    sys.exit()
-
-                # Make sure the choice is valid
-                if struct_choice not in range(len(list_cmd_structs)):
-                    print(
-                        f"You entered {struct_choice}, but that isn't an option."
-                    )
-                else:
-                    break
-
-            # After exiting the while loop, user's structure choice should be a valid assignment
-            # Take the appropriate list of lines from the list of command structures
-            cmd_struct_lines = list(list_cmd_structs[struct_choice])
-
-            # Initialize variable to get into loop
-            param_line = 0
-
-            # The following loop will iterate each time another
-            # parameter is added to a command
-            # After exiting the loop, the parameter variables
-            # should be updated with a list of parameters for
-            # the user's chosen command
-            while param_line in range(len(cmd_struct_lines)):
-
-                # Display the command structure with indexed before each line
-                print("\n\n")
-                for line_num, line in enumerate(cmd_struct_lines):
-
-                    # Dereference the index number in cmd_struct_lines to get the actual line number
-                    actual_line = line
-
-                    # print the line of the file with our "line number" next to it
-                    print(
-                        f"Line ({line_num}) -> {file_lines[actual_line].strip()}"
-                    )
-
-                # Prompt the user for line number
-                param_line = int(
-                    input(
-                        "Enter the line of the parameter from the above print-out (-1 to stop): "
-                    ))
-
-                # Check exit condition
-                if param_line == -1:
-                    print("You have chosen to stop adding parameters.")
-                    break
-
-                # Dereference the index number in cmd_struct_lines to get the actual line number
-                actual_line = cmd_struct_lines[param_line]
-
-                # Look at parameter line and split it into a list
-                line_split = file_lines[actual_line].split()
-
-                # Add original data type (C data type) to list
-                dataTypesOrig.append(line_split[0])
-
-                # Get rid of any occurance of ';' (at the end of the line)
-                paramNames.append(re.sub(';', '', line_split[1]))
-
-                # Not sure about why we are keeping track of this yet
-                # just fill it with null for now
-                paramDesc.append('')
-
-                # Determines data type for us to use
-                # returns null if no type could match
-                dataTypeNew = findDataTypeNew(dataTypesOrig[-1],
-                                              paramNames[-1])
-
-                # If no type could match, ask user for data type
-                if not dataTypeNew:
-                    dataTypeNew = input(
-                        (f'Data type for {paramNames[-1]} not found. '
-                         'Please enter new data type by hand: '))
-
-                dataTypesNew.append(dataTypeNew.strip())
-
-                # finds length if --string data type
-                if 'string' in dataTypeNew:
-
-                    # Split parameter name into list, separating by '[' or ']'
-                    # if paramNames[-1] == 'array[10]' then
-                    # array_name_size == ['array', '10']
-                    array_name_size = re.split(r'\[|\]', paramNames[-1])
-
-                    # Re-assign paramName to just the name of the array
-                    # (before -> 'array[10]', after -> 'array')
-                    paramNames[-1] = array_name_size[0]
-
-                    # set array size to the second element
-                    array_size = array_name_size[1]
-
-                    # Add array size to the parameter list
-                    paramLens.append(array_size)
-
-                    print("Array size:", array_size)
-
-                    # This while loop will make sure that
-                    # the user input is both
-                    # - a valid integer
-                    # - between 0 and 128 (inclusively)
-                    while not array_size.isdigit() or int(
-                            array_size) not in range(129):
-                        # User input is not an integer
-                        if not array_size.isdigit():
-                            print("Could not translate", array_name_size[1])
-                        else:
-                            print(
-                                "Array size out of bounds. It must be between 0 and 128."
-                            )
-                        try:
-                            # Try to translate user input to an integer
-                            array_size = int(
-                                input((f"Please enter the defined value for "
-                                       f"{array_name_size[1]} (0 - 128): ")))
-                        except ValueError:
-                            pass     # Ignore non-integer and try again
-
-                    # Add string length argument to parameter list
-                    stringLens.append(array_size)
-
-                else:
-                    stringLens.append('')
-                    paramLens.append('')
-
-                # print the last element of list to see if it worked
-                print("dataTypeOrig:", dataTypesOrig[-1])
-                print("dataTypeNew:", dataTypesNew[-1])
-                print("paramName:", paramNames[-1])
-                print("paramLen:", paramLens[-1])
-                print("stringLen:", stringLens[-1])
-
-                print("Added:", paramNames[-1], "with type", dataTypesNew[-1])
-
-                # Remove used parameter from command structure lines
-                # so that the user doesn't choose the same parameter twice
-                del cmd_struct_lines[param_line]
-
-                # make sure param_line stays in bounds
-                # (If the user chose the last line in this iteration,
-                # param_line would be out of bounds after deleting a line)
+                # Initialize variable to get into loop
                 param_line = 0
 
-                # Start the loop over to see if user has more parameters
+                # The following loop will iterate each time another
+                # parameter is added to a command
+                # After exiting the loop, the parameter variables
+                # should be updated with a list of parameters for
+                # the user's chosen command
+                while param_line in range(len(cmd_struct_lines)):
 
-            # Add command to used commands, to keep track of things
-            used_cmdDesc.append(unused_cmdDesc[command_choice])
+                    # Display the command structure with indexed before each line
+                    print("\n\n")
+                    for line_num, line in enumerate(cmd_struct_lines):
 
-            # Take this command out of the list of unused commands before restarting the loop
-            del unused_cmdDesc[command_choice]
+                        # Dereference the index number in cmd_struct_lines to get the actual line number
+                        actual_line = line
 
-            # If we later want the list of structs to be updated, to remove
-            # previously selected structs, uncomment this line
-            #del list_cmd_structs[struct_choice]
+                        # print the line of the file with our "line number" next to it
+                        print(
+                            f"Line ({line_num}) -> {file_lines[actual_line].strip()}"
+                        )
 
-            # saves parameter information in pickle file for command
-            pickle_file = f'{ROOTDIR}/ParameterFiles/{cmdName}'
-            with open(pickle_file, 'wb') as pickle_obj:
-                pickle.dump([
-                    dataTypesOrig, paramNames, paramLens, paramDesc,
-                    dataTypesNew, stringLens
-                ], pickle_obj)
+                    # Prompt the user for line number
+                    param_line = int(
+                        input(
+                            "Enter the line of the parameter from the above print-out (-1 to stop): "
+                        ))
 
-            # Print a list of unused commands for the user to pick from.
-            print("")
-            print("Unused Commands")
-            print("-----------------------------------------")
-            for cmd_index, cmd in enumerate(unused_cmdDesc, start=1):
-                print(f"Command ({cmd_index} of {len(unused_cmdDesc)})", cmd)
+                    # Check exit condition
+                    if param_line == -1:
+                        print("You have chosen to stop adding parameters.")
+                        break
+
+                    # Dereference the index number in cmd_struct_lines to get the actual line number
+                    actual_line = cmd_struct_lines[param_line]
+
+                    # Look at parameter line and split it into a list
+                    line_split = file_lines[actual_line].split()
+
+                    # Add original data type (C data type) to list
+                    dataTypesOrig.append(line_split[0])
+
+                    # Get rid of any occurance of ';' (at the end of the line)
+                    paramNames.append(re.sub(';', '', line_split[1]))
+
+                    # Not sure about why we are keeping track of this yet
+                    # just fill it with null for now
+                    paramDesc.append('')
+
+                    # Determines data type for us to use
+                    # returns null if no type could match
+                    dataTypeNew = findDataTypeNew(dataTypesOrig[-1],
+                                                  paramNames[-1])
+
+                    # If no type could match, ask user for data type
+                    if not dataTypeNew:
+                        dataTypeNew = input(
+                            (f'Data type for {paramNames[-1]} not found. '
+                             'Please enter new data type by hand: '))
+
+                    dataTypesNew.append(dataTypeNew.strip())
+
+                    # finds length if --string data type
+                    if 'string' in dataTypeNew:
+
+                        # Split parameter name into list, separating by '[' or ']'
+                        # if paramNames[-1] == 'array[10]' then
+                        # array_name_size == ['array', '10']
+                        array_name_size = re.split(r'\[|\]', paramNames[-1])
+
+                        # Re-assign paramName to just the name of the array
+                        # (before -> 'array[10]', after -> 'array')
+                        paramNames[-1] = array_name_size[0]
+
+                        # set array size to the second element
+                        array_size = array_name_size[1]
+
+                        # Add array size to the parameter list
+                        paramLens.append(array_size)
+
+                        print("Array size:", array_size)
+
+                        # This while loop will make sure that
+                        # the user input is both
+                        # - a valid integer
+                        # - between 0 and 128 (inclusively)
+                        while not array_size.isdigit() or int(
+                                array_size) not in range(129):
+                            # User input is not an integer
+                            if not array_size.isdigit():
+                                print("Could not translate",
+                                      array_name_size[1])
+                            else:
+                                print(
+                                    "Array size out of bounds. It must be between 0 and 128."
+                                )
+                            try:
+                                # Try to translate user input to an integer
+                                array_size = int(
+                                    input(
+                                        (f"Please enter the defined value for "
+                                         f"{array_name_size[1]} (0 - 128): ")))
+                            except ValueError:
+                                pass  # Ignore non-integer and try again
+
+                        # Add string length argument to parameter list
+                        stringLens.append(array_size)
+
+                    else:
+                        stringLens.append('')
+                        paramLens.append('')
+
+                    # print the last element of list to see if it worked
+                    print("dataTypeOrig:", dataTypesOrig[-1])
+                    print("dataTypeNew:", dataTypesNew[-1])
+                    print("paramName:", paramNames[-1])
+                    print("paramLen:", paramLens[-1])
+                    print("stringLen:", stringLens[-1])
+
+                    print("Added:", paramNames[-1], "with type",
+                          dataTypesNew[-1])
+
+                    # Remove used parameter from command structure lines
+                    # so that the user doesn't choose the same parameter twice
+                    del cmd_struct_lines[param_line]
+
+                    # make sure param_line stays in bounds
+                    # (If the user chose the last line in this iteration,
+                    # param_line would be out of bounds after deleting a line)
+                    param_line = 0
+
+                    # Start the loop over to see if user has more parameters
+
+                # Add command to used commands, to keep track of things
+                used_cmdDesc.append(unused_cmdDesc[command_choice])
+
+                # Take this command out of the list of unused commands before restarting the loop
+                del unused_cmdDesc[command_choice]
+
+                # If we later want the list of structs to be updated, to remove
+                # previously selected structs, uncomment this line
+                #del list_cmd_structs[struct_choice]
+
+                # saves parameter information in pickle file for command
+                pickle_file = f'{ROOTDIR}/ParameterFiles/{cmdName}'
+                with open(pickle_file, 'wb') as pickle_obj:
+                    pickle.dump([
+                        dataTypesOrig, paramNames, paramLens, paramDesc,
+                        dataTypesNew, stringLens
+                    ], pickle_obj)
+
+                # Print a list of unused commands for the user to pick from.
+                print("")
+                print("Unused Commands")
+                print("-----------------------------------------")
+                for cmd_index, cmd in enumerate(unused_cmdDesc, start=1):
+                    print(f"Command ({cmd_index} of {len(unused_cmdDesc)})",
+                          cmd)
 
             # End of 'while True:'
             # We must have received a -1 when prompting user for the next command.
