@@ -814,7 +814,7 @@ int main(int argc, char *argv[])
                 }
 
                 /* Copy the data over (zero fills) */
-                strncpy(sbuf, &tail[1], sizeof(sbuf));
+                strncpy(sbuf, &tail[1], sizeof(sbuf) - 1);
                 CopyData(cmd.Packet, &startbyte, sbuf, tempull);
 
                 /* Reset tail so it doesn't trigger error */
