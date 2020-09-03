@@ -255,7 +255,10 @@ if __name__ == '__main__':
                 print(
                     f"You entered {command_choice}, but that isn't an option.")
             else:
-                cmdName = unused_cmdDesc[command_choice - 1]
+                ## Choices are presented to user starting at 1, but list
+                ## indicies start at 0
+                command_choice -= 1
+                cmdName = unused_cmdDesc[command_choice]
 
                 # Initialize Parameter variables to empty lists
                 paramNames, paramDesc, dataTypesOrig,\
@@ -317,10 +320,9 @@ if __name__ == '__main__':
 
                 # After exiting this while loop, cmdStruct should contain a list of lists
                 # The nested lists should contain line numbers to each structure in file
-                for line_list in list_cmd_structs:
-                    print("\nShowing structure",
-                          list_cmd_structs.index(line_list), "of",
-                          len(list_cmd_structs) - 1, "below")
+                for idx, line_list in enumerate(list_cmd_structs, start=1):
+                    print("\nShowing structure", idx, "of",
+                          len(list_cmd_structs), "below")
                     print("--------------------------------------------")
                     for line_num in line_list:
                         # Print the line from the file using the index from the list
@@ -343,11 +345,13 @@ if __name__ == '__main__':
                         sys.exit()
 
                     # Make sure the choice is valid
-                    if struct_choice not in range(len(list_cmd_structs)):
+                    if struct_choice not in range(1,
+                                                  len(list_cmd_structs) + 1):
                         print(
                             f"You entered {struct_choice}, but that isn't an option."
                         )
                     else:
+                        struct_choice -= 1
                         break
 
                 # After exiting the while loop, user's structure choice should be a valid assignment
