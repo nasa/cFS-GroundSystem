@@ -240,24 +240,26 @@ if __name__ == '__main__':
         while True:
             # Get user input
             try:
-                command_choice = int(
-                    input("Enter a value from the list above or -1 to exit: "))
+                command_choice = input(
+                    "Enter a value from the list above or -1 to exit: ")
             except ValueError:
                 pass
 
             # Check for exit condition
-            if command_choice == -1:
+            if command_choice == "-1":
                 print("Exiting.")
                 break
 
             # Make sure the choice is within range
+            ## Note that if command_choice is a string
+            ## it will never be in the range
             if command_choice not in range(1, len(unused_cmdDesc) + 1):
                 print(
                     f"You entered {command_choice}, but that isn't an option.")
             else:
                 ## Choices are presented to user starting at 1, but list
                 ## indicies start at 0
-                command_choice -= 1
+                command_choice = int(command_choice) - 1
                 cmdName = unused_cmdDesc[command_choice]
 
                 # Initialize Parameter variables to empty lists
@@ -332,26 +334,27 @@ if __name__ == '__main__':
                 while True:
                     # Give the user the option to exit too.
                     try:
-                        struct_choice = int(
-                            input(
-                                "Enter a value from the list above or -1 to exit: "
-                            ))
+                        struct_choice = input(
+                            "Enter a value from the list above or -1 to exit: "
+                        )
                     except ValueError:
                         pass
 
                     # Check for exit condition
-                    if struct_choice == -1:
+                    if struct_choice == "-1":
                         print("Exiting.")
                         sys.exit()
 
                     # Make sure the choice is valid
+                    ## Note that if struct_choice is a string
+                    ## it will never be in the range
                     if struct_choice not in range(1,
                                                   len(list_cmd_structs) + 1):
                         print(
                             f"You entered {struct_choice}, but that isn't an option."
                         )
                     else:
-                        struct_choice -= 1
+                        struct_choice = int(struct_choice) - 1
                         break
 
                 # After exiting the while loop, user's structure choice should be a valid assignment
