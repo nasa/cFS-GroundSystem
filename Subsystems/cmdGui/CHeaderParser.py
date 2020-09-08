@@ -250,6 +250,9 @@ if __name__ == '__main__':
                 print("Exiting.")
                 break
 
+            if command_choice.isdigit():
+                command_choice = int(command_choice)
+
             # Make sure the choice is within range
             ## Note that if command_choice is a string
             ## it will never be in the range
@@ -259,7 +262,7 @@ if __name__ == '__main__':
             else:
                 ## Choices are presented to user starting at 1, but list
                 ## indicies start at 0
-                command_choice = int(command_choice) - 1
+                command_choice -= 1
                 cmdName = unused_cmdDesc[command_choice]
 
                 # Initialize Parameter variables to empty lists
@@ -345,16 +348,19 @@ if __name__ == '__main__':
                         print("Exiting.")
                         sys.exit()
 
+                    if struct_choice.isdigit():
+                        struct_choice = int(struct_choice)
+
                     # Make sure the choice is valid
                     ## Note that if struct_choice is a string
-                    ## it will never be in the range
+                    ## it will never be in range
                     if struct_choice not in range(1,
                                                   len(list_cmd_structs) + 1):
                         print(
-                            f"You entered {struct_choice}, but that isn't an option."
+                            f"You entered '{struct_choice}', but that isn't an option."
                         )
                     else:
-                        struct_choice = int(struct_choice) - 1
+                        struct_choice -= 1
                         break
 
                 # After exiting the while loop, user's structure choice should be a valid assignment
