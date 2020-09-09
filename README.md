@@ -8,6 +8,12 @@ See [Guide-GroundSystem.md](https://github.com/nasa/cFS-GroundSystem/blob/master
 
 ## Version History
 
+### Development Build: 2.2.0-rc1+dev8
+
+- Replaces old code that caused a cast-align warning when strict. Refactored and removed unnecessary code while also following recommended model for getaddrinfo. Removed old windows support/defines/etc (likely not tested for years, no longer supported).
+- Reduce the size of the strncpy so that it ensures there's a null byte at the end of the string buffer.
+- See <https://github.com/nasa/cFS-GroundSystem/pull/133>
+
 ### Development Build: 2.2.0+dev2
 
  - Fixes multiple typos

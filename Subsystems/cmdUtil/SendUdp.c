@@ -16,50 +16,35 @@
 **      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 **      See the License for the specific language governing permissions and
 **      limitations under the License.
-**
-**      Udp packet send routine
 */
+
+/*
+ * Udp packet send routine
+ */
 
 #include "SendUdp.h"
 
-#ifdef WIN32
-#pragma warning(disable : 4786)
-#include <winsock2.h>
-#include <ws2tcpip.h>
-#include <windows.h>
-typedef int socklen_t;
-#else
 #include <sys/types.h>
 #include <sys/socket.h>
-#include <arpa/inet.h>
 #include <netdb.h>
 #include <unistd.h>
-#include <ctype.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#define SOCKET          int
-#define closesocket(fd) close(fd)
-#endif
 
 /*
 ** SendUdp
 */
 int SendUdp(char *hostname, char *portNum, unsigned char *packetData, int packetSize)
 {
-    SOCKET             sd;
-    int                rc;
-    int                port;
-    int                errcode;
-    unsigned int       i;
-    struct sockaddr_in cliAddr;
-    struct addrinfo    hints;
-    struct addrinfo *  result;
-
-#ifdef WIN32
-    WSADATA wsaData;
-    WSAStartup(WINSOCK_VERSION, &wsaData);
-#endif
+    int              sd;
+    int              rc;
+    int              port;
+    unsigned int     i;
+    struct addrinfo  hints;
+    struct addrinfo *result;
+    struct addrinfo *rp;
+    char             hbuf[1025] = {0};
 
     if (hostname == NULL)
     {
@@ -78,44 +63,41 @@ int SendUdp(char *hostname, char *portNum, unsigned char *packetData, int packet
     /*
     **Criteria for selecting socket address
     */
-    memset(&hints, 0, sizeof(struct addrinfo));
+    memset(&hints, 0, sizeof(hints));
     hints.ai_family   = AF_INET;    /*IPv4*/
     hints.ai_socktype = SOCK_DGRAM; /*Datagram socket*/
     hints.ai_flags    = AI_CANONNAME;
     hints.ai_protocol = 0; /*Any Protocol*/
 
-    errcode = getaddrinfo(hostname, portNum, &hints, &result);
-    if (errcode != 0)
+    rc = getaddrinfo(hostname, portNum, &hints, &result);
+    if (rc != 0)
     {
         return -3;
     }
 
-    printf("sending data to '%s' (IP : %s); port %d\n", result->ai_canonname,
-           inet_ntoa(((struct sockaddr_in *)result->ai_addr)->sin_addr), port);
+    /* Loop through potential addresses until sucessful socket/connect */
+    for (rp = result; rp != NULL; rp = rp->ai_next)
+    {
+        sd = socket(rp->ai_family, rp->ai_socktype, rp->ai_protocol);
 
-    /*
-    ** Create Socket
-    */
-    sd = socket(AF_INET, SOCK_DGRAM, 0);
+        if (sd == -1)
+            continue;
 
-    if (sd < 0)
+        if (connect(sd, rp->ai_addr, rp->ai_addrlen) != -1)
+            break; /* Success */
+
+        close(sd);
+    }
+
+    if (rp == NULL)
     {
         return -4;
     }
 
-    /*
-    ** bind any port
-    */
-    cliAddr.sin_family      = AF_INET;
-    cliAddr.sin_addr.s_addr = htonl(INADDR_ANY);
-    cliAddr.sin_port        = htons(0);
+    if (getnameinfo(rp->ai_addr, rp->ai_addrlen, hbuf, sizeof(hbuf), NULL, 0, NI_NUMERICHOST));
+    printf("sending data to '%s' (IP : %s); port %d\n", rp->ai_canonname, hbuf, port);
 
-    rc = bind(sd, (struct sockaddr *)&cliAddr, sizeof(cliAddr));
-    if (rc < 0)
-    {
-        printf("%s: cannot bind port\n", portNum);
-        return -5;
-    }
+    freeaddrinfo(result);
 
     printf("Data to send:\n");
     i = 0;
@@ -132,16 +114,14 @@ int SendUdp(char *hostname, char *portNum, unsigned char *packetData, int packet
     /*
     ** send the event
     */
-    rc = sendto(sd, (char *)packetData, packetSize, 0, result->ai_addr, result->ai_addrlen);
+    rc = send(sd, (char *)packetData, packetSize, 0);
 
-    if (rc < 0)
+    close(sd);
+
+    if (rc != packetSize)
     {
-        freeaddrinfo(result);
-        closesocket(sd);
         return -6;
     }
 
-    freeaddrinfo(result);
-    closesocket(sd);
     return 0;
 }
