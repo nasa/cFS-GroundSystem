@@ -44,8 +44,12 @@ ROOTDIR = Path(sys.argv[0]).resolve().parent
 # CFS Ground System: Setup and manage the main window
 #
 class GroundSystem(QMainWindow, Ui_MainWindow):
-    HDR_VER_1_OFFSET = 0
-    HDR_VER_2_OFFSET = 4
+    TLM_HDR_V1_OFFSET = 4
+    TLM_HDR_V2_OFFSET = 4
+    CMD_HDR_PRI_V1_OFFSET = 0
+    CMD_HDR_SEC_V1_OFFSET = 0
+    CMD_HDR_PRI_V2_OFFSET = 4
+    CMD_HDR_SEC_V2_OFFSET = 4
 
     #
     # Init the class
@@ -57,10 +61,16 @@ class GroundSystem(QMainWindow, Ui_MainWindow):
         self.RoutingService = None
         self.alert = QMessageBox()
 
+        # set initial defaults
+        self.sbTlmOffset.setValue(self.TLM_HDR_V1_OFFSET)
+        self.sbCmdOffsetPri.setValue(self.CMD_HDR_PRI_V1_OFFSET)
+        self.sbCmdOffsetSec.setValue(self.CMD_HDR_SEC_V1_OFFSET)
+
         self.pushButtonStartTlm.clicked.connect(self.startTlmSystem)
         self.pushButtonStartCmd.clicked.connect(self.startCmdSystem)
         self.cbTlmHeaderVer.currentIndexChanged.connect(self.setTlmOffset)
         self.cbCmdHeaderVer.currentIndexChanged.connect(self.setCmdOffsets)
+
         for sb in (self.sbTlmOffset, self.sbCmdOffsetPri, self.sbCmdOffsetSec):
             sb.valueChanged.connect(self.saveOffsets)
         # Init lists
@@ -132,9 +142,9 @@ class GroundSystem(QMainWindow, Ui_MainWindow):
         else:
             self.sbTlmOffset.setEnabled(False)
             if selectedVer == "1":
-                self.sbTlmOffset.setValue(self.HDR_VER_1_OFFSET)
+                self.sbTlmOffset.setValue(self.TLM_HDR_V1_OFFSET)
             elif selectedVer == "2":
-                self.sbTlmOffset.setValue(self.HDR_VER_2_OFFSET)
+                self.sbTlmOffset.setValue(self.TLM_HDR_V2_OFFSET)
 
     def setCmdOffsets(self):
         selectedVer = self.cbCmdHeaderVer.currentText().strip()
@@ -145,10 +155,11 @@ class GroundSystem(QMainWindow, Ui_MainWindow):
             self.sbCmdOffsetPri.setEnabled(False)
             self.sbCmdOffsetSec.setEnabled(False)
             if selectedVer == "1":
-                self.sbCmdOffsetPri.setValue(self.HDR_VER_1_OFFSET)
+                self.sbCmdOffsetPri.setValue(self.CMD_HDR_PRI_V1_OFFSET)
+                self.sbCmdOffsetSec.setValue(self.CMD_HDR_SEC_V1_OFFSET)
             elif selectedVer == "2":
-                self.sbCmdOffsetPri.setValue(self.HDR_VER_2_OFFSET)
-            self.sbCmdOffsetSec.setValue(self.HDR_VER_1_OFFSET)
+                self.sbCmdOffsetPri.setValue(self.CMD_HDR_PRI_V2_OFFSET)
+                self.sbCmdOffsetSec.setValue(self.CMD_HDR_SEC_V2_OFFSET)
 
     def saveOffsets(self):
         offsets = bytes((self.sbTlmOffset.value(), self.sbCmdOffsetPri.value(),
