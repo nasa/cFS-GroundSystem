@@ -605,6 +605,9 @@ int main(int argc, char *argv[])
     if (cmd.IncludeCFSSec)
         startbyte += sizeof(cmd.CFS_CmdSecHdr);
 
+    /* Round up to account for padding */
+    startbyte += startbyte % 8;
+
     if (cmd.Verbose)
     {
         printf("Payload start byte = %u\n", startbyte);
