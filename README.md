@@ -8,6 +8,13 @@ See [Guide-GroundSystem.md](https://github.com/nasa/cFS-GroundSystem/blob/master
 
 ## Version History
 
+### Development Build: 2.2.0-rc1+dev18
+
+- Documentation: Add `Security.md` with instructions to report vulnerabilities
+- **Breaking change**, CmdUtil, Rounds header up to match <https://github.com/nasa/cFE/pull/1077>
+- **Breaking change**, GUI, Rounds header up to match <https://github.com/nasa/cFE/pull/1077>
+- See <https://github.com/nasa/cFS-GroundSystem/pull/150>
+
 ### Development Build: 2.2.0-rc1+dev11
 
 - Updated CHeaderParser.py to address specific issues.
@@ -41,7 +48,7 @@ See [Guide-GroundSystem.md](https://github.com/nasa/cFS-GroundSystem/blob/master
 - Change all individual UI elements to table widgets. Update backend code accordingly
 - Temporary fix for implicit declaration of endian functions on some systems (RH/CentOs). No build errors on CentOS
 - See <https://github.com/nasa/cFS-GroundSystem/pull/107>
- 
+
 ### Development Build: 2.1.11
 
 - Default behavior is the same except adds checksum and doesn't actually require fields. Adds all the packet fields, overrides, more supported data types, etc.

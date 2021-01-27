@@ -20,7 +20,7 @@
 #
 
 # Development Build Macro Definitions
-_cFS_GrndSys_build_number = 11
+_cFS_GrndSys_build_number = 18
 _cFS_GrndSys_build_baseline = "v2.2.0-rc1"
 
 # Version Number Definitions
@@ -30,20 +30,19 @@ _cFS_GrndSys_MINOR = 1
 _cFS_GrndSys_REVISION = 0
 _cFS_GrndSys_MISSIONREV = 0
 
-# Development Build format for __version__ 
+# Development Build format for __version__
 # Baseline git tag + Number of commits since baseline
 __version__ = "+dev".join((_cFS_GrndSys_build_baseline,str(_cFS_GrndSys_build_number)))
 
-# Development Build format for __version_string__ 
+# Development Build format for __version_string__
 _version_string = " cFS-GroundSystem DEVELOPMENT BUILD\n " + __version__
 
-# Use the following templates for Official Releases ONLY 
+# Use the following templates for Official Releases ONLY
 
-    # Official Release format for __version__ 
+    # Official Release format for __version__
     # __version__ = ".".join(map(str,(_cFS_GrndSys_MAJOR, _cFS_GrndSys_MINOR, _cFS_GrndSys_REVISION, _cFS_GrndSys_MISSIONREV)))
-    
+
     # Official Release format for _version_string
     # _version_string = " cFS-GroundSystem v" + __version__
 
 # END TEMPLATES
-
