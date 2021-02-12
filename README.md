@@ -1,3 +1,6 @@
+![Static Analysis](https://github.com/nasa/cFS-GroundSystem/workflows/Static%20Analysis/badge.svg)
+![Format Check](https://github.com/nasa/cFS-GroundSystem/workflows/Format%20Check/badge.svg)
+
 # Core Flight System : Framework : Tool : Ground System
 
 This repository contains NASA's Lab Ground System (cFS-GroundSystem), which is a framework component of the Core Flight System.

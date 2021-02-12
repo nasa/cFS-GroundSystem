@@ -1,0 +1,40 @@
+name: Static Analysis
+
+# Run on main push and pull requests
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+
+  static-analysis:
+    name: Run cppcheck
+    runs-on: ubuntu-18.04
+    timeout-minutes: 15
+
+    steps:
+
+      - name: Install cppcheck
+        run: sudo apt-get install cppcheck -y
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run general cppcheck
+        run: cppcheck --force --inline-suppr --quiet . 2> cppcheck_err.txt
+
+      - name: Archive Static Analysis Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: cppcheck-err
+          path: ./cppcheck_err.txt
+
+      - name: Check for errors
+        run: |
+          if [[ -s cppcheck_err.txt ]];
+          then
+            cat cppcheck_err.txt
+            exit -1
+          fi
