@@ -44,7 +44,7 @@ int SendUdp(char *hostname, char *portNum, unsigned char *packetData, int packet
     struct addrinfo  hints;
     struct addrinfo *result;
     struct addrinfo *rp;
-    char             hbuf[1025] = {0};
+    char             hbuf[1025] = "UNKNOWN";
 
     if (hostname == NULL)
     {
@@ -94,7 +94,7 @@ int SendUdp(char *hostname, char *portNum, unsigned char *packetData, int packet
         return -4;
     }
 
-    if (getnameinfo(rp->ai_addr, rp->ai_addrlen, hbuf, sizeof(hbuf), NULL, 0, NI_NUMERICHOST));
+    getnameinfo(rp->ai_addr, rp->ai_addrlen, hbuf, sizeof(hbuf), NULL, 0, NI_NUMERICHOST);
     printf("sending data to '%s' (IP : %s); port %d\n", rp->ai_canonname, hbuf, port);
 
     freeaddrinfo(result);
