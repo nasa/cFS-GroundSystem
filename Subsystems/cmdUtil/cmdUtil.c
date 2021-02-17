@@ -252,7 +252,8 @@ void DisplayUsage(char *Name)
     printf("  ./cmdUtil -ELE -C2 -A6 -n2 # Processor reset on little endian, using defaults\n");
     printf("  ./cmdUtil --endian=LE --protocol=raw --uint64b=0x1806C000000302DD --uint16=2\n");
     printf("  ./cmdUtil --pktver=1 --pkttype=0 --pktsec=0 --pktseqflg=2 --pktlen=0xABC --pktcksum=0\n");
-    printf("  ./cmdUtil -Qcfsv2 --pktedsver=0xA --pktendian=1 --pktpb=1 --pktsubsys=0x123 --pktsys=0x4321 --pktfc=0xB\n");
+    printf(
+        "  ./cmdUtil -Qcfsv2 --pktedsver=0xA --pktendian=1 --pktpb=1 --pktsubsys=0x123 --pktsys=0x4321 --pktfc=0xB\n");
     printf(" \n");
     exit(EXIT_SUCCESS);
 }
