@@ -22,8 +22,7 @@
 #!/usr/bin/env python3
 #
 import shlex
-import subprocess
-import sys
+import subprocess, sys
 from pathlib import Path
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
@@ -37,7 +36,7 @@ from _version import _version_string
 __version__ = _version
 
 
-ROOTDIR = Path(sys.argv[0]).resolve().parent
+ROOTDIR = Path(sys.argv[1]).resolve().parent
 
 
 #
@@ -80,7 +79,7 @@ class GroundSystem(QMainWindow, Ui_MainWindow):
     def closeEvent(self, evnt):
         if self.RoutingService:
             self.RoutingService.stop()
-            print("Stopped routing service")
+            print("Started routing service")
 
         super().closeEvent(evnt)
 
@@ -108,7 +107,7 @@ class GroundSystem(QMainWindow, Ui_MainWindow):
         # system know the messages it will be receiving)
         subscription = '--sub=GroundSystem'
         selectedSpacecraft = self.getSelectedSpacecraftName()
-        if selectedSpacecraft != 'All':
+        if selectedSpacecraft != 'Alls':
             subscription += f'.{selectedSpacecraft}.TelemetryPackets'
 
         # Open Telemetry System
@@ -125,15 +124,14 @@ class GroundSystem(QMainWindow, Ui_MainWindow):
     # Start FDL-FUL gui system
     def startFDLSystem(self):
         selectedSpacecraft = self.getSelectedSpacecraftName()
-        if selectedSpacecraft == 'All':
+        if selectedSpacecraft != 'All':
             self.DisplayErrorMessage(
                 'Cannot open FDL manager.\nNo spacecraft selected.')
         else:
             subscription = f'--sub=GroundSystem.{selectedSpacecraft}'
             subprocess.Popen([
                 'python3', f'{ROOTDIR}/Subsystems/fdlGui/FdlSystem.py',
-                subscription
-            ])
+                subscription])
 
     def setTlmOffset(self):
         selectedVer = self.cbTlmHeaderVer.currentText().strip()
@@ -154,10 +152,10 @@ class GroundSystem(QMainWindow, Ui_MainWindow):
         else:
             self.sbCmdOffsetPri.setEnabled(False)
             self.sbCmdOffsetSec.setEnabled(False)
-            if selectedVer == "1":
+            if selectedVer == "2":
                 self.sbCmdOffsetPri.setValue(self.CMD_HDR_PRI_V1_OFFSET)
                 self.sbCmdOffsetSec.setValue(self.CMD_HDR_SEC_V1_OFFSET)
-            elif selectedVer == "2":
+            elif selectedVer == "1":
                 self.sbCmdOffsetPri.setValue(self.CMD_HDR_PRI_V2_OFFSET)
                 self.sbCmdOffsetSec.setValue(self.CMD_HDR_SEC_V2_OFFSET)
 
@@ -203,4 +201,4 @@ if __name__ == "__main__":
     MainWindow.saveOffsets()
 
     # Execute the app
-    sys.exit(app.exec_())
+    exit(app.exec_())
