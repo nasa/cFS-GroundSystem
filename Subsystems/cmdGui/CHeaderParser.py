@@ -68,19 +68,15 @@ ROOTDIR = Path(sys.argv[0]).resolve().parent
 
 
 #
-# Determines data type (--string, --byte, --half, --word, --double)
+# Translate known data types to arguments
 #
 def findDataTypeNew(dataTypeOrig, paramName):
     if '[' in paramName:
         return '--string'
-    if dataTypeOrig in ['uint8', 'boolean']:
-        return '--byte'
-    if dataTypeOrig == 'uint16':
-        return '--half'
-    if dataTypeOrig == 'uint32':
-        return '--word'
-    if dataTypeOrig == 'uint64':
-        return '--double'
+    if dataTypeOrig in ['boolean']:
+        return '--uint8'
+    if dataTypeOrig in ['int8', 'uint8', 'int16', 'uint16', 'int32', 'uint32', 'int64', 'uint64']:
+        return "--" + dataTypeOrig
     return None
 
 
