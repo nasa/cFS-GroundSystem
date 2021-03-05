@@ -11,10 +11,10 @@ See [Guide-GroundSystem.md](https://github.com/nasa/cFS-GroundSystem/blob/master
 
 ## Version History
 
-### Development Build: v2.2.0-rc1+dev29
+### Development Build: v2.2.0-rc1+dev33
 
-- Removes unnecessary type translations from `CHeaderParser.py` and broken `double` option. `uint64` will no longer get translated by `CHeaderParser` into the unsupported `double` type
-- See <https://github.com/nasa/cfs-groundsystem/pull/162>
+- Fix #163, Add Testing Tools to the Security Policy
+- See <https://github.com/nasa/cfs-groundsystem/pull/167>
 
 ### Development Build: v2.2.0-rc1+dev18
 
