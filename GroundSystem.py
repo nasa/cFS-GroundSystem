@@ -24,7 +24,9 @@
 import shlex
 import subprocess
 import sys
-from pathlib import Path
+import os
+import signal
+import pathlib
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 
@@ -36,8 +38,8 @@ from _version import _version_string
 
 __version__ = _version
 
-
-ROOTDIR = Path(sys.argv[0]).resolve().parent
+#ROOTDIR = Path(sys.argv[0]).resolve().parent
+ROOTDIR = pathlib.Path(__file__).parent.absolute()
 
 
 #
@@ -81,7 +83,7 @@ class GroundSystem(QMainWindow, Ui_MainWindow):
         if self.RoutingService:
             self.RoutingService.stop()
             print("Stopped routing service")
-
+        os.kill(0, signal.SIGKILL)
         super().closeEvent(evnt)
 
     # Read the selected spacecraft from combo box on GUI
@@ -182,9 +184,10 @@ class GroundSystem(QMainWindow, Ui_MainWindow):
 
 #
 # Main
+
 #
-if __name__ == "__main__":
-    
+def main():
+
     # Report Version Number upon startup
     print(_version_string)
     
@@ -204,3 +207,6 @@ if __name__ == "__main__":
 
     # Execute the app
     sys.exit(app.exec_())
+
+if __name__ == "__main__":
+   main() 
