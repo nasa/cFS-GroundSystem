@@ -11,6 +11,12 @@ See [Guide-GroundSystem.md](https://github.com/nasa/cFS-GroundSystem/blob/master
 
 ## Version History
 
+### Development Build: v2.2.0-rc1+dev41
+
+- Corrects values in sb and tbl hk-tlm.txt to allow the TBL and SB tlm pages to open.
+- Adds a contributing guide that links to the main cFS contributing guide.
+- See <https://github.com/nasa/cfs-groundsystem/pull/171>
+
 ### Development Build: v2.2.0-rc1+dev33
 
 - Fix #163, Add Testing Tools to the Security Policy
