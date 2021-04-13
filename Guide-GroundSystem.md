@@ -106,10 +106,10 @@ These are NOT kept up-to-date, but included for historical reference (may be eas
 
 ### Installing and running cFS Ground System on macOS, using Homebrew
 ```
-$ brew install pyqt
-$ brew install zeromq
+$ brew install pyqt5
+$ pip3 install pyzmq
 $ ( cd Subsystems/cmdUtil/ && make )
-$ python GroundSystem.py
+$ python3 GroundSystem.py
 ```
 ### Installing and running cFS Ground System on CentOS 6
 
