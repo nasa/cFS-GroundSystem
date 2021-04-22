@@ -11,6 +11,13 @@ See [Guide-GroundSystem.md](https://github.com/nasa/cFS-GroundSystem/blob/master
 
 ## Version History
 
+### Development Build: v2.2.0-rc1+dev45
+
+- Changes executable command from 'startg' to 'cFS-GroundSystem'
+- Changes version to be the version stated in version.py
+- Adds executable installation instructions to Guide-GroundSystem.md
+- See <https://github.com/nasa/cFS-GroundSystem/pull/178> and <https://github.com/nasa/cFS/pull/248>
+
 ### Development Build: v2.2.0-rc1+dev41
 
 - Corrects values in sb and tbl hk-tlm.txt to allow the TBL and SB tlm pages to open.

@@ -39,6 +39,14 @@ Installing and running cFS Ground System on Ubuntu:
 
 The historically included instructions for running on macOS or CentOS are included at the bottom of this document for reference. Please note that instructions have not been maintained. Welcoming instruction contributions if any of these are your platform of choice.
 
+### Install Ground System executable
+This works for both macOS and Ubuntu systems.
+```
+The requirements.txt file is located directly inside the cFS-GroundSystem/
+$ pip3 install -r requirements.txt
+$ pip3 install -e relative/path/to/cFS-GroundSystem
+$ cFS-GroundSystem
+```
 ## Adding new flight software application to ground system command GUI
 
 This section was made to help developers who are adding core Flight Software (cFS) Applications to the Python-based Ground System that comes with this cFS distribution.
@@ -157,3 +165,4 @@ $ yum install -y qt qt-demos qt-designer qt4 qt4-designer
 ```
 $ python GroundSystem.py
 ```
+
