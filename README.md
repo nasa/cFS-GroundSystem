@@ -11,6 +11,12 @@ See [Guide-GroundSystem.md](https://github.com/nasa/cFS-GroundSystem/blob/master
 
 ## Version History
 
+### Development Build: v2.2.0-rc1+dev52
+
+- Add test start command script for cmdUtil
+- Implement Coding Standard in CodeQL
+- See <https://github.com/nasa/cFS-GroundSystem/pull/183> and <https://github.com/nasa/cFS/pull/270>
+
 ### Development Build: v2.2.0-rc1+dev46
 
 - Changes executable command from 'startg' to 'cFS-GroundSystem'

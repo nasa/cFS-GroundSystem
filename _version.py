@@ -20,14 +20,14 @@
 #
 
 # Development Build Macro Definitions
-_cFS_GrndSys_build_number = 46
+_cFS_GrndSys_build_number = 52
 _cFS_GrndSys_build_baseline = "v2.2.0-rc1"
 
 # Version Number Definitions
 # ONLY APPLY for OFFICIAL release builds
 _cFS_GrndSys_MAJOR = 2
 _cFS_GrndSys_MINOR = 1
-_cFS_GrndSys_REVISION = 0
+_cFS_GrndSys_REVISION = 99
 _cFS_GrndSys_MISSIONREV = 0
 
 # Development Build format for __version__
