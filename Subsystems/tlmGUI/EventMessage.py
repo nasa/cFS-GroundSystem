@@ -17,7 +17,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
-#!/usr/bin/env python3
+# !/usr/bin/env python3
 #
 # EVS Events page
 #
@@ -59,15 +59,15 @@ import zmq
 from PyQt5.QtCore import QThread, pyqtSignal
 from PyQt5.QtWidgets import QApplication, QDialog
 
-from Ui_EventMessageDialog import Ui_EventMessageDialog
+from UiEventmessagedialog import UiEventmessagedialog
 
 ROOTDIR = Path(sys.argv[0]).resolve().parent
 
 
-class EventMessageTelemetry(QDialog, Ui_EventMessageDialog):
+class EventMessageTelemetry(QDialog, UiEventmessagedialog):
     def __init__(self, aid):
         super().__init__()
-        self.setupUi(self)
+        self.setup_ui(self)
         self.appId = aid
 
         self.eventTypes = {
@@ -80,47 +80,48 @@ class EventMessageTelemetry(QDialog, Ui_EventMessageDialog):
         with open("/tmp/OffsetData", "r+b") as f:
             self.mm = mmap.mmap(f.fileno(), 0, prot=mmap.PROT_READ)
 
-    def initEMTlmReceiver(self, subscr):
-        self.setWindowTitle(f'{pageTitle} for: {subscr}')
+    def init_em_tlm_receiver(self, subscr):
+        self.setWindowTitle(f'{page_title} for: {subscr}')
         self.thread = EMTlmReceiver(subscr, self.appId)
-        self.thread.emSignalTlmDatagram.connect(self.processPendingDatagrams)
+        self.thread.em_signal_tlm_datagram.connect(self.process_pending_datagrams)
         self.thread.finished.connect(self.thread.deleteLater)
         self.thread.start()
 
     # This method processes packets. Called when the TelemetryReceiver receives a message/packet
-    def processPendingDatagrams(self, datagram):
+    def process_pending_datagrams(self, datagram):
         # Packet Header
         #   uint16  StreamId;   0
         #   uint16  Sequence;   2
         #   uint16  Length;     4
-        packetSeq = unpack(">H", datagram[2:4])
-        seqCount = packetSeq[0] & 0x3FFF
-        self.sequenceCount.setValue(seqCount)
+        packet_seq = unpack(">H", datagram[2:4])
+        seq_count = packet_seq[0] & 0x3FFF
+        self.sequence_count.setValue(seq_count)
 
+        tlm_offset = 0
         #
         # Get App Name, Event ID, Type and Event Text!
         #
         try:
-            tlmOffset = self.mm[0]
+            tlm_offset = self.mm[0]
         except ValueError:
             pass
-        startByte = 12 + tlmOffset
-        appName = datagram[startByte:startByte + 20].decode('utf-8', 'ignore')
-        eventID = int.from_bytes(datagram[startByte + 20:startByte + 22],
-                                 byteorder='little')
-        eventType = int.from_bytes(datagram[startByte + 22:startByte + 24],
-                                   byteorder='little')
-        eventText = datagram[startByte + 32:].decode('utf-8', 'ignore')
-        appName = appName.split("\0")[0]
-        eventText = eventText.split("\0")[0]
-        eventTypeStr = self.eventTypes.get(eventType, "INVALID EVENT TYPE")
+        start_byte = 12 + tlm_offset
+        app_name = datagram[start_byte:start_byte + 20].decode('utf-8', 'ignore')
+        event_id = int.from_bytes(datagram[start_byte + 20:start_byte + 22],
+                                  byteorder='little')
+        event_type = int.from_bytes(datagram[start_byte + 22:start_byte + 24],
+                                    byteorder='little')
+        event_text = datagram[start_byte + 32:].decode('utf-8', 'ignore')
+        app_name = app_name.split("\0")[0]
+        event_text = event_text.split("\0")[0]
+        event_type_str = self.eventTypes.get(event_type, "INVALID EVENT TYPE")
 
-        eventString = f"EVENT --> {appName}-{eventTypeStr} Event ID: {eventID} : {eventText}"
-        self.eventOutput.appendPlainText(eventString)
+        event_string = f"EVENT --> {app_name}-{event_type_str} Event ID: {event_id} : {event_text}"
+        self.event_output.appendPlainText(event_string)
 
-    ## Reimplements closeEvent
-    ## to properly quit the thread
-    ## and close the window
+    # Reimplements closeEvent
+    # to properly quit the thread
+    # and close the window
     def closeEvent(self, event):
         self.thread.runs = False
         self.thread.wait(2000)
@@ -130,27 +131,27 @@ class EventMessageTelemetry(QDialog, Ui_EventMessageDialog):
 # Subscribes and receives zeroMQ messages
 class EMTlmReceiver(QThread):
     # Setup signal to communicate with front-end GUI
-    emSignalTlmDatagram = pyqtSignal(bytes)
+    em_signal_tlm_datagram = pyqtSignal(bytes)
 
     def __init__(self, subscr, aid):
         super().__init__()
-        self.appId = aid
+        self.app_id = aid
         self.runs = True
 
         # Init zeroMQ
         self.context = zmq.Context()
         self.subscriber = self.context.socket(zmq.SUB)
         self.subscriber.connect("ipc:///tmp/GroundSystem")
-        subscriptionString = f"{subscr}.Spacecraft1.TelemetryPackets.{appId}"
-        self.subscriber.setsockopt_string(zmq.SUBSCRIBE, subscriptionString)
+        subscription_string = f"{subscr}.Spacecraft1.TelemetryPackets.{app_id}"
+        self.subscriber.setsockopt_string(zmq.SUBSCRIBE, subscription_string)
 
     def run(self):
         while self.runs:
             # Read envelope with address
             address, datagram = self.subscriber.recv_multipart()
             # Ignore if not an event message
-            if self.appId in address.decode():
-                self.emSignalTlmDatagram.emit(datagram)
+            if self.app_id in address.decode():
+                self.em_signal_tlm_datagram.emit(datagram)
 
 
 #
@@ -167,8 +168,8 @@ if __name__ == '__main__':
     #
     # Set defaults for the arguments
     #
-    pageTitle = "Event Messages"
-    appId = 999
+    page_title = "Event Messages"
+    app_id = 999
     endian = "L"
     subscription = ""
 
@@ -190,11 +191,11 @@ if __name__ == '__main__':
         if opt in ("-p", "--port"):
             pass
         elif opt in ("-t", "--title"):
-            pageTitle = arg
+            page_title = arg
         elif opt in ("-f", "--file"):
             pass
         elif opt in ("-a", "--appid"):
-            appId = arg
+            app_id = arg
         elif opt in ("-e", "--endian"):
             endian = arg
         elif opt in ("-s", "--sub"):
@@ -209,11 +210,11 @@ if __name__ == '__main__':
     # Init the QT application and the Event Message class
     #
     app = QApplication(sys.argv)
-    Telem = EventMessageTelemetry(appId)
+    telem = EventMessageTelemetry(app_id)
 
     # Display the page
-    Telem.show()
-    Telem.raise_()
-    Telem.initEMTlmReceiver(subscription)
+    telem.show()
+    telem.raise_()
+    telem.init_em_tlm_receiver(subscription)
 
     sys.exit(app.exec_())

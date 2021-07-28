@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>main_window</class>
+ <widget class="QMainWindow" name="main_window">
   <property name="enabled">
    <bool>true</bool>
   </property>
@@ -22,10 +22,10 @@
   <property name="windowTitle">
    <string>Main Window</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
+  <widget class="QWidget" name="central_widget">
+   <layout class="QVBoxLayout" name="vertical_layout">
     <item>
-     <widget class="QLabel" name="labelHomeTitle">
+     <widget class="QLabel" name="label_home_title">
       <property name="font">
        <font>
         <pointsize>22</pointsize>
@@ -49,7 +49,7 @@
      </widget>
     </item>
     <item>
-     <layout class="QGridLayout" name="gridLayout">
+     <layout class="QGridLayout" name="grid_layout">
       <item row="0" column="0">
        <widget class="QLabel" name="label_3">
         <property name="sizePolicy">
@@ -73,7 +73,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QComboBox" name="comboBoxIpAddresses">
+       <widget class="QComboBox" name="combo_box_ip_addresses">
         <property name="minimumSize">
          <size>
           <width>132</width>
@@ -116,7 +116,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QComboBox" name="cbTlmHeaderVer">
+       <widget class="QComboBox" name="cb_tlm_header_ver">
         <property name="minimumSize">
          <size>
           <width>132</width>
@@ -154,7 +154,7 @@
        </widget>
       </item>
       <item row="1" column="2">
-       <widget class="QSpinBox" name="sbTlmOffset">
+       <widget class="QSpinBox" name="sb_tlm_offset">
         <property name="enabled">
          <bool>false</bool>
         </property>
@@ -167,7 +167,7 @@
        </widget>
       </item>
       <item row="2" column="2">
-       <widget class="QSpinBox" name="sbCmdOffsetPri">
+       <widget class="QSpinBox" name="sb_cmd_offset_pri">
         <property name="enabled">
          <bool>false</bool>
         </property>
@@ -180,7 +180,7 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QComboBox" name="cbCmdHeaderVer">
+       <widget class="QComboBox" name="cb_cmd_header_ver">
         <item>
          <property name="text">
           <string>1</string>
@@ -199,7 +199,7 @@
        </widget>
       </item>
       <item row="2" column="3">
-       <widget class="QSpinBox" name="sbCmdOffsetSec">
+       <widget class="QSpinBox" name="sb_cmd_offset_sec">
         <property name="enabled">
          <bool>false</bool>
         </property>
@@ -228,12 +228,12 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <layout class="QHBoxLayout" name="horizontal_layout_2">
       <property name="spacing">
        <number>32</number>
       </property>
       <item>
-       <widget class="QPushButton" name="pushButtonStartTlm">
+       <widget class="QPushButton" name="push_button_start_tlm">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
           <horstretch>0</horstretch>
@@ -246,7 +246,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonStartCmd">
+       <widget class="QPushButton" name="push_button_start_cmd">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
           <horstretch>0</horstretch>
@@ -268,7 +268,7 @@
      </widget>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <layout class="QHBoxLayout" name="horizontal_layout_4">
       <item>
        <widget class="QLabel" name="label_5">
         <property name="font">
@@ -282,7 +282,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="push_button">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -302,9 +302,9 @@
  <resources/>
  <connections>
   <connection>
-   <sender>pushButton</sender>
+   <sender>push_button</sender>
    <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>main_window</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">

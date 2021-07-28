@@ -31,13 +31,13 @@ from PyQt5.QtCore import QThread, pyqtSignal
 from PyQt5.QtWidgets import (QApplication, QDialog, QHeaderView,
                              QTableWidgetItem)
 
-from Ui_GenericTelemetryDialog import Ui_GenericTelemetryDialog
+from UiGenerictelemetrydialog import UiGenerictelemetrydialog
 
-## ../cFS/tools/cFS-GroundSystem/Subsystems/tlmGUI
+# ../cFS/tools/cFS-GroundSystem/Subsystems/tlmGUI
 ROOTDIR = Path(sys.argv[0]).resolve().parent
 
 
-class SubsystemTelemetry(QDialog, Ui_GenericTelemetryDialog):
+class SubsystemTelemetry(QDialog, UiGenerictelemetrydialog):
     #
     # Init the class
     #
@@ -50,40 +50,41 @@ class SubsystemTelemetry(QDialog, Ui_GenericTelemetryDialog):
     #
     # This method decodes a telemetry item from the packet and displays it
     #
-    def displayTelemetryItem(self, datagram, tlmIndex, labelField, valueField):
-        if tlmItemIsValid[tlmIndex]:
+    def display_telemetry_item(self, datagram, tlm_index, label_field, value_field):
+        if tlm_item_is_valid[tlm_index]:
+            tlm_offset = 0
             try:
-                tlmOffset = self.mm[0]
+                tlm_offset = self.mm[0]
             except ValueError:
                 pass
-            TlmField1 = tlmItemFormat[tlmIndex]
-            if TlmField1[0] == "<":
-                TlmField1 = TlmField1[1:]
+            tlm_field1 = tlmItemFormat[tlm_index]
+            if tlm_field1[0] == "<":
+                tlm_field1 = tlm_field1[1:]
             try:
-                itemStart = int(tlmItemStart[tlmIndex]) + tlmOffset
+                item_start = int(tlm_item_start[tlm_index]) + tlm_offset
             except UnboundLocalError:
                 pass
-            TlmField2 = datagram[itemStart:itemStart +
-                                 int(tlmItemSize[tlmIndex])]
-            if TlmField2:
-                TlmField = unpack(TlmField1, TlmField2)
-                if tlmItemDisplayType[tlmIndex] == 'Dec':
-                    valueField.setText(str(TlmField[0]))
-                elif tlmItemDisplayType[tlmIndex] == 'Hex':
-                    valueField.setText(hex(TlmField[0]))
-                elif tlmItemDisplayType[tlmIndex] == 'Enm':
-                    valueField.setText(tlmItemEnum[tlmIndex][int(TlmField[0])])
-                elif tlmItemDisplayType[tlmIndex] == 'Str':
-                    valueField.setText(TlmField[0].decode('utf-8', 'ignore'))
-                labelField.setText(tlmItemDesc[tlmIndex])
+            tlm_field2 = datagram[item_start:item_start +
+                                 int(tlmItemSize[tlm_index])]
+            if tlm_field2:
+                tlm_field = unpack(tlm_field1, tlm_field2)
+                if tlm_item_display_type[tlm_index] == 'Dec':
+                    value_field.setText(str(tlm_field[0]))
+                elif tlm_item_display_type[tlm_index] == 'Hex':
+                    value_field.setText(hex(tlm_field[0]))
+                elif tlm_item_display_type[tlm_index] == 'Enm':
+                    value_field.setText(tlmItemEnum[tlm_index][int(tlm_field[0])])
+                elif tlm_item_display_type[tlm_index] == 'Str':
+                    value_field.setText(tlm_field[0].decode('utf-8', 'ignore'))
+                label_field.setText(tlmItemDesc[tlm_index])
             else:
-                print("ERROR: Can't unpack buffer of length", len(TlmField2))
+                print("ERROR: Can't unpack buffer of length", len(tlm_field2))
 
     # Start the telemetry receiver (see GTTlmReceiver class)
-    def initGTTlmReceiver(self, subscr):
-        self.setWindowTitle(f"{pageTitle} for: {subscr}")
+    def init_gt_tlm_receiver(self, subscr):
+        self.setWindowTitle(f"{page_title} for: {subscr}")
         self.thread = GTTlmReceiver(subscr)
-        self.thread.gtSignalTlmDatagram.connect(self.processPendingDatagrams)
+        self.thread.gtSignalTlmDatagram.connect(self.process_pending_datagrams)
         self.thread.finished.connect(self.thread.deleteLater)
         self.thread.start()
 
@@ -91,25 +92,25 @@ class SubsystemTelemetry(QDialog, Ui_GenericTelemetryDialog):
     # This method processes packets.
     # Called when the TelemetryReceiver receives a message/packet
     #
-    def processPendingDatagrams(self, datagram):
+    def process_pending_datagrams(self, datagram):
         #
         # Show sequence number
         #
-        packetSeq = unpack(">H", datagram[2:4])
-        seqCount = packetSeq[0] & 0x3FFF  ## sequence count mask
-        self.sequenceCount.setValue(seqCount)
+        packet_seq = unpack(">H", datagram[2:4])
+        seq_count = packet_seq[0] & 0x3FFF  ## sequence count mask
+        self.sequence_count.setValue(seq_count)
 
         #
         # Decode and display all packet elements
         #
-        for k in range(self.tblTelemetry.rowCount()):
-            itemLabel = self.tblTelemetry.item(k, 0)
-            itemValue = self.tblTelemetry.item(k, 1)
-            self.displayTelemetryItem(datagram, k, itemLabel, itemValue)
+        for k in range(self.tbl_telemetry.rowCount()):
+            item_label = self.tbl_telemetry.item(k, 0)
+            item_value = self.tbl_telemetry.item(k, 1)
+            self.display_telemetry_item(datagram, k, item_label, item_value)
 
-    ## Reimplements closeEvent
-    ## to properly quit the thread
-    ## and close the window
+    # Reimplements closeEvent
+    # to properly quit the thread
+    # and close the window
     def closeEvent(self, event):
         self.thread.runs = False
         self.thread.wait(2000)
@@ -130,9 +131,9 @@ class GTTlmReceiver(QThread):
         context = zmq.Context()
         self.subscriber = context.socket(zmq.SUB)
         self.subscriber.connect("ipc:///tmp/GroundSystem")
-        myTlmPgAPID = subscr.split(".", 1)
-        mySubscription = f"GroundSystem.Spacecraft1.TelemetryPackets.{myTlmPgAPID[1]}"
-        self.subscriber.setsockopt_string(zmq.SUBSCRIBE, mySubscription)
+        my_tlm_pg_apid = subscr.split(".", 1)
+        my_subscription = f"GroundSystem.Spacecraft1.TelemetryPackets.{my_tlm_pg_apid[1]}"
+        self.subscriber.setsockopt_string(zmq.SUBSCRIBE, my_subscription)
 
     def run(self):
         while self.runs:
@@ -159,10 +160,10 @@ if __name__ == '__main__':
     #
     # Set defaults for the arguments
     #
-    pageTitle = "Telemetry Page"
+    page_title = "Telemetry Page"
     # udpPort = 10000
-    appId = 999
-    tlmDefFile = f"{ROOTDIR}/telemetry_def.txt"
+    app_id = 999
+    tlm_def_file = f"{ROOTDIR}/telemetry_def.txt"
     endian = "L"
     subscription = ""
 
@@ -184,11 +185,11 @@ if __name__ == '__main__':
         elif opt in ("-p", "--port"):
             pass
         elif opt in ("-t", "--title"):
-            pageTitle = arg
+            page_title = arg
         elif opt in ("-f", "--file"):
-            tlmDefFile = arg
+            tlm_def_file = arg
         elif opt in ("-t", "--appid"):
-            appId = arg
+            app_id = arg
         elif opt in ("-e", "--endian"):
             endian = arg
         elif opt in ("-s", "--sub"):
@@ -205,40 +206,40 @@ if __name__ == '__main__':
     # Init the QT application and the telemetry class
     #
     app = QApplication(sys.argv)
-    Telem = SubsystemTelemetry()
-    tbl = Telem.tblTelemetry
-    Telem.subSystemLineEdit.setText(pageTitle)
-    Telem.packetId.display(appId)
+    telem = SubsystemTelemetry()
+    tbl = telem.tbl_telemetry
+    telem.sub_system_line_edit.setText(page_title)
+    telem.packet_id.display(app_id)
 
     #
     # Read in the contents of the telemetry packet definition
     #
-    tlmItemIsValid, tlmItemDesc, \
-    tlmItemStart, tlmItemSize, \
-    tlmItemDisplayType, tlmItemFormat = ([] for _ in range(6))
+    tlm_item_is_valid, tlmItemDesc, \
+    tlm_item_start, tlmItemSize, \
+    tlm_item_display_type, tlmItemFormat = ([] for _ in range(6))
 
     tlmItemEnum = [None] * 40
 
     i = 0
-    with open(f"{ROOTDIR}/{tlmDefFile}") as tlmfile:
+    with open(f"{ROOTDIR}/{tlm_def_file}") as tlmfile:
         reader = csv.reader(tlmfile, skipinitialspace=True)
         for row in reader:
             if not row[0].startswith("#"):
-                tlmItemIsValid.append(True)
+                tlm_item_is_valid.append(True)
                 tlmItemDesc.append(row[0])
-                tlmItemStart.append(row[1])
+                tlm_item_start.append(row[1])
                 tlmItemSize.append(row[2])
                 if row[3].lower() == 's':
                     tlmItemFormat.append(f'{row[2]}{row[3]}')
                 else:
                     tlmItemFormat.append(f'{py_endian}{row[3]}')
-                tlmItemDisplayType.append(row[4])
+                tlm_item_display_type.append(row[4])
                 if row[4] == 'Enm':
                     tlmItemEnum[i] = row[5:9]
-                Telem.tblTelemetry.insertRow(i)
+                telem.tbl_telemetry.insertRow(i)
                 lblItem, valItem = QTableWidgetItem(), QTableWidgetItem()
-                Telem.tblTelemetry.setItem(i, 0, lblItem)
-                Telem.tblTelemetry.setItem(i, 1, valItem)
+                telem.tbl_telemetry.setItem(i, 0, lblItem)
+                telem.tbl_telemetry.setItem(i, 1, valItem)
                 i += 1
     tbl.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
     tbl.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
@@ -246,8 +247,8 @@ if __name__ == '__main__':
     #
     # Display the page
     #
-    Telem.show()
-    Telem.raise_()
-    Telem.initGTTlmReceiver(subscription)
+    telem.show()
+    telem.raise_()
+    telem.init_gt_tlm_receiver(subscription)
 
     sys.exit(app.exec_())

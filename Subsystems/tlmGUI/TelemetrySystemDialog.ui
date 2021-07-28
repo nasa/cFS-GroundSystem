@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>TelemetrySystemDialog</class>
- <widget class="QDialog" name="TelemetrySystemDialog">
+ <class>telemetry_system_dialog</class>
+ <widget class="QDialog" name="telemetry_system_dialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -13,11 +13,11 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="vertical_layout">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <spacer name="horizontalSpacer">
+      <spacer name="horizontal_spacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -37,7 +37,7 @@
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer_2">
+      <spacer name="horizontal_spacer_2">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -52,12 +52,12 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <layout class="QHBoxLayout" name="horizontal_layout_3">
      <property name="sizeConstraint">
       <enum>QLayout::SetNoConstraint</enum>
      </property>
      <item>
-      <spacer name="horizontalSpacer_6">
+      <spacer name="horizontal_spacer_6">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -70,7 +70,7 @@
       </spacer>
      </item>
      <item>
-      <spacer name="horizontalSpacer_3">
+      <spacer name="horizontal_spacer_3">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -86,9 +86,9 @@
       </spacer>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <layout class="QHBoxLayout" name="horizontal_layout_2">
        <item>
-        <spacer name="horizontalSpacer_4">
+        <spacer name="horizontal_spacer_4">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -108,7 +108,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="packetCount">
+        <widget class="QSpinBox" name="packet_count">
          <property name="readOnly">
           <bool>true</bool>
          </property>
@@ -124,7 +124,7 @@
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer_5">
+        <spacer name="horizontal_spacer_5">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -139,7 +139,7 @@
       </layout>
      </item>
      <item>
-      <spacer name="horizontalSpacer_7">
+      <spacer name="horizontal_spacer_7">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -152,7 +152,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QDialogButtonBox" name="buttonBox">
+      <widget class="QDialogButtonBox" name="button_box">
        <property name="standardButtons">
         <set>QDialogButtonBox::Close</set>
        </property>
@@ -161,9 +161,9 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
+    <layout class="QHBoxLayout" name="horizontal_layout_4">
      <item>
-      <spacer name="horizontalSpacer_8">
+      <spacer name="horizontal_spacer_8">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -183,7 +183,7 @@
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer_9">
+      <spacer name="horizontal_spacer_9">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -198,7 +198,7 @@
     </layout>
    </item>
    <item>
-    <widget class="QTableWidget" name="tblTlmSys">
+    <widget class="QTableWidget" name="tbl_tlm_sys">
      <property name="editTriggers">
       <set>QAbstractItemView::NoEditTriggers</set>
      </property>
@@ -232,7 +232,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>button_box</sender>
    <signal>clicked(QAbstractButton*)</signal>
    <receiver>TelemetrySystemDialog</receiver>
    <slot>close()</slot>

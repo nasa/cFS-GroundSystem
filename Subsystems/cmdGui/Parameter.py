@@ -29,12 +29,12 @@ from PyQt5.QtWidgets import (QApplication, QDialog, QHeaderView,
 
 from HTMLDocsParser import HTMLDocsParser
 from MiniCmdUtil import MiniCmdUtil
-from Ui_ParameterDialog import Ui_Dialog
+from UiParameterDialog import UiDialog
 
 ROOTDIR = Path(sys.argv[0]).resolve().parent
 
 
-class Parameter(QDialog, Ui_Dialog):
+class Parameter(QDialog, UiDialog):
     #
     # Initializes Parameter class
     #
@@ -43,7 +43,7 @@ class Parameter(QDialog, Ui_Dialog):
         self.setupUi(self)
         self.parser = HTMLDocsParser()
         self.setWindowTitle("Parameter Dialog")
-        self.SendButton_1.clicked.connect(self.ProcessSendButton)
+        self.send_button_1.clicked.connect(self.ProcessSendButton)
         self.mcu = None
 
     #
@@ -51,7 +51,7 @@ class Parameter(QDialog, Ui_Dialog):
     #
     def ProcessSendButton(self):
         input_list = []
-        for j in range(self.tblParameters.rowCount()):
+        for j in range(self.tbl_parameters.rowCount()):
             item = tbl.item(j, 2)
             input_list.append(item.text().strip())
 
@@ -65,7 +65,7 @@ class Parameter(QDialog, Ui_Dialog):
         param_string = ' '.join(param_list)
         self.mcu = MiniCmdUtil(pageAddress, pagePort, pageEndian, pagePktId,
                                cmdCode, param_string.strip())
-        sendSuccess = self.mcu.sendPacket()
+        sendSuccess = self.mcu.send_packet()
         if sendSuccess:
             self.status_box.setText('Command sent!')
         else:
@@ -122,7 +122,7 @@ if __name__ == '__main__':
     #
     app = QApplication(sys.argv)  # creates instance of QtApplication class
     param = Parameter()  # creates instance of Parameter class
-    tbl = param.tblParameters
+    tbl = param.tbl_parameters
 
     #
     # Gets parameter information from pickle files
@@ -135,8 +135,8 @@ if __name__ == '__main__':
     #
     # Sets text in GUI
     #
-    param.subSystemTextBrowser.setText(subsysTitle)  # subsystem name
-    param.commandAddressTextBrowser.setText(
+    param.sub_system_text_browser.setText(subsysTitle)  # subsystem name
+    param.command_address_text_browser.setText(
         f'{cmdDesc} Command')  # command name
 
     for i, name in enumerate(paramNames):

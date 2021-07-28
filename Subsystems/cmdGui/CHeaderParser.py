@@ -70,13 +70,13 @@ ROOTDIR = Path(sys.argv[0]).resolve().parent
 #
 # Translate known data types to arguments
 #
-def findDataTypeNew(dataTypeOrig, paramName):
-    if '[' in paramName:
+def find_data_type_new(data_type_orig, param_name):
+    if '[' in param_name:
         return '--string'
-    if dataTypeOrig in ['boolean']:
+    if data_type_orig in ['boolean']:
         return '--uint8'
-    if dataTypeOrig in ['int8', 'uint8', 'int16', 'uint16', 'int32', 'uint32', 'int64', 'uint64']:
-        return "--" + dataTypeOrig
+    if data_type_orig in ['int8', 'uint8', 'int16', 'uint16', 'int32', 'uint32', 'int64', 'uint64']:
+        return "--" + data_type_orig
     return None
 
 
@@ -86,7 +86,7 @@ def findDataTypeNew(dataTypeOrig, paramName):
 # This file is expected to be created by the user
 # Returns list of paths to those files
 # Added by Keegan Moore
-def getFileList(filename='CHeaderParser-hdr-paths.txt'):
+def get_file_list(filename='CHeaderParser-hdr-paths.txt'):
     """ Gets the list of header files to be parsed from other file """
 
     paths = []
@@ -115,7 +115,7 @@ def getFileList(filename='CHeaderParser-hdr-paths.txt'):
 if __name__ == '__main__':
 
     # Get list of files to parse
-    file_list = getFileList()
+    file_list = get_file_list()
 
     # If list is empty, exit now
     if not file_list:
@@ -123,8 +123,8 @@ if __name__ == '__main__':
         sys.exit()
 
     # initialize command codes/descriptions lists as empty lists
-    cmdCodes = []
-    cmdDesc = []
+    cmd_codes = []
+    cmd_desc = []
 
     # create empty list for dumping header data
     master_hdr = []
@@ -175,8 +175,8 @@ if __name__ == '__main__':
             # therefore a length of 3
             if len(definition) == 3:
                 # Add command descriptions/codes to respective lists
-                cmdDesc.append(definition[1])
-                cmdCodes.append(definition[2])
+                cmd_desc.append(definition[1])
+                cmd_codes.append(definition[2])
 
     print(("We need to save the command into to a pickle file "
            "in 'CommandFile/'.\nPlease do not use any spaces/quotes "
@@ -194,14 +194,14 @@ if __name__ == '__main__':
         #
         # FIGURE OUT WHY SHE DID THIS \\\
         #                              vvv
-        pickle.dump([cmdDesc, cmdCodes, cmdDesc], pickle_obj)
+        pickle.dump([cmd_desc, cmd_codes, cmd_desc], pickle_obj)
 
     # Create a copy of command descriptions to preserve the original
     # unused_cmdDesc will be used to prompt user for parameters
-    unused_cmdDesc = list(cmdDesc)
+    unused_cmd_desc = list(cmd_desc)
 
     # Create an empty list of used commands to be populated
-    used_cmdDesc = []
+    used_cmd_desc = []
 
     # Initialize looping variable
     cmd_index = 0
@@ -209,8 +209,8 @@ if __name__ == '__main__':
     # Print a list of unused commands for the user to pick from.
     print("\nUnused Commands")
     print("-----------------------------------------")
-    for i, cmd in enumerate(unused_cmdDesc, start=1):
-        print(f"(Command {i} of {len(unused_cmdDesc)}) {cmd}")
+    for i, cmd in enumerate(unused_cmd_desc, start=1):
+        print(f"(Command {i} of {len(unused_cmd_desc)}) {cmd}")
 
     while True:
         # Get user input to see if any commands from this file require parameters
@@ -234,6 +234,7 @@ if __name__ == '__main__':
 
         # Continue to ask user for commands with parameters until we get -1 to exit.
         while True:
+            command_choice = ""
             # Get user input
             try:
                 command_choice = input(
@@ -250,20 +251,20 @@ if __name__ == '__main__':
                 command_choice = int(command_choice)
 
             # Make sure the choice is within range
-            ## Note that if command_choice is a string
-            ## it will never be in the range
-            if command_choice not in range(1, len(unused_cmdDesc) + 1):
+            # Note that if command_choice is a string
+            # it will never be in the range
+            if command_choice not in range(1, len(unused_cmd_desc) + 1):
                 print(
                     f"You entered {command_choice}, but that isn't an option.")
             else:
-                ## Choices are presented to user starting at 1, but list
-                ## indicies start at 0
+                # Choices are presented to user starting at 1, but list
+                # indicies start at 0
                 command_choice -= 1
-                cmdName = unused_cmdDesc[command_choice]
+                cmd_name = unused_cmd_desc[command_choice]
 
                 # Initialize Parameter variables to empty lists
-                paramNames, paramDesc, dataTypesOrig,\
-                    dataTypesNew, paramLens, stringLens = ([] for _ in range(6))
+                param_names, param_desc, data_types_orig, \
+                data_types_new, param_lens, string_lens = ([] for _ in range(6))
 
                 # This empty list will hold possibly multiple lists of line numbers
                 # each list representing where inside the App Header file the
@@ -272,7 +273,7 @@ if __name__ == '__main__':
 
                 print(
                     "This program will now attempt to find the command structure for",
-                    cmdName)
+                    cmd_name)
 
                 # create a copy of file_lines for parsing structures
                 file_lines = list(master_hdr)
@@ -331,6 +332,8 @@ if __name__ == '__main__':
                     print("--------------------------------------------")
 
                 while True:
+                    struct_choice = ""
+
                     # Give the user the option to exit too.
                     try:
                         struct_choice = input(
@@ -348,8 +351,8 @@ if __name__ == '__main__':
                         struct_choice = int(struct_choice)
 
                     # Make sure the choice is valid
-                    ## Note that if struct_choice is a string
-                    ## it will never be in range
+                    # Note that if struct_choice is a string
+                    # it will never be in range
                     if struct_choice not in range(1,
                                                   len(list_cmd_structs) + 1):
                         print(
@@ -376,7 +379,6 @@ if __name__ == '__main__':
                     # Display the command structure with indexed before each line
                     print("\n\n")
                     for line_num, line in enumerate(cmd_struct_lines):
-
                         # Dereference the index number in cmd_struct_lines to get the actual line number
                         actual_line = line
 
@@ -403,45 +405,45 @@ if __name__ == '__main__':
                     line_split = file_lines[actual_line].split()
 
                     # Add original data type (C data type) to list
-                    dataTypesOrig.append(line_split[0])
+                    data_types_orig.append(line_split[0])
 
                     # Get rid of any occurance of ';' (at the end of the line)
-                    paramNames.append(re.sub(';', '', line_split[1]))
+                    param_names.append(re.sub(';', '', line_split[1]))
 
                     # Not sure about why we are keeping track of this yet
                     # just fill it with null for now
-                    paramDesc.append('')
+                    param_desc.append('')
 
                     # Determines data type for us to use
                     # returns null if no type could match
-                    dataTypeNew = findDataTypeNew(dataTypesOrig[-1],
-                                                  paramNames[-1])
+                    data_type_new = find_data_type_new(data_types_orig[-1],
+                                                       param_names[-1])
 
                     # If no type could match, ask user for data type
-                    if not dataTypeNew:
-                        dataTypeNew = input(
-                            (f'Data type for {paramNames[-1]} not found. '
+                    if not data_type_new:
+                        data_type_new = input(
+                            (f'Data type for {param_names[-1]} not found. '
                              'Please enter new data type by hand: '))
 
-                    dataTypesNew.append(dataTypeNew.strip())
+                    data_types_new.append(data_type_new.strip())
 
                     # finds length if --string data type
-                    if 'string' in dataTypeNew:
+                    if 'string' in data_type_new:
 
                         # Split parameter name into list, separating by '[' or ']'
                         # if paramNames[-1] == 'array[10]' then
                         # array_name_size == ['array', '10']
-                        array_name_size = re.split(r'\[|\]', paramNames[-1])
+                        array_name_size = re.split(r'\[|\]', param_names[-1])
 
                         # Re-assign paramName to just the name of the array
                         # (before -> 'array[10]', after -> 'array')
-                        paramNames[-1] = array_name_size[0]
+                        param_names[-1] = array_name_size[0]
 
                         # set array size to the second element
                         array_size = array_name_size[1]
 
                         # Add array size to the parameter list
-                        paramLens.append(array_size)
+                        param_lens.append(array_size)
 
                         print("Array size:", array_size)
 
@@ -469,21 +471,21 @@ if __name__ == '__main__':
                                 pass  # Ignore non-integer and try again
 
                         # Add string length argument to parameter list
-                        stringLens.append(array_size)
+                        string_lens.append(array_size)
 
                     else:
-                        stringLens.append('')
-                        paramLens.append('')
+                        string_lens.append('')
+                        param_lens.append('')
 
                     # print the last element of list to see if it worked
-                    print("dataTypeOrig:", dataTypesOrig[-1])
-                    print("dataTypeNew:", dataTypesNew[-1])
-                    print("paramName:", paramNames[-1])
-                    print("paramLen:", paramLens[-1])
-                    print("stringLen:", stringLens[-1])
+                    print("dataTypeOrig:", data_types_orig[-1])
+                    print("dataTypeNew:", data_types_new[-1])
+                    print("paramName:", param_names[-1])
+                    print("paramLen:", param_lens[-1])
+                    print("stringLen:", string_lens[-1])
 
-                    print("Added:", paramNames[-1], "with type",
-                          dataTypesNew[-1])
+                    print("Added:", param_names[-1], "with type",
+                          data_types_new[-1])
 
                     # Remove used parameter from command structure lines
                     # so that the user doesn't choose the same parameter twice
@@ -497,29 +499,29 @@ if __name__ == '__main__':
                     # Start the loop over to see if user has more parameters
 
                 # Add command to used commands, to keep track of things
-                used_cmdDesc.append(unused_cmdDesc[command_choice])
+                used_cmd_desc.append(unused_cmd_desc[command_choice])
 
                 # Take this command out of the list of unused commands before restarting the loop
-                del unused_cmdDesc[command_choice]
+                del unused_cmd_desc[command_choice]
 
                 # If we later want the list of structs to be updated, to remove
                 # previously selected structs, uncomment this line
-                #del list_cmd_structs[struct_choice]
+                # del list_cmd_structs[struct_choice]
 
                 # saves parameter information in pickle file for command
-                pickle_file = f'{ROOTDIR}/ParameterFiles/{cmdName}'
+                pickle_file = f'{ROOTDIR}/ParameterFiles/{cmd_name}'
                 with open(pickle_file, 'wb') as pickle_obj:
                     pickle.dump([
-                        dataTypesOrig, paramNames, paramLens, paramDesc,
-                        dataTypesNew, stringLens
+                        data_types_orig, param_names, param_lens, param_desc,
+                        data_types_new, string_lens
                     ], pickle_obj)
 
                 # Print a list of unused commands for the user to pick from.
                 print("")
                 print("Unused Commands")
                 print("-----------------------------------------")
-                for cmd_index, cmd in enumerate(unused_cmdDesc, start=1):
-                    print(f"Command ({cmd_index} of {len(unused_cmdDesc)})",
+                for cmd_index, cmd in enumerate(unused_cmd_desc, start=1):
+                    print(f"Command ({cmd_index} of {len(unused_cmd_desc)})",
                           cmd)
 
             # End of 'while True:'
@@ -527,4 +529,4 @@ if __name__ == '__main__':
 
     print("Thank you for using CHeaderParser.")
     print("The following commands have been added with parameters: ")
-    print(used_cmdDesc)
+    print(used_cmd_desc)

@@ -39,6 +39,6 @@ if __name__ == "__main__":
         # send_host = "192.168.1.4"
         send_port = 1235
         datagram = b'Test tlm message'
-        sendSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        sendSocket.sendto(datagram, (send_host, send_port))
+        send_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        send_socket.sendto(datagram, (send_host, send_port))
         print(f'Sent msg #{num} to {send_host}:{send_port}')

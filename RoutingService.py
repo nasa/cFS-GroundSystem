@@ -28,7 +28,7 @@ import zmq
 from PyQt5.QtCore import QThread, pyqtSignal
 
 # Receive port where the CFS TO_Lab app sends the telemetry packets
-udpRecvPort = 1235
+udp_recv_port = 1235
 
 
 #
@@ -37,16 +37,16 @@ udpRecvPort = 1235
 #
 class RoutingService(QThread):
     # Signal to update the spacecraft combo box (list) on main window GUI
-    signalUpdateIpList = pyqtSignal(str, bytes)
+    signal_update_ip_list = pyqtSignal(str, bytes)
 
     def __init__(self):
         super().__init__()
 
         # Init lists
-        self.ipAddressesList = ["All"]
-        self.spacecraftNames = ["All"]
-        self.specialPktId = []
-        self.specialPktName = []
+        self.ip_addresses_list = ["All"]
+        self.spacecraft_names = ["All"]
+        self.special_pkt_id = []
+        self.special_pkt_name = []
 
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
@@ -58,12 +58,12 @@ class RoutingService(QThread):
     # Run thread
     def run(self):
         # Init udp socket
-        self.sock.bind(('', udpRecvPort))
+        self.sock.bind(('', udp_recv_port))
 
         print('Attempting to wait for UDP messages')
 
-        socketErrorCount = 0
-        while socketErrorCount < 5:
+        socket_error_count = 0
+        while socket_error_count < 5:
 
             # Wait for UDP messages
             while True:
@@ -77,49 +77,49 @@ class RoutingService(QThread):
                         continue
 
                     # Read host address
-                    hostIpAddress = host[0]
+                    host_ip_address = host[0]
 
                     #
                     # Add Host to the list if not already in list
                     #
-                    if hostIpAddress not in self.ipAddressesList:
+                    if host_ip_address not in self.ip_addresses_list:
                         ## MAKE SURE THERE'S NO SPACE BETWEEN "Spacecraft"
                         ## AND THE FIRST CURLY BRACE!!!
-                        hostName = f'Spacecraft{len(self.spacecraftNames)}'
-                        my_hostName_as_bytes = hostName.encode()
-                        print("Detected", hostName, "at", hostIpAddress)
-                        self.ipAddressesList.append(hostIpAddress)
-                        self.spacecraftNames.append(my_hostName_as_bytes)
-                        self.signalUpdateIpList.emit(hostIpAddress,
-                                                     my_hostName_as_bytes)
+                        hostname = f'Spacecraft{len(self.spacecraft_names)}'
+                        my_hostname_as_bytes = hostname.encode()
+                        print("Detected", hostname, "at", host_ip_address)
+                        self.ip_addresses_list.append(host_ip_address)
+                        self.spacecraft_names.append(my_hostname_as_bytes)
+                        self.signal_update_ip_list.emit(host_ip_address,
+                                                        my_hostname_as_bytes)
 
                     # Forward the message using zeroMQ
-                    name = self.spacecraftNames[self.ipAddressesList.index(
-                        hostIpAddress)]
+                    name = self.spacecraft_names[self.ip_addresses_list.index(
+                        host_ip_address)]
                     self.forwardMessage(datagram, name)
 
                 # Handle errors
                 except socket.error:
-                    print('Ignored socket error for attempt', socketErrorCount)
-                    socketErrorCount += 1
+                    print('Ignored socket error for attempt', socket_error_count)
+                    socket_error_count += 1
                     sleep(1)
 
     # Apply header using hostname and packet id and send msg using zeroMQ
     def forwardMessage(self, datagram, hostName):
-        # Forward message to channel GroundSystem.<Hostname>.<pktId>
-        pktId = self.getPktId(datagram)
-        my_decoded_hostName = hostName.decode()
-        header = f"GroundSystem.{my_decoded_hostName}.TelemetryPackets.{pktId}"
+        # Forward message to channel GroundSystem.<hostname>.<pkt_id>
+        pkt_id = self.get_pkt_id(datagram)
+        my_decoded_hostname = hostName.decode()
+        header = f"GroundSystem.{my_decoded_hostname}.TelemetryPackets.{pkt_id}"
         my_header_as_bytes = header.encode()
         self.publisher.send_multipart([my_header_as_bytes, datagram])
         # print(header)
 
     # Read the packet id from the telemetry packet
     @staticmethod
-    def getPktId(datagram):
+    def get_pkt_id(datagram):
         # Read the telemetry header
-        streamId = unpack(">H", datagram[:2])
-        return hex(streamId[0])
+        stream_id = unpack(">H", datagram[:2])
+        return hex(stream_id[0])
 
     # Close ZMQ vars
     def stop(self):
