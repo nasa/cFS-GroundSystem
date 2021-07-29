@@ -29,10 +29,11 @@ Failed count,          70,  1,  B, Dec, NULL,        NULL,        NULL,       NU
 Num requests,          71,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
 Num free bufs,         72,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
 pad1,                  73,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
-Mem pool hdl,          74,  4,  I, Hex, NULL,        NULL,        NULL,       NULL
-Last upd (secs),       78,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
-Last upd (subs),       82,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
-Last upd table name,   86, 40,  s, Str, NULL,        NULL,        NULL,       NULL
-Last file loaded,     126, 64,  s, Str, NULL,        NULL,        NULL,       NULL
-Last file dumped,     190, 64,  s, Str, NULL,        NULL,        NULL,       NULL
-LastTableLoaded,      254, 40,  s, Str, NULL,        NULL,        NULL,       NULL
+pad2,                  74,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+Mem pool hdl,          76,  4,  I, Hex, NULL,        NULL,        NULL,       NULL
+Last upd (secs),       80,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+Last upd (subs),       84,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+Last upd table name,   88, 40,  s, Str, NULL,        NULL,        NULL,       NULL
+Last file loaded,     128, 64,  s, Str, NULL,        NULL,        NULL,       NULL
+Last file dumped,     192, 64,  s, Str, NULL,        NULL,        NULL,       NULL
+LastTableLoaded,      256, 40,  s, Str, NULL,        NULL,        NULL,       NULL
