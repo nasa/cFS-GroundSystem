@@ -52,6 +52,7 @@ class SubsystemTelemetry(QDialog, Ui_GenericTelemetryDialog):
     #
     def displayTelemetryItem(self, datagram, tlmIndex, labelField, valueField):
         if tlmItemIsValid[tlmIndex]:
+            tlmOffset = 0
             try:
                 tlmOffset = self.mm[0]
             except ValueError:
@@ -59,6 +60,8 @@ class SubsystemTelemetry(QDialog, Ui_GenericTelemetryDialog):
             TlmField1 = tlmItemFormat[tlmIndex]
             if TlmField1[0] == "<":
                 TlmField1 = TlmField1[1:]
+
+            itemStart = 0
             try:
                 itemStart = int(tlmItemStart[tlmIndex]) + tlmOffset
             except UnboundLocalError:
