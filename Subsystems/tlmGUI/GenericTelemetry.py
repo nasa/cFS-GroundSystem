@@ -57,9 +57,12 @@ class SubsystemTelemetry(QDialog, UiGenerictelemetrydialog):
                 tlm_offset = self.mm[0]
             except ValueError:
                 pass
-            tlm_field1 = tlmItemFormat[tlm_index]
+
+            tlm_field1 = tlm_item_format[tlm_index]
             if tlm_field1[0] == "<":
                 tlm_field1 = tlm_field1[1:]
+        
+            item_start = 0
             try:
                 item_start = int(tlm_item_start[tlm_index]) + tlm_offset
             except UnboundLocalError:
@@ -121,7 +124,7 @@ class SubsystemTelemetry(QDialog, UiGenerictelemetrydialog):
 # Subscribes and receives zeroMQ messages
 class GTTlmReceiver(QThread):
     # Setup signal to communicate with front-end GUI
-    gtSignalTlmDatagram = pyqtSignal(bytes)
+    gt_signal_tlm_datagram = pyqtSignal(bytes)
 
     def __init__(self, subscr):
         super().__init__()
@@ -140,7 +143,7 @@ class GTTlmReceiver(QThread):
             # Read envelope with address
             _, datagram = self.subscriber.recv_multipart()
             # Send signal with received packet to front-end/GUI
-            self.gtSignalTlmDatagram.emit(datagram)
+            self.gt_signal_tlm_datagram.emit(datagram)
 
 
 #
@@ -218,7 +221,7 @@ if __name__ == '__main__':
     tlm_item_start, tlmItemSize, \
     tlm_item_display_type, tlmItemFormat = ([] for _ in range(6))
 
-    tlmItemEnum = [None] * 40
+    tlm_item_enum = [None] * 40
 
     i = 0
     with open(f"{ROOTDIR}/{tlm_def_file}") as tlmfile:
@@ -226,20 +229,20 @@ if __name__ == '__main__':
         for row in reader:
             if not row[0].startswith("#"):
                 tlm_item_is_valid.append(True)
-                tlmItemDesc.append(row[0])
+                tlm_item_desc.append(row[0])
                 tlm_item_start.append(row[1])
-                tlmItemSize.append(row[2])
+                tlm_item_size.append(row[2])
                 if row[3].lower() == 's':
-                    tlmItemFormat.append(f'{row[2]}{row[3]}')
+                    tlm_item_format.append(f'{row[2]}{row[3]}')
                 else:
-                    tlmItemFormat.append(f'{py_endian}{row[3]}')
+                    tlm_item_format.append(f'{py_endian}{row[3]}')
                 tlm_item_display_type.append(row[4])
                 if row[4] == 'Enm':
-                    tlmItemEnum[i] = row[5:9]
+                    tlm_item_enum[i] = row[5:9]
                 telem.tbl_telemetry.insertRow(i)
-                lblItem, valItem = QTableWidgetItem(), QTableWidgetItem()
-                telem.tbl_telemetry.setItem(i, 0, lblItem)
-                telem.tbl_telemetry.setItem(i, 1, valItem)
+                lbl_item, val_item = QTableWidgetItem(), QTableWidgetItem()
+                telem.tbl_telemetry.setItem(i, 0, lbl_item)
+                telem.tbl_telemetry.setItem(i, 1, val_item)
                 i += 1
     tbl.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
     tbl.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)

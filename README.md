@@ -11,6 +11,12 @@ See [Guide-GroundSystem.md](https://github.com/nasa/cFS-GroundSystem/blob/master
 
 ## Version History
 
+### Development Build: v2.2.0-rc1+dev58
+
+- Update tlm for ES Blockstats/memstats and TBL HK
+- Assign variables before referencing them
+- See <https://github.com/nasa/cFS-GroundSystem/pull/192> and <https://github.com/nasa/cfs/pull/313>
+
 ### Development Build: v2.2.0-rc1+dev52
 
 - Add test start command script for cmdUtil
