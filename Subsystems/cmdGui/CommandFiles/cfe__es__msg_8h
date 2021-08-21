@@ -1,6 +1,6 @@
 (lp0
 (lp1
-S'Clears the contents of the Exeception and Reset Log'
+S'Clears the contents of the Exception and Reset Log'
 p2
 aS'Clear Executive Services System Log'
 p3
@@ -46,7 +46,7 @@ aS'Stop and Unload Application'
 p23
 aS'Telemeter Memory Pool Statistics'
 p24
-aS'Writes Exeception and Reset Log to a File'
+aS'Writes Exception and Reset Log to a File'
 p25
 aS'Writes contents of Executive Services System Log to a File'
 p26

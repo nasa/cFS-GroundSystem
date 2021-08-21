@@ -31,7 +31,7 @@ ag14
 aa(lp15
 S'Index of the next entry in the local event log.'
 p16
-aS'Local Event Kog counter.'
+aS'Local Event Log counter.'
 p17
 aS'Local Event Log full flag.'
 p18
