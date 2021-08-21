@@ -75,7 +75,7 @@ int SendUdp(char *hostname, char *portNum, unsigned char *packetData, int packet
         return -3;
     }
 
-    /* Loop through potential addresses until sucessful socket/connect */
+    /* Loop through potential addresses until successful socket/connect */
     for (rp = result; rp != NULL; rp = rp->ai_next)
     {
         sd = socket(rp->ai_family, rp->ai_socktype, rp->ai_protocol);

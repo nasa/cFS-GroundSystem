@@ -69,7 +69,7 @@ class Parameter(QDialog, Ui_Dialog):
         if sendSuccess:
             self.status_box.setText('Command sent!')
         else:
-            self.status_box.setText('Error occured')
+            self.status_box.setText('Error occurred')
 
     def closeEvent(self, event):
         if self.mcu:

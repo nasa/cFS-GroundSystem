@@ -42,7 +42,7 @@
 # the user for necessary information, and parsing the cFS header files, this
 # program will generate up to two different "pickle" files for the ground
 # system to use (for information about pickle files and the pickle python
-# libary, see the link here: https://docs.python.org/3/library/pickle.html).
+# library, see the link here: https://docs.python.org/3/library/pickle.html).
 # These files will be placed in CommandFiles/ or ParameterFiles/.
 #
 # Usage:
@@ -129,7 +129,7 @@ if __name__ == '__main__':
     # create empty list for dumping header data
     master_hdr = []
 
-    # Concatonate all headers into one variable for referencing
+    # Concatenate all headers into one variable for referencing
     for hdr_file in file_list:
         # open header file as single header
         with open(hdr_file) as single_hdr:
@@ -257,7 +257,7 @@ if __name__ == '__main__':
                     f"You entered {command_choice}, but that isn't an option.")
             else:
                 ## Choices are presented to user starting at 1, but list
-                ## indicies start at 0
+                ## indices start at 0
                 command_choice -= 1
                 cmdName = unused_cmdDesc[command_choice]
 
@@ -405,7 +405,7 @@ if __name__ == '__main__':
                     # Add original data type (C data type) to list
                     dataTypesOrig.append(line_split[0])
 
-                    # Get rid of any occurance of ';' (at the end of the line)
+                    # Get rid of any occurence of ';' (at the end of the line)
                     paramNames.append(re.sub(';', '', line_split[1]))
 
                     # Not sure about why we are keeping track of this yet

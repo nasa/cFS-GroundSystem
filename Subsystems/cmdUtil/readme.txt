@@ -25,7 +25,7 @@ cmdUtil -- A CCSDS Command Client.
       --port : The UDP port to send the command to ( default = 1234 )
       --pktid : The Packet ID for the command being sent
       --cmdcode : The command code for the command being sent
-      --endian : BE: Dont swap words, LE: Swap words on packet
+      --endian : BE: Don't swap words, LE: Swap words on packet
       --half : Add a 16 bit parameter to the packet ( hex or dec )
       --long : Add a 32 bit parameter to the packet ( hex or dec )
       --string : Add a fixed length string to the packet

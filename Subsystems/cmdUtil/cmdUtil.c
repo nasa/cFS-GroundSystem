@@ -214,7 +214,7 @@ void DisplayUsage(char *Name)
     printf("    -T, --pkttype: !OVERRIDE! Packet type (default is cmd, 0=tlm, 1=cmd)\n");
     printf("    -S, --pktsec: !OVERRIDE! Secondary header flag (default set from protocol, 0=absent, 1=present)\n");
     printf("    -A, --pktapid: Application Process Identifier (range=0-0x7FF)\n");
-    printf("    -F, --pktseqflg: !OVERRIDE! Seqence Flags (default unsegmented, 0=continuation, 1=first, 2=last, "
+    printf("    -F, --pktseqflg: !OVERRIDE! Sequence Flags (default unsegmented, 0=continuation, 1=first, 2=last, "
            "3=unsegmented)\n");
     printf("    -G, --pktseqcnt, --pktname: Packet sequence count or Packet name (range=0-0x3FFF)\n");
     printf("    -L, --pktlen: !OVERRIDE! Packet data length (default will calculate value, range=0-0xFFFF)\n");

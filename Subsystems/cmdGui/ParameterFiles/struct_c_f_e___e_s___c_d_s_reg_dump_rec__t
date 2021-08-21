@@ -31,7 +31,7 @@ aS'Size, in bytes, of the CDS memory block. boolean Table Flag that indicates wh
 p16
 aS'Processor Unique Name of CDS.'
 p17
-aS'Spare byte to insure structure size is multiple of 4 bytes.'
+aS'Spare byte to ensure structure size is multiple of 4 bytes.'
 p18
 aa(lp19
 S'--word'

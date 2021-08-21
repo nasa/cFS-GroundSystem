@@ -72,7 +72,7 @@ class RoutingService(QThread):
                     datagram, host = self.sock.recvfrom(
                         4096)  # buffer size is 1024 bytes
 
-                    # Ignore datagram if it is not long enough (doesnt contain tlm header?)
+                    # Ignore datagram if it is not long enough (doesn't contain tlm header?)
                     if len(datagram) < 6:
                         continue
 

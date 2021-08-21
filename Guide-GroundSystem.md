@@ -4,7 +4,7 @@
 
 The GroundSystem directory contains the new Ground System project for the cFS, that incorporates the main window to launch commands and telemetry systems, and other utilities like FDL/FUL and FT managers to send and receive files. The main window runs alongside the Routing Service (`RoutingService.py`). The Routing Service handles all incoming data and publishes (PUB/SUB) the data to specific ZeroMQ channels so that the different ground system utilities can receive (subscribe) only the desired data.
 
-This ground system supports commanding and receiving telemetry from multiple spacecrafts using UDP.
+This ground system supports commanding and receiving telemetry from multiple spacecraft using UDP.
 
 The Ground System contains the main window that lets you launch the different utilities.
 
@@ -15,11 +15,11 @@ To start receiving data from the cFS, you need to enable telemetry first. To ena
 
 Note: The Main Window needs to be opened at all times so that the telemetry messages can be forwarded to the Telemetry System.
 
-The Ground System will automatically detect the spacecraft when it starts sending the telemetry, and it will be added to the IP addresses list. You can select the spacecraft from the list, and start Telemetry System to receive its data. If 'All' spacecrafts are selected, you can start Telemetry System to display the packet count from multiple spacecrafts (if it detected more than one).
+The Ground System will automatically detect the spacecraft when it starts sending the telemetry, and it will be added to the IP addresses list. You can select the spacecraft from the list, and start Telemetry System to receive its data. If 'All' spacecraft are selected, you can start Telemetry System to display the packet count from multiple spacecraft (if it detected more than one).
 
 Future enhancements:
 
-1. Detect different spacecrafts based on telemetry header (spacecraft `id`) data instead of using the spacecraft IP address.
+1. Detect different spacecraft based on telemetry header (spacecraft `id`) data instead of using the spacecraft IP address.
 2. Add instructions for Windows.
 
 ## Install and run
@@ -94,7 +94,7 @@ Steps to adding application commands to the Ground System:
    - USE ONLY SPACES, NO TABS (Remember, it's Python).
    - Don't leave any empty lines in `command-pages.txt`, this could cause errors when running `GroundSystem.py` and `CommandSystem.py`.
 
-After completing these steps, restart the Ground System and the changes should have taken affect.
+After completing these steps, restart the Ground System and the changes should have taken effect.
 
 ## Common issues and troubleshooting
 
