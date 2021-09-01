@@ -11,6 +11,10 @@ See [Guide-GroundSystem.md](https://github.com/nasa/cFS-GroundSystem/blob/master
 
 ## Version History
 
+- Add Virtualenv and Pipenv .gitignore support
+- Fix doc, comment, and message typos 
+- See <https://github.com/nasa/cFS-GroundSystem/pull/195> and <https://github.com/nasa/cFS/pull/348>
+
 ### Development Build: v2.2.0-rc1+dev58
 
 - Update tlm for ES Blockstats/memstats and TBL HK

@@ -3,7 +3,7 @@
 #  This file defines the list of command pages available to the "CommandSystem.py" 
 #  python program.
 # 
-#  The following comma delimted fields must be present:
+#  The following comma delimited fields must be present:
 #  Description, 
 #  Command definition file, 
 #  Command Packet ID, 
