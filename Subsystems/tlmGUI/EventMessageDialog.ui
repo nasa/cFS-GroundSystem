@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>EventMessageDialog</class>
- <widget class="QDialog" name="EventMessageDialog">
+ <class>event_message_dialog</class>
+ <widget class="QDialog" name="event_message_dialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -13,9 +13,9 @@
   <property name="windowTitle">
    <string>Event Messages</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="vertical_layout">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="horizontal_layout">
      <item>
       <widget class="QLabel" name="label_2">
        <property name="sizePolicy">
@@ -45,7 +45,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="sequenceCount">
+      <widget class="QSpinBox" name="sequence_count">
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -58,7 +58,7 @@
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer">
+      <spacer name="horizontal_spacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -92,7 +92,7 @@
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer_3">
+      <spacer name="horizontal_spacer_3">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -105,7 +105,7 @@
       </spacer>
      </item>
      <item>
-      <spacer name="horizontalSpacer_2">
+      <spacer name="horizontal_spacer_2">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -121,7 +121,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QDialogButtonBox" name="buttonBox">
+      <widget class="QDialogButtonBox" name="button_box">
        <property name="standardButtons">
         <set>QDialogButtonBox::Close</set>
        </property>
@@ -130,7 +130,7 @@
     </layout>
    </item>
    <item>
-    <widget class="QPlainTextEdit" name="eventOutput">
+    <widget class="QPlainTextEdit" name="event_output">
      <property name="readOnly">
       <bool>true</bool>
      </property>
@@ -141,9 +141,9 @@
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>button_box</sender>
    <signal>clicked(QAbstractButton*)</signal>
-   <receiver>EventMessageDialog</receiver>
+   <receiver>event_message_dialog</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">

@@ -17,7 +17,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
-#!/usr/bin/env python3
+# !/usr/bin/env python3
 #
 # UdpCommands.py -- This is a class that creates a simple command dialog and
 #                   sends commands using the cmdUtil UDP C program.
@@ -43,58 +43,59 @@ from PyQt5.QtWidgets import (QApplication, QDialog, QHeaderView, QPushButton,
                              QTableWidgetItem)
 
 from MiniCmdUtil import MiniCmdUtil
-from Ui_GenericCommandDialog import Ui_GenericCommandDialog
+from UiGenericcommanddialog import UiGenericcommanddialog
 
-## ../cFS/tools/cFS-GroundSystem/Subsystems/cmdGui/
+# ../cFS/tools/cFS-GroundSystem/Subsystems/cmdGui/
 ROOTDIR = Path(sys.argv[0]).resolve().parent
 
-class SubsystemCommands(QDialog, Ui_GenericCommandDialog):
+
+class SubsystemCommands(QDialog, UiGenericcommanddialog):
     #
     # Init the class
     #
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.setWindowTitle(pageTitle)
+        self.setWindowTitle(page_title)
         self.mcu = None
 
     #
     # Determines if command requires parameters
     #
     @staticmethod
-    def checkParams(idx):
+    def check_params(idx):
         pf = f'{ROOTDIR}/ParameterFiles/{param_files[idx]}'
         try:
             with open(pf, 'rb') as po:
-                paramNames = pickle.load(po)[1]
-            return len(paramNames) > 0  # if has parameters
+                param_names = pickle.load(po)[1]
+            return len(param_names) > 0  # if has parameters
         except IOError:
             return False
 
     #
     # Generic button press method
     #
-    def ProcessSendButtonGeneric(self, idx):
-        if cmdItemIsValid[idx]:
-            param_bool = self.checkParams(idx)
-            address = self.commandAddressLineEdit.text()
+    def process_send_button_generic(self, idx):
+        if cmd_item_is_valid[idx]:
+            param_bool = self.check_params(idx)
+            address = self.command_address_line_edit.text()
 
             # If parameters are required, launches Parameters page
             if param_bool:
                 launch_string = (
-                    f'python3 {ROOTDIR}/Parameter.py --title=\"{pageTitle}\" '
-                    f'--descrip=\"{cmdDesc[idx]}\" --idx={idx} '
-                    f'--host=\"{address}\" --port={pagePort} '
-                    f'--pktid={pagePktId} --endian={pageEndian} '
-                    f'--cmdcode={cmdCodes[idx]} --file={param_files[idx]}')
+                    f'python3 {ROOTDIR}/Parameter.py --title=\"{page_title}\" '
+                    f'--descrip=\"{cmd_desc[idx]}\" --idx={idx} '
+                    f'--host=\"{address}\" --port={page_port} '
+                    f'--pktid={page_pkt_id} --endian={page_endian} '
+                    f'--cmdcode={cmd_codes[idx]} --file={param_files[idx]}')
                 cmd_args = shlex.split(launch_string)
                 subprocess.Popen(cmd_args)
             # If parameters not required, directly calls cmdUtil to send command
             else:
-                self.mcu = MiniCmdUtil(address, pagePort, pageEndian,
-                                       pagePktId, cmdCodes[idx])
-                sendSuccess = self.mcu.sendPacket()
-                print("Command sent successfully:", sendSuccess)
+                self.mcu = MiniCmdUtil(address, page_port, page_endian,
+                                       page_pkt_id, cmd_codes[idx])
+                send_success = self.mcu.send_packet()
+                print("Command sent successfully:", send_success)
                 # launch_string = (
                 #     f'{ROOTDIR.parent}/cmdUtil/cmdUtil --host=\"{address}\" '
                 #     f'--port={pagePort} --pktid={pagePktId} '
@@ -125,12 +126,12 @@ if __name__ == '__main__':
     #
     # Set defaults for the arguments
     #
-    pageTitle = "Command Page"
-    pagePort = 1234
-    pageAddress = "127.0.0.1"
-    pagePktId = 1801
-    pageEndian = "LE"
-    pageDefFile = "cfe__es__msg_8h"
+    page_title = "Command Page"
+    page_port = 1234
+    page_address = "127.0.0.1"
+    page_pkt_id = 1801
+    page_endian = "LE"
+    page_def_file = "cfe__es__msg_8h"
 
     #
     # process cmd line args
@@ -148,51 +149,51 @@ if __name__ == '__main__':
             usage()
             sys.exit()
         elif opt in ("-t", "--title"):
-            pageTitle = arg
+            page_title = arg
         elif opt in ("-f", "--file"):
-            pageDefFile = arg
+            page_def_file = arg
         elif opt in ("-p", "--pktid"):
-            pagePktId = arg
+            page_pkt_id = arg
         elif opt in ("-e", "--endian"):
-            pageEndian = arg
+            page_endian = arg
         elif opt in ("-a", "--address"):
-            pageAddress = arg
+            page_address = arg
         elif opt in ("-p", "--port"):
-            pagePort = arg
+            page_port = arg
 
     #
     # Init the QT application and the command class
     #
     app = QApplication(sys.argv)
-    Commands = SubsystemCommands()
-    Commands.subSystemLineEdit.setText(pageTitle)
-    Commands.packetId.display(pagePktId)
-    Commands.commandAddressLineEdit.setText(pageAddress)
-    tbl = Commands.tblCommands
+    commands = SubsystemCommands()
+    commands.sub_system_line_edit.setText(page_title)
+    commands.packet_id.display(page_pkt_id)
+    commands.command_address_line_edit.setText(page_address)
+    tbl = commands.tbl_commands
 
     #
     # Reads commands from command definition file
     #
-    pickle_file = f'{ROOTDIR}/CommandFiles/{pageDefFile}'
+    pickle_file = f'{ROOTDIR}/CommandFiles/{page_def_file}'
     with open(pickle_file, 'rb') as pickle_obj:
-        cmdDesc, cmdCodes, param_files = pickle.load(pickle_obj)
+        cmd_desc, cmd_codes, param_files = pickle.load(pickle_obj)
 
-    cmdItemIsValid = []
-    for i in range(len(cmdDesc)):
-        cmdItemIsValid.append(True)
+    cmd_item_is_valid = []
+    for i in range(len(cmd_desc)):
+        cmd_item_is_valid.append(True)
 
     #
     # Fill the data fields on the page
     #
-    for i, cmd in enumerate(cmdDesc):
-        if cmdItemIsValid[i]:
+    for i, cmd in enumerate(cmd_desc):
+        if cmd_item_is_valid[i]:
             tbl.insertRow(i)
-            tblItem = QTableWidgetItem(cmdDesc[i])
-            tbl.setItem(i, 0, tblItem)
-            tblBtn = QPushButton("Send")
-            tblBtn.clicked.connect(
-                lambda _, x=i: Commands.ProcessSendButtonGeneric(x))
-            tbl.setCellWidget(i, 1, tblBtn)
+            tbl_item = QTableWidgetItem(cmd_desc[i])
+            tbl.setItem(i, 0, tbl_item)
+            tbl_btn = QPushButton("Send")
+            tbl_btn.clicked.connect(
+                lambda _, x=i: commands.process_send_button_generic(x))
+            tbl.setCellWidget(i, 1, tbl_btn)
     tbl.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
     tbl.horizontalHeader().setStretchLastSection(True)
     # tbl.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
@@ -200,6 +201,6 @@ if __name__ == '__main__':
     #
     # Display the page
     #
-    Commands.show()
-    Commands.raise_()
+    commands.show()
+    commands.raise_()
     sys.exit(app.exec_())

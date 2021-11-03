@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <widget class="QDialog" name="dialog">
   <property name="enabled">
    <bool>true</bool>
   </property>
@@ -54,7 +54,7 @@
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QDialogButtonBox" name="buttonBox">
+  <widget class="QDialogButtonBox" name="button_box">
    <property name="geometry">
     <rect>
      <x>670</x>
@@ -102,7 +102,7 @@
     <string>Status:</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="SendButton_1">
+  <widget class="QPushButton" name="send_button_1">
    <property name="geometry">
     <rect>
      <x>690</x>
@@ -134,7 +134,7 @@
     <string>Command:</string>
    </property>
   </widget>
-  <widget class="QLabel" name="subSystemCommandPageLabel">
+  <widget class="QLabel" name="sub_system_command_page_label">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -147,7 +147,7 @@
     <string>Subsystem:</string>
    </property>
   </widget>
-  <widget class="QTextBrowser" name="subSystemTextBrowser">
+  <widget class="QTextBrowser" name="sub_system_text_browser">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -157,7 +157,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QTextBrowser" name="commandAddressTextBrowser">
+  <widget class="QTextBrowser" name="command_address_text_browser">
    <property name="geometry">
     <rect>
      <x>260</x>
@@ -167,7 +167,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QTableWidget" name="tblParameters">
+  <widget class="QTableWidget" name="tbl_parameters">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -198,16 +198,16 @@
  </widget>
  <tabstops>
   <tabstop>status_box</tabstop>
-  <tabstop>SendButton_1</tabstop>
-  <tabstop>subSystemTextBrowser</tabstop>
-  <tabstop>commandAddressTextBrowser</tabstop>
+  <tabstop>send_button_1</tabstop>
+  <tabstop>sub_system_text_browser</tabstop>
+  <tabstop>command_address_text_browser</tabstop>
  </tabstops>
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>button_box</sender>
    <signal>clicked(QAbstractButton*)</signal>
-   <receiver>Dialog</receiver>
+   <receiver>dialog</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">

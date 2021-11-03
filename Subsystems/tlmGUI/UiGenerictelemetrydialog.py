@@ -1,0 +1,113 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file '/home/lbleier/cFS/tools/cFS-GroundSystem/Subsystems/tlmGUI/GenericTelemetryDialog.ui'
+#
+# Created by: PyQt5 UI code generator 5.10.1
+#
+# WARNING! All changes made in this file will be lost!
+
+from PyQt5 import QtCore, QtGui, QtWidgets
+
+class UiGenerictelemetrydialog(object):
+    def setupUi(self, generic_telemetry_dialog):
+        generic_telemetry_dialog.setObjectName("GenericTelemetryDialog")
+        generic_telemetry_dialog.resize(574, 836)
+        self.label_6 = QtWidgets.QLabel(generic_telemetry_dialog)
+        self.label_6.setGeometry(QtCore.QRect(29, 750, 711, 61))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.label_6.setFont(font)
+        self.label_6.setObjectName("label_6")
+        self.tbl_telemetry = QtWidgets.QTableWidget(generic_telemetry_dialog)
+        self.tbl_telemetry.setGeometry(QtCore.QRect(20, 100, 431, 621))
+        self.tbl_telemetry.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.tbl_telemetry.setObjectName("tblTelemetry")
+        self.tbl_telemetry.setColumnCount(2)
+        self.tbl_telemetry.setRowCount(0)
+        item = QtWidgets.QTableWidgetItem()
+        self.tbl_telemetry.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tbl_telemetry.setHorizontalHeaderItem(1, item)
+        self.tbl_telemetry.horizontalHeader().setDefaultSectionSize(200)
+        self.tbl_telemetry.verticalHeader().setVisible(False)
+        self.button_box = QtWidgets.QDialogButtonBox(generic_telemetry_dialog)
+        self.button_box.setGeometry(QtCore.QRect(450, 100, 100, 31))
+        self.button_box.setStandardButtons(QtWidgets.QDialogButtonBox.Close)
+        self.button_box.setObjectName("buttonBox")
+        self.layout_widget = QtWidgets.QWidget(generic_telemetry_dialog)
+        self.layout_widget.setGeometry(QtCore.QRect(260, 24, 73, 54))
+        self.layout_widget.setObjectName("layoutWidget")
+        self.vertical_layout = QtWidgets.QVBoxLayout(self.layout_widget)
+        self.vertical_layout.setContentsMargins(0, 0, 0, 0)
+        self.vertical_layout.setObjectName("verticalLayout")
+        self.packet_id_label = QtWidgets.QLabel(self.layout_widget)
+        size_policy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        size_policy.setHorizontalStretch(0)
+        size_policy.setVerticalStretch(0)
+        size_policy.setHeightForWidth(self.packet_id_label.sizePolicy().hasHeightForWidth())
+        self.packet_id_label.setSizePolicy(size_policy)
+        self.packet_id_label.setMinimumSize(QtCore.QSize(0, 21))
+        self.packet_id_label.setMaximumSize(QtCore.QSize(16777215, 25))
+        self.packet_id_label.setObjectName("packetIdLabel")
+        self.vertical_layout.addWidget(self.packet_id_label)
+        self.packet_id = QtWidgets.QLCDNumber(self.layout_widget)
+        size_policy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        size_policy.setHorizontalStretch(0)
+        size_policy.setVerticalStretch(0)
+        size_policy.setHeightForWidth(self.packet_id.sizePolicy().hasHeightForWidth())
+        self.packet_id.setSizePolicy(size_policy)
+        self.packet_id.setObjectName("packetId")
+        self.vertical_layout.addWidget(self.packet_id)
+        self.layout_widget1 = QtWidgets.QWidget(generic_telemetry_dialog)
+        self.layout_widget1.setGeometry(QtCore.QRect(350, 23, 125, 62))
+        self.layout_widget1.setObjectName("layoutWidget1")
+        self.vertical_layout_3 = QtWidgets.QVBoxLayout(self.layout_widget1)
+        self.vertical_layout_3.setContentsMargins(0, 0, 0, 0)
+        self.vertical_layout_3.setObjectName("verticalLayout_3")
+        self.label_5 = QtWidgets.QLabel(self.layout_widget1)
+        self.label_5.setObjectName("label_5")
+        self.vertical_layout_3.addWidget(self.label_5)
+        self.sequence_count = QtWidgets.QSpinBox(self.layout_widget1)
+        self.sequence_count.setMinimumSize(QtCore.QSize(101, 31))
+        self.sequence_count.setMaximumSize(QtCore.QSize(101, 31))
+        self.sequence_count.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
+        self.sequence_count.setMaximum(16384)
+        self.sequence_count.setProperty("value", 0)
+        self.sequence_count.setObjectName("sequenceCount")
+        self.vertical_layout_3.addWidget(self.sequence_count)
+        self.layout_widget2 = QtWidgets.QWidget(generic_telemetry_dialog)
+        self.layout_widget2.setGeometry(QtCore.QRect(42, 24, 204, 62))
+        self.layout_widget2.setObjectName("layoutWidget2")
+        self.vertical_layout_2 = QtWidgets.QVBoxLayout(self.layout_widget2)
+        self.vertical_layout_2.setContentsMargins(0, 0, 0, 0)
+        self.vertical_layout_2.setObjectName("verticalLayout_2")
+        self.sub_system_telemetry_page_label = QtWidgets.QLabel(self.layout_widget2)
+        self.sub_system_telemetry_page_label.setObjectName("subSystemTelemetryPageLabel")
+        self.vertical_layout_2.addWidget(self.sub_system_telemetry_page_label)
+        self.sub_system_line_edit = QtWidgets.QLineEdit(self.layout_widget2)
+        self.sub_system_line_edit.setMinimumSize(QtCore.QSize(141, 31))
+        self.sub_system_line_edit.setMaximumSize(QtCore.QSize(141, 31))
+        self.sub_system_line_edit.setReadOnly(True)
+        self.sub_system_line_edit.setObjectName("subSystemLineEdit")
+        self.vertical_layout_2.addWidget(self.sub_system_line_edit)
+
+        self.retranslate_ui(generic_telemetry_dialog)
+        self.button_box.clicked['QAbstractButton*'].connect(generic_telemetry_dialog.close)
+        QtCore.QMetaObject.connectSlotsByName(generic_telemetry_dialog)
+
+    def retranslate_ui(self, generic_telemetry_dialog):
+        _translate = QtCore.QCoreApplication.translate
+        generic_telemetry_dialog.setWindowTitle(_translate("GenericTelemetryDialog", "Telemetry Page"))
+        self.label_6.setText(_translate("GenericTelemetryDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Noto Sans\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">*No packets? Remember to select the IP address of<br />your spacecraft in the Main Window.</p></body></html>"))
+        item = self.tbl_telemetry.horizontalHeaderItem(0)
+        item.setText(_translate("GenericTelemetryDialog", "Telemetry Point Label"))
+        item = self.tbl_telemetry.horizontalHeaderItem(1)
+        item.setText(_translate("GenericTelemetryDialog", "Telemetry Point Value"))
+        self.packet_id_label.setText(_translate("GenericTelemetryDialog", "Packet ID"))
+        self.label_5.setText(_translate("GenericTelemetryDialog", "Sequence Count"))
+        self.sub_system_telemetry_page_label.setText(_translate("GenericTelemetryDialog", "Subsystem Telemetry Page"))
+
