@@ -91,6 +91,7 @@ int SendUdp(char *hostname, char *portNum, unsigned char *packetData, int packet
 
     if (rp == NULL)
     {
+        freeaddrinfo(result);
         return -4;
     }
 
