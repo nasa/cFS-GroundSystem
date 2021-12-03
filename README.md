@@ -11,6 +11,16 @@ See [Guide-GroundSystem.md](https://github.com/nasa/cFS-GroundSystem/blob/master
 
 ## Version History
 
+### Development Build: v3.0.0-rc4+dev7
+
+- Free Address Info to fix resource leak
+- Converted most variable,function, and method names into snake_case
+- Set new build baseline for cFS-Caelum-rc4: v3.0.0-rc4
+- See <https://github.com/nasa/cFS-GroundSystem/pull/201> and <https://github.com/nasa/cFS/pull/390> 
+
+
+### Development Build: v2.2.0-rc1+dev63
+
 - Add Virtualenv and Pipenv .gitignore support
 - Fix doc, comment, and message typos 
 - See <https://github.com/nasa/cFS-GroundSystem/pull/195> and <https://github.com/nasa/cFS/pull/348>
