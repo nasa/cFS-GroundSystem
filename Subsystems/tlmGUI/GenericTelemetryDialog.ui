@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>GenericTelemetryDialog</class>
- <widget class="QDialog" name="GenericTelemetryDialog">
+ <class>generic_telemetry_dialog</class>
+ <widget class="QDialog" name="generic_telemetry_dialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -35,7 +35,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;*No packets? Remember to select the IP address of&lt;br /&gt;your spacecraft in the Main Window.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
-  <widget class="QTableWidget" name="tblTelemetry">
+  <widget class="QTableWidget" name="tbl_telemetry">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -64,7 +64,7 @@ p, li { white-space: pre-wrap; }
     </property>
    </column>
   </widget>
-  <widget class="QDialogButtonBox" name="buttonBox">
+  <widget class="QDialogButtonBox" name="button_box">
    <property name="geometry">
     <rect>
      <x>450</x>
@@ -77,7 +77,7 @@ p, li { white-space: pre-wrap; }
     <set>QDialogButtonBox::Close</set>
    </property>
   </widget>
-  <widget class="QWidget" name="layoutWidget">
+  <widget class="QWidget" name="layout_widget">
    <property name="geometry">
     <rect>
      <x>260</x>
@@ -86,9 +86,9 @@ p, li { white-space: pre-wrap; }
      <height>54</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QVBoxLayout" name="vertical_layout">
     <item>
-     <widget class="QLabel" name="packetIdLabel">
+     <widget class="QLabel" name="packet_id_label">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -113,7 +113,7 @@ p, li { white-space: pre-wrap; }
      </widget>
     </item>
     <item>
-     <widget class="QLCDNumber" name="packetId">
+     <widget class="QLCDNumber" name="packet_id">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
         <horstretch>0</horstretch>
@@ -124,7 +124,7 @@ p, li { white-space: pre-wrap; }
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="layoutWidget">
+  <widget class="QWidget" name="layout_widget">
    <property name="geometry">
     <rect>
      <x>350</x>
@@ -133,7 +133,7 @@ p, li { white-space: pre-wrap; }
      <height>62</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_3">
+   <layout class="QVBoxLayout" name="vertical_layout_3">
     <item>
      <widget class="QLabel" name="label_5">
       <property name="text">
@@ -142,7 +142,7 @@ p, li { white-space: pre-wrap; }
      </widget>
     </item>
     <item>
-     <widget class="QSpinBox" name="sequenceCount">
+     <widget class="QSpinBox" name="sequence_count">
       <property name="minimumSize">
        <size>
         <width>101</width>
@@ -168,7 +168,7 @@ p, li { white-space: pre-wrap; }
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="layoutWidget">
+  <widget class="QWidget" name="layout_widget">
    <property name="geometry">
     <rect>
      <x>42</x>
@@ -177,16 +177,16 @@ p, li { white-space: pre-wrap; }
      <height>62</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <layout class="QVBoxLayout" name="vertical_layout_2">
     <item>
-     <widget class="QLabel" name="subSystemTelemetryPageLabel">
+     <widget class="QLabel" name="sub_system_telemetry_page_label">
       <property name="text">
        <string>Subsystem Telemetry Page</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QLineEdit" name="subSystemLineEdit">
+     <widget class="QLineEdit" name="sub_system_line_edit">
       <property name="minimumSize">
        <size>
         <width>141</width>
@@ -210,9 +210,9 @@ p, li { white-space: pre-wrap; }
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>button_box</sender>
    <signal>clicked(QAbstractButton*)</signal>
-   <receiver>GenericTelemetryDialog</receiver>
+   <receiver>generic_telemetry_dialog</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">

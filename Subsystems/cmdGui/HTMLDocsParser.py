@@ -29,7 +29,7 @@ class HTMLDocsParser(HTMLParser):
     # Initializes allData variable
     #
     def reset(self):
-        self.allData = []
+        self.all_data = []
         HTMLParser.reset(self)
 
     #
@@ -37,22 +37,22 @@ class HTMLDocsParser(HTMLParser):
     #
     def handle_data(self, data):
         if data.strip():  # excludes new lines
-            self.allData.append(data.strip())
+            self.all_data.append(data.strip())
 
     #
     # Determines UNIX data type of parameter
     #
     @staticmethod
-    def findDataTypeNew(dataTypeOrig, paramLn):
-        if paramLn:  # assumes all string types have length enclosed in brackets
+    def find_data_type_new(data_type_orig, param_ln):
+        if param_ln:  # assumes all string types have length enclosed in brackets
             return '--string'
-        if dataTypeOrig in ('uint8', 'boolean'):
+        if data_type_orig in ('uint8', 'boolean'):
             return '--byte'
-        if dataTypeOrig == 'uint16':
+        if data_type_orig == 'uint16':
             return '--half'
-        if dataTypeOrig == 'uint32':
+        if data_type_orig == 'uint32':
             return '--word'
-        if dataTypeOrig == 'uint64':
+        if data_type_orig == 'uint64':
             return '--double'
         return ''
 
@@ -60,7 +60,7 @@ class HTMLDocsParser(HTMLParser):
     # Determines character array size for string types
     #
     @staticmethod
-    def findStringLen(kywd):
+    def find_string_len(kywd):
         hdr_files = glob.glob('../../../build/cpu1/inc/*.h')
         hdr_files += glob.glob('../../fsw/cfe-core/src/inc/cfe_*.h')
         hdr_files += glob.glob('../../fsw/mission_inc/cfe_mission_cfg.h')
@@ -98,74 +98,74 @@ if __name__ == '__main__':
         with open(html_file) as file_obj:  # opens HTML file
             reader = file_obj.read()  # reads HTML file
             parser.feed(reader)  # feeds file contents to parser
-            allData = parser.allData
+            all_data = parser.all_data
 
-            dataTypesOrig = []  # uint8, uint16, uint32, char, boolean
-            paramNames = []  # parameter name
-            paramLen = []  # original parameter length
-            paramDesc = []  # parameter description
-            dataTypesNew = []  # --string, --byte, --half, --word, --double
-            stringLen = []  # evaluated parameter length
+            data_types_orig = []  # uint8, uint16, uint32, char, boolean
+            param_names = []  # parameter name
+            param_len = []  # original parameter length
+            param_desc = []  # parameter description
+            data_types_new = []  # --string, --byte, --half, --word, --double
+            string_len = []  # evaluated parameter length
 
             try:
-                i = allData.index("Data Fields") + 1
-                j = allData.index("Detailed Description")
+                i = all_data.index("Data Fields") + 1
+                j = all_data.index("Detailed Description")
                 # iterates through lines between Data Fields and Detailed Description
                 while i < j:
                     # skips header parameters
-                    if any([x in allData[i + 1] for x in ('Header', 'Hdr')]):
+                    if any([x in all_data[i + 1] for x in ('Header', 'Hdr')]):
                         # if 'Header' in data[i + 1] or 'Hdr' in data[i + 1]:
                         i += 1
                         while not any(
-                            [x in allData[i]
+                            [x in all_data[i]
                              for x in ('uint', 'char')]) and i < j:
                             # while 'uint' not in data[i] and 'char' not in data[
                             #         i] and i < j:
                             i += 1
 
                     else:
-                        dataTypesOrig.append(allData[i])  # stores data type
+                        data_types_orig.append(all_data[i])  # stores data type
                         i += 1
-                        paramNames.append(allData[i])  # stores parameter name
+                        param_names.append(all_data[i])  # stores parameter name
                         i += 1
                         param_len = ''
-                        if '[' in allData[i]:
-                            param_len = allData[
+                        if '[' in all_data[i]:
+                            param_len = all_data[
                                 i]  # stores string length if provided
                             i += 1
-                        paramLen.append(param_len)
+                        param_len.append(param_len)
                         desc_string = ''
-                        while not any([x in allData[i] for x in ('uint', 'char')]) and i < j:
-                            desc_string = f'{desc_string} {allData[i]}'
+                        while not any([x in all_data[i] for x in ('uint', 'char')]) and i < j:
+                            desc_string = f'{desc_string} {all_data[i]}'
                             i += 1
-                        paramDesc.append(desc_string.lstrip()
-                                         )  # stores parameter description
+                        param_desc.append(desc_string.lstrip()
+                                          )  # stores parameter description
 
                         # determines new data type of parameter
-                        dataTypeNew = parser.findDataTypeNew(
-                            dataTypesOrig[-1], paramLen[-1])
-                        dataTypesNew.append(dataTypeNew)
+                        data_type_new = parser.find_data_type_new(
+                            data_types_orig[-1], param_len[-1])
+                        data_types_new.append(data_type_new)
 
                         # finds size of character array if type --string
                         keyword = ''
-                        if dataTypeNew == '--string':
+                        if data_type_new == '--string':
                             keyword = re.sub(r'\[|\]|\(|\)', '',
-                                             paramLen[-1])  # removes brackets
+                                             param_len[-1])  # removes brackets
                             while not keyword.isdigit():
-                                keyword = parser.findStringLen(keyword)
+                                keyword = parser.find_string_len(keyword)
                                 keyword = re.sub(r'\[|\]|\(|\)', '', keyword)
                         if keyword == '0':
                             keyword = input(
-                                f'{paramLen[-1]} not found. Please enter value manually: '
+                                f'{param_len[-1]} not found. Please enter value manually: '
                             )
-                        stringLen.append(keyword)
+                        string_len.append(keyword)
 
-                print("DATA TYPES:", dataTypesOrig)
-                print("PARAM NAMES: ", paramNames)
-                print("PARAM STRING LEN:", paramLen)
-                print("PARAM DESC: ", paramDesc)
-                print("UNIX DATA TYPES:", dataTypesNew)
-                print("STRING LENGTH:", stringLen, "\n")
+                print("DATA TYPES:", data_types_orig)
+                print("PARAM NAMES: ", param_names)
+                print("PARAM STRING LEN:", param_len)
+                print("PARAM DESC: ", param_desc)
+                print("UNIX DATA TYPES:", data_types_new)
+                print("STRING LENGTH:", string_len, "\n")
 
             except ValueError:
                 print("Data Fields not found in HTML file")
@@ -175,9 +175,9 @@ if __name__ == '__main__':
             pickle_file = 'ParameterFiles/' + file_split[-2]
             with open(pickle_file, 'wb') as pickle_obj:
                 pickle.dump([
-                    dataTypesOrig, paramNames, paramLen, paramDesc,
-                    dataTypesNew, stringLen
+                    data_types_orig, param_names, param_len, param_desc,
+                    data_types_new, string_len
                 ], pickle_obj)
 
             # resets data list for next HTML file
-            parser.allData = []
+            parser.all_data = []

@@ -31,8 +31,8 @@ class CommandParser(HTMLParser):
     # Initializes allData variable
     #
     def reset(self):
-        self.allData = []
-        self.allhref = []
+        self.all_data = []
+        self.all_href = []
         HTMLParser.reset(self)
 
     #
@@ -40,7 +40,7 @@ class CommandParser(HTMLParser):
     #
     def handle_data(self, data):
         if data.strip():  # excludes new lines
-            self.allData.append(data.strip())
+            self.all_data.append(data.strip())
             # print self.allData[-1]
 
     #
@@ -51,7 +51,7 @@ class CommandParser(HTMLParser):
             for name, value in attrs:
                 if name == 'href':
                     val = re.split('#', value)[0]
-                    self.allhref.append(val)
+                    self.all_href.append(val)
                     # print self.allhref[-1]
 
 
@@ -70,32 +70,32 @@ if __name__ == '__main__':
             print('\nFILE:', html_file)
             reader = html_obj.read()
             soup = BeautifulSoup(reader)
-            cmdNames = []  # names of commands
-            cmdCodes = []  # command codes
-            htmlFiles = []  # HTML files with parameter information
+            cmd_names = []  # names of commands
+            cmd_codes = []  # command codes
+            html_files = []  # HTML files with parameter information
 
             # gets HTML file names
             for link in soup.findAll(text="Command Structure"):
-                htmlFile = link.find_next('a')[
+                html_file = link.find_next('a')[
                     'href']  # next element with 'a' tag
-                htmlFile = re.split(r'\.', htmlFile)[0]
-                htmlFiles.append(htmlFile.encode('ascii'))
+                html_file = re.split(r'\.', html_file)[0]
+                html_files.append(html_file.encode('ascii'))
 
             # gets command names and command codes
             for names in soup.findAll(text="Name:"):  # finds all 'Name:' text
                 pre_cmdCode = names.find_previous('td').get_text()
-                cmdCode = pre_cmdCode.split()[-1]
-                cmdCodes.append(cmdCode.encode('ascii'))
-                cmdName = names.next_element.get_text(
+                cmd_code = pre_cmdCode.split()[-1]
+                cmd_codes.append(cmd_code.encode('ascii'))
+                cmd_name = names.next_element.get_text(
                 )  # finds next text element
-                cmdNames.append(cmdName.encode('ascii'))
+                cmd_names.append(cmd_name.encode('ascii'))
 
             # prints values after iterating through whole file
-            print('CMD NAMES:', cmdNames)
-            print('CMD CODES:', cmdCodes)
-            print('HTML FILES:', htmlFiles)
+            print('CMD NAMES:', cmd_names)
+            print('CMD CODES:', cmd_codes)
+            print('HTML FILES:', html_files)
 
             # writes data to pickle file
             pickle_file = 'CommandFiles/' + re.split(r'/|\.', html_file)[-2]
             with open(pickle_file, 'wb') as pickle_obj:
-                pickle.dump([cmdNames, cmdCodes, htmlFiles], pickle_obj)
+                pickle.dump([cmd_names, cmd_codes, html_files], pickle_obj)

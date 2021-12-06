@@ -20,15 +20,15 @@
 #
 
 # Development Build Macro Definitions
-_cFS_GrndSys_build_number = 63
-_cFS_GrndSys_build_baseline = "v2.2.0-rc1"
+_cFS_GrndSys_build_number = 7
+_cFS_GrndSys_build_baseline = "v3.0.0-rc4"
 
 # Version Number Definitions
 # ONLY APPLY for OFFICIAL release builds
 _cFS_GrndSys_MAJOR = 2
 _cFS_GrndSys_MINOR = 1
-_cFS_GrndSys_REVISION = 99
-_cFS_GrndSys_MISSIONREV = 0
+_cFS_GrndSys_REVISION = 0
+_cFS_GrndSys_MISSIONREV = 255
 
 # Development Build format for __version__
 # Baseline git tag + Number of commits since baseline

@@ -32,12 +32,12 @@ from PyQt5.QtCore import QThread, pyqtSignal
 from PyQt5.QtWidgets import (QApplication, QDialog, QHeaderView, QPushButton,
                              QTableWidgetItem)
 
-from Ui_TelemetrySystemDialog import Ui_TelemetrySystemDialog
+from UiTelemetrysystemdialog import UiTelemetrysystemdialog
 
 ROOTDIR = Path(sys.argv[0]).resolve().parent
 
 
-class TelemetrySystem(QDialog, Ui_TelemetrySystemDialog):
+class TelemetrySystem(QDialog, UiTelemetrysystemdialog):
     #
     # Init the class
     #
@@ -47,48 +47,48 @@ class TelemetrySystem(QDialog, Ui_TelemetrySystemDialog):
         self.setWindowTitle('Telemetry System Main Page')
         self.move(0, 100)
 
-        self.pktCount = 0
+        self.pkt_count = 0
         self.subscription = None
 
     #
     # convert a string of binary bytes to ascii hex
     #
     @staticmethod
-    def strToHex(aString):
-        hexStr = ""
-        for x in aString:
-            hexStr += f'{ord(x):02X} '
-        return hexStr.strip()
+    def str_to_hex(a_string):
+        hex_str = ""
+        for x in a_string:
+            hex_str += f'{ord(x):02X} '
+        return hex_str.strip()
 
     #
     # Dump the telemetry packet
     #
-    def dumpPacket(self, packetData):
-        appId = (ord(packetData[0]) << 8) + (ord(packetData[1]))
+    def dump_packet(self, packet_data):
+        app_id = (ord(packet_data[0]) << 8) + (ord(packet_data[1]))
         print("\n-----------------------------------------------")
-        print("\nPacket: App ID =", hex(appId))
-        print("\nPacket Data:", self.strToHex(packetData))
+        print("\nPacket: App ID =", hex(app_id))
+        print("\nPacket Data:", self.str_to_hex(packet_data))
 
-    def ProcessButtonGeneric(self, idx):
-        tempSub = f"{self.subscription}.{hex(tlmPageAppid[idx])}"
-        if tlmPageIsValid[idx]:
+    def process_button_generic(self, idx):
+        temp_sub = f"{self.subscription}.{hex(tlm_page_appid[idx])}"
+        if tlm_page_is_valid[idx]:
             # need to extract data from fields, then start page with right params
-            launch_string = (f'python3 {ROOTDIR}/{tlmClass[idx]} '
-                             f'--title=\"{tlmPageDesc[idx]}\" '
-                             f'--appid={hex(tlmPageAppid[idx])} '
-                             f'--port={tlmPagePort[idx]} '
-                             f'--file={tlmPageDefFile[idx]} '
-                             f'--endian={endian} --sub={tempSub}')
+            launch_string = (f'python3 {ROOTDIR}/{tlm_class[idx]} '
+                             f'--title=\"{tlm_page_desc[idx]}\" '
+                             f'--appid={hex(tlm_page_appid[idx])} '
+                             f'--port={tlm_page_port[idx]} '
+                             f'--file={tlm_page_def_file[idx]} '
+                             f'--endian={endian} --sub={temp_sub}')
             # print(launch_string)
             cmd_args = shlex.split(launch_string)
             subprocess.Popen(cmd_args)
 
     # Start the telemetry receiver (see TSTlmReceiver class)
-    def initTSTlmReceiver(self, subscr):
+    def init_ts_tlm_receiver(self, subscr):
         self.setWindowTitle(f'Telemetry System page for: {subscr}')
         self.subscription = subscr
         self.thread = TSTlmReceiver(subscr)
-        self.thread.tsSignalTlmDatagram.connect(self.processPendingDatagrams)
+        self.thread.ts_signal_tlm_datagram.connect(self.process_pending_datagrams)
         self.thread.finished.connect(self.thread.deleteLater)
         self.thread.start()
 
@@ -96,44 +96,44 @@ class TelemetrySystem(QDialog, Ui_TelemetrySystemDialog):
     # This method processes packets.
     # Called when the TelemetryReceiver receives a message/packet
     #
-    def processPendingDatagrams(self, datagram):
+    def process_pending_datagrams(self, datagram):
         #
         # Show number of packets received
         #
-        self.pktCount += 1
-        self.packetCount.setValue(self.pktCount)
+        self.pkt_count += 1
+        self.packet_count.setValue(self.pkt_count)
         # sendSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
         #
         # Decode the packet and forward it to the
         # correct port (if there is one)
         #
-        streamId = unpack(">H", datagram[:2])
+        stream_id = unpack(">H", datagram[:2])
 
-        ## Uncomment the next two lines to debug
-        # print("Packet ID =", hex(streamId[0]))
+        # Uncomment the next two lines to debug
+        # print("Packet ID =", hex(stream_id[0]))
         # self.dumpPacket(datagram)
-        for l in range(self.tblTlmSys.rowCount()):
-            if streamId[0] == tlmPageAppid[l]:
+        for l in range(self.tbl_tlm_sys.rowCount()):
+            if stream_id[0] == tlm_page_appid[l]:
                 # send_host = "127.0.0.1"
                 # send_port = tlmPagePort[l]
                 # sendSocket.sendto(datagram, (send_host, send_port))
 
-                tlmPageCount[l] += 1
-                ## I wish I knew a better way to update the count field
-                ## in the GUI. Maybe store a pointer to the field in the gui
-                self.tblTlmSys.item(l, 2).setText(str(tlmPageCount[l]))
+                tlm_page_count[l] += 1
+                # I wish I knew a better way to update the count field
+                # in the GUI. Maybe store a pointer to the field in the gui
+                self.tbl_tlm_sys.item(l, 2).setText(str(tlm_page_count[l]))
 
-                ## Unclear why line 15 is skipped. Removing for now, need
-                ## to evaluate long term (lbleier 06/01/2020)
+                # Unclear why line 15 is skipped. Removing for now, need
+                # to evaluate long term (lbleier 06/01/2020)
                 # if l < 15:
                 #     self.tblTlmSys.item(l, 2).setText(str(tlmPageCount[l]))
                 # else:
                 #     self.tblTlmSys.item(l + 1, 2).setText(str(tlmPageCount[l]))
 
-    ## Reimplements closeEvent
-    ## to properly quit the thread
-    ## and close the window
+    # Reimplements closeEvent
+    # to properly quit the thread
+    # and close the window
     def closeEvent(self, event):
         self.thread.runs = False
         self.thread.wait(2000)
@@ -143,7 +143,7 @@ class TelemetrySystem(QDialog, Ui_TelemetrySystemDialog):
 # Subscribes and receives zeroMQ messages
 class TSTlmReceiver(QThread):
     # Setup signal to communicate with front-end GUI
-    tsSignalTlmDatagram = pyqtSignal(bytes)
+    ts_signal_tlm_datagram = pyqtSignal(bytes)
 
     def __init__(self, subscr):
         super().__init__()
@@ -160,7 +160,7 @@ class TSTlmReceiver(QThread):
             # Receive and read envelope with address
             _, datagram = self.subscriber.recv_multipart()
             # Send signal with received packet to front-end/GUI
-            self.tsSignalTlmDatagram.emit(datagram)
+            self.ts_signal_tlm_datagram.emit(datagram)
 
 
 #
@@ -171,13 +171,13 @@ if __name__ == '__main__':
     # Init the QT application and the telemetry dialog class
     #
     app = QApplication(sys.argv)
-    Telem = TelemetrySystem()
-    tbl = Telem.tblTlmSys
+    telem = TelemetrySystem()
+    tbl = telem.tbl_tlm_sys
 
     #
     # Set defaults for the arguments
     #
-    tlmDefFile = f"{ROOTDIR}/telemetry-pages.txt"
+    tlm_def_file = f"{ROOTDIR}/telemetry-pages.txt"
     endian = "L"
     subscription = ""
 
@@ -200,21 +200,21 @@ if __name__ == '__main__':
     #
     # Read in the contents of the telemetry packet definition
     #
-    tlmPageIsValid, tlmPageDesc, tlmClass, tlmPagePort,\
-        tlmPageAppid, tlmPageCount, tlmPageDefFile = ([] for _ in range(7))
+    tlm_page_is_valid, tlm_page_desc, tlm_class, tlm_page_port, \
+    tlm_page_appid, tlm_page_count, tlm_page_def_file = ([] for _ in range(7))
     i = 0
 
-    with open(tlmDefFile) as tlmfile:
+    with open(tlm_def_file) as tlmfile:
         reader = csv.reader(tlmfile, skipinitialspace=True)
         for row in reader:
             if not row[0].startswith('#'):
-                tlmPageIsValid.append(True)
-                tlmPageDesc.append(row[0])
-                tlmClass.append(row[1])
-                tlmPagePort.append(int(row[2], 16) + 10000)
-                tlmPageAppid.append(int(row[2], 16))
-                tlmPageDefFile.append(row[3])
-                tlmPageCount.append(0)
+                tlm_page_is_valid.append(True)
+                tlm_page_desc.append(row[0])
+                tlm_class.append(row[1])
+                tlm_page_port.append(int(row[2], 16) + 10000)
+                tlm_page_appid.append(int(row[2], 16))
+                tlm_page_def_file.append(row[3])
+                tlm_page_count.append(0)
                 i += 1
     #
     # Mark the remaining values as invalid
@@ -226,15 +226,15 @@ if __name__ == '__main__':
     #
     # fill the data fields on the page
     #
-    for i, desc in enumerate(tlmPageDesc):
-        if tlmPageIsValid[i]:
+    for i, desc in enumerate(tlm_page_desc):
+        if tlm_page_is_valid[i]:
             tbl.insertRow(i)
             for col, text in enumerate(
-                (desc, hex(tlmPageAppid[i]), tlmPageCount[0])):
+                (desc, hex(tlm_page_appid[i]), tlm_page_count[0])):
                 tblItem = QTableWidgetItem(str(text))
                 tbl.setItem(i, col, tblItem)
             btn = QPushButton("Display Page")
-            btn.clicked.connect(lambda _, x=i: Telem.ProcessButtonGeneric(x))
+            btn.clicked.connect(lambda _, x=i: telem.process_button_generic(x))
             tbl.setCellWidget(i, tbl.columnCount() - 1, btn)
     tbl.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
     tbl.horizontalHeader().setStretchLastSection(True)
@@ -242,7 +242,7 @@ if __name__ == '__main__':
     #
     # Display the page
     #
-    Telem.show()
-    Telem.raise_()
-    Telem.initTSTlmReceiver(subscription)
+    telem.show()
+    telem.raise_()
+    telem.init_ts_tlm_receiver(subscription)
     sys.exit(app.exec_())

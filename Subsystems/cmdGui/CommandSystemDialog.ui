@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Command System Main Page</string>
   </property>
-  <widget class="QWidget" name="layoutWidget_2">
+  <widget class="QWidget" name="layout_widget_2">
    <property name="geometry">
     <rect>
      <x>80</x>
@@ -22,9 +22,9 @@
      <height>25</height>
     </rect>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QHBoxLayout" name="horizontal_layout">
     <item>
-     <spacer name="horizontalSpacer_3">
+     <spacer name="horizontal_spacer_3">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -44,7 +44,7 @@
      </widget>
     </item>
     <item>
-     <spacer name="horizontalSpacer_4">
+     <spacer name="horizontal_spacer_4">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -58,7 +58,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="layoutWidget_3">
+  <widget class="QWidget" name="layout_widget_3">
    <property name="geometry">
     <rect>
      <x>80</x>
@@ -67,9 +67,9 @@
      <height>33</height>
     </rect>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout_2">
+   <layout class="QHBoxLayout" name="horizontal_layout_2">
     <item>
-     <spacer name="horizontalSpacer_5">
+     <spacer name="horizontal_spacer_5">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -85,7 +85,7 @@
      </spacer>
     </item>
     <item>
-     <spacer name="horizontalSpacer">
+     <spacer name="horizontal_spacer">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -105,7 +105,7 @@
      </widget>
     </item>
     <item>
-     <spacer name="horizontalSpacer_2">
+     <spacer name="horizontal_spacer_2">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -118,7 +118,7 @@
      </spacer>
     </item>
     <item>
-     <widget class="QDialogButtonBox" name="buttonBox">
+     <widget class="QDialogButtonBox" name="button_box">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
@@ -132,7 +132,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QTableWidget" name="tblCmdSys">
+  <widget class="QTableWidget" name="tbl_cmd_sys">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -177,7 +177,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>button_box</sender>
    <signal>clicked(QAbstractButton*)</signal>
    <receiver>CommandSystemDialog</receiver>
    <slot>close()</slot>

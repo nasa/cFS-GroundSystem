@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>GenericCommandDialog</class>
- <widget class="QWidget" name="GenericCommandDialog">
+ <widget class="QWidget" name="generic_command_dialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -13,15 +13,15 @@
   <property name="windowTitle">
    <string>Command Page</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_6">
+  <layout class="QVBoxLayout" name="vertical_layout_6">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_4">
+    <layout class="QVBoxLayout" name="vertical_layout_4">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
+      <layout class="QHBoxLayout" name="horizontal_layout">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout">
+        <layout class="QVBoxLayout" name="vertical_layout">
          <item>
-          <widget class="QLabel" name="subSystemCommandPageLabel">
+          <widget class="QLabel" name="sub_system_command_page_label">
            <property name="text">
             <string>Subsystem</string>
            </property>
@@ -31,7 +31,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="subSystemLineEdit">
+          <widget class="QLineEdit" name="sub_system_line_edit">
            <property name="minimumSize">
             <size>
              <width>159</width>
@@ -49,9 +49,9 @@
         </layout>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
+        <layout class="QVBoxLayout" name="vertical_layout_2">
          <item>
-          <widget class="QLabel" name="packetIdLabel">
+          <widget class="QLabel" name="packet_id_label">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -76,12 +76,12 @@
           </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="packetId"/>
+          <widget class="QLCDNumber" name="packet_id"/>
          </item>
         </layout>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_3">
+        <layout class="QVBoxLayout" name="vertical_layout_3">
          <item>
           <widget class="QLabel" name="label_5">
            <property name="text">
@@ -93,7 +93,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="commandAddressLineEdit">
+          <widget class="QLineEdit" name="command_address_line_edit">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -117,7 +117,7 @@
         </layout>
        </item>
        <item>
-        <spacer name="horizontalSpacer_2">
+        <spacer name="horizontal_spacer_2">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -130,7 +130,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QDialogButtonBox" name="buttonBox">
+        <widget class="QDialogButtonBox" name="button_box">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -152,7 +152,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QTableWidget" name="tblCommands">
+      <widget class="QTableWidget" name="tbl_commands">
        <property name="editTriggers">
         <set>QAbstractItemView::NoEditTriggers</set>
        </property>
@@ -181,7 +181,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>button_box</sender>
    <signal>clicked(QAbstractButton*)</signal>
    <receiver>GenericCommandDialog</receiver>
    <slot>close()</slot>
