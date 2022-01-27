@@ -68,7 +68,7 @@ class SubsystemTelemetry(QDialog, UiGenerictelemetrydialog):
             except UnboundLocalError:
                 pass
             tlm_field2 = datagram[item_start:item_start +
-                                 int(tlmItemSize[tlm_index])]
+                                 int(tlm_item_size[tlm_index])]
             if tlm_field2:
                 tlm_field = unpack(tlm_field1, tlm_field2)
                 if tlm_item_display_type[tlm_index] == 'Dec':
@@ -76,10 +76,10 @@ class SubsystemTelemetry(QDialog, UiGenerictelemetrydialog):
                 elif tlm_item_display_type[tlm_index] == 'Hex':
                     value_field.setText(hex(tlm_field[0]))
                 elif tlm_item_display_type[tlm_index] == 'Enm':
-                    value_field.setText(tlmItemEnum[tlm_index][int(tlm_field[0])])
+                    value_field.setText(tlm_item_enum[tlm_index][int(tlm_field[0])])
                 elif tlm_item_display_type[tlm_index] == 'Str':
                     value_field.setText(tlm_field[0].decode('utf-8', 'ignore'))
-                label_field.setText(tlmItemDesc[tlm_index])
+                label_field.setText(tlm_item_desc[tlm_index])
             else:
                 print("ERROR: Can't unpack buffer of length", len(tlm_field2))
 
@@ -87,7 +87,7 @@ class SubsystemTelemetry(QDialog, UiGenerictelemetrydialog):
     def init_gt_tlm_receiver(self, subscr):
         self.setWindowTitle(f"{page_title} for: {subscr}")
         self.thread = GTTlmReceiver(subscr)
-        self.thread.gtSignalTlmDatagram.connect(self.process_pending_datagrams)
+        self.thread.gt_signal_tlm_datagram.connect(self.process_pending_datagrams)
         self.thread.finished.connect(self.thread.deleteLater)
         self.thread.start()
 
@@ -217,9 +217,9 @@ if __name__ == '__main__':
     #
     # Read in the contents of the telemetry packet definition
     #
-    tlm_item_is_valid, tlmItemDesc, \
-    tlm_item_start, tlmItemSize, \
-    tlm_item_display_type, tlmItemFormat = ([] for _ in range(6))
+    tlm_item_is_valid, tlm_item_desc, \
+    tlm_item_start, tlm_item_size, \
+    tlm_item_display_type, tlm_item_format = ([] for _ in range(6))
 
     tlm_item_enum = [None] * 40
 
