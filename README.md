@@ -11,6 +11,11 @@ See [Guide-GroundSystem.md](https://github.com/nasa/cFS-GroundSystem/blob/master
 
 ## Version History
 
+### Development Build: v3.0.0-rc4+dev12
+
+- Apply header guard standard
+- See <https://github.com/nasa/cFS/pull/432>
+
 ### Development Build: v3.0.0-rc4+dev7
 
 - Free Address Info to fix resource leak
