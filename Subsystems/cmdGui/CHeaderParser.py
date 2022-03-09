@@ -407,9 +407,8 @@ if __name__ == '__main__':
                     # Get rid of any occurance of ';' (at the end of the line)
                     param_names.append(re.sub(';', '', line_split[1]))
 
-                    # Not sure about why we are keeping track of this yet
-                    # just fill it with null for now
-                    param_desc.append('')
+                    # Input to add param description
+                    param_desc.append(input('Please enter parameter description: '))
 
                     # Determines data type for us to use
                     # returns null if no type could match
