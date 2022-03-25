@@ -11,6 +11,12 @@ See [Guide-GroundSystem.md](https://github.com/nasa/cFS-GroundSystem/blob/master
 
 ## Version History
 
+### Development Build: v3.0.0-rc4+dev19
+
+- Update Copyright Headers
+- Standardize version information 
+- See <https://github.com/nasa/cFS-GroundSystem/pull/209> and <https://github.com/nasa/cFS/445>
+
 ### Development Build: v3.0.0-rc4+dev12
 
 - Apply header guard standard
