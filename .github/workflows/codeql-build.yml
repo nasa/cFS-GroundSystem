@@ -7,7 +7,7 @@ on:
 jobs:
   codeql:
     name: CodeQL
-    uses: nasa/cFS/.github/workflows/codeql-build.yml@main
+    uses: nasa/cFS/.github/workflows/codeql-reusable.yml@main
     with: 
-      make-prep: 'make prep'
-      make: 'make tools/cFS-GroundSystem/Subsystems/cmdUtil/'
+      component-path: tools/cFS-GroundSystem
+      make: 'make -C build/tools/cFS-GroundSystem/Subsystems/cmdUtil'
