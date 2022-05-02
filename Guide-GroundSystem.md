@@ -34,7 +34,7 @@ Installing and running cFS Ground System on Ubuntu:
 1. ```sudo apt-get install python3-pyqt5```
 1. ```sudo apt-get install python3-zmq```
 1. ```sudo apt-get install libcanberra-gtk-module```
-1. ```cd Subsystems/cmdUtil/ && make```
+1. ```make -C Subsystems/cmdUtil```
 1. ```python3 GroundSystem.py```
 
 The historically included instructions for running on macOS or CentOS are included at the bottom of this document for reference. Please note that instructions have not been maintained. Welcoming instruction contributions if any of these are your platform of choice.
