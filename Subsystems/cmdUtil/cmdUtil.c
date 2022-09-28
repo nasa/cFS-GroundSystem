@@ -366,8 +366,6 @@ void ProcessField(uint16_t *orig, const char *in, const uint16_t mask, bool fiel
     }
 
     *orig = htobe16((be16toh(*orig) & ~mask) | (templong & mask));
-
-    return;
 }
 
 /******************************************************************************
@@ -387,8 +385,6 @@ void CopyData(unsigned char *pkt, unsigned int *startbyte, char *in, unsigned in
     /* Copy data into packet buffer and move start byte */
     memcpy(&pkt[*startbyte], in, nbytes);
     *startbyte += nbytes;
-
-    return;
 }
 
 /******************************************************************************
