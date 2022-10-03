@@ -11,6 +11,12 @@ See [Guide-GroundSystem.md](https://github.com/nasa/cFS-GroundSystem/blob/master
 
 ## Version History
 
+
+### Development Build: v3.0.0-rc4+dev25
+
+- Remove 'return;' from last line of void functions.
+- See <https://github.com/nasa/cFS-GroundSystem/pull/222>
+
 ### Development Build: v3.0.0-rc4+dev19
 
 - Update Copyright Headers
