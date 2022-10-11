@@ -1,5 +1,10 @@
 # Changelog
 
+## Development Build: v3.0.0-rc4+dev33
+- Update TO_LAB commands in GroundSystem Tool
+- Create CHANGELOG.md
+- See <https://github.com/nasa/cFS-GroundSystem/pull/224> and <https://github.com/nasa/cFS-GroundSystem/pull/225>
+
 ## Development Build: v3.0.0-rc4+dev25
 - Remove 'return;' from last line of void functions.
 - See <https://github.com/nasa/cFS-GroundSystem/pull/222>
