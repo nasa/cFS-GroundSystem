@@ -1,5 +1,10 @@
 # Changelog
 
+## Development Build: v3.0.0-rc4+dev39
+- Update CI_LAB commands in GroundSystem Tool
+- naming error
+- See <https://github.com/nasa/cFS-GroundSystem/pull/230> and <https://github.com/nasa/cFS-GroundSystem/pull/217>
+
 ## Development Build: v3.0.0-rc4+dev33
 - Update TO_LAB commands in GroundSystem Tool
 - Create CHANGELOG.md
