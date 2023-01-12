@@ -1,5 +1,9 @@
 # Changelog
 
+## Development Build: v3.0.0-rc4+dev43
+- Add input so users can specify the parameter description
+- See <https://github.com/nasa/cFS-GroundSystem/pull/206>
+
 ## Development Build: v3.0.0-rc4+dev39
 - Update CI_LAB commands in GroundSystem Tool
 - naming error
