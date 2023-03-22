@@ -41,9 +41,13 @@ OSAL Major Version,    20,  1,  B, Dec, NULL,        NULL,        NULL,       NU
 OSAL Minor Version,    21,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
 OSAL Revision,         22,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
 OSAL Mission Rev,      23,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
-Syslog Bytes Used,     24,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
-Syslog Size,           28,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
-Syslog Entries,        32,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
-Syslog Mode,           36,  4,  I, Enm, LogMode0,    LogMode1,    LogMode2,   LogMode3 
-ERlog Index,           40,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
-ERlog Entries,         44,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+PSPMajorVersion,       24,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+PSPMinorVersion,       25,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+PSPRevision,           26,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+PSPMissionRevision,    27,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+Syslog Bytes Used,     28,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+Syslog Size,           32,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+Syslog Entries,        36,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+Syslog Mode,           40,  4,  I, Enm, LogMode0,    LogMode1,    LogMode2,   LogMode3 
+ERlog Index,           44,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
+ERlog Entries,         48,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
