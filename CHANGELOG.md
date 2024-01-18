@@ -1,5 +1,9 @@
 # Changelog
 
+## Development Build: equuleus-rc1+dev2
+- updating cFS_GroundSystem to use new versioning system
+- See <https://github.com/nasa/cFS-GroundSystem/pull/239>
+
 ## Development Build: v3.0.0-rc4+dev43
 - Add input so users can specify the parameter description
 - See <https://github.com/nasa/cFS-GroundSystem/pull/206>
