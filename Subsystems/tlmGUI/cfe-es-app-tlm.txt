@@ -1,6 +1,6 @@
-Name,                 20, 20,  s, Str, NULL,        NULL,        NULL,       NULL
-EntryPoint,           40, 20,  s, Str, NULL,        NULL,        NULL,       NULL
-FileName,             60, 64,  s, Str, NULL,        NULL,        NULL,       NULL
+Name,                 20,  20,  s, Str, NULL,        NULL,        NULL,       NULL
+EntryPoint,           40,  20,  s, Str, NULL,        NULL,        NULL,       NULL
+FileName,             60,  64,  s, Str, NULL,        NULL,        NULL,       NULL
 StackSize,            124,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
 ModuleId,             128,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
 AddressesAreValid,    132,  4,  I, Dec, NULL,        NULL,        NULL,       NULL

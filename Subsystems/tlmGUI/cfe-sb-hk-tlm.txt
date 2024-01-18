@@ -1,7 +1,7 @@
 #
 Command Counter,               12,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
-Error Counter,                 13,  1,  B, Dec, NULL,        NULL,        NULL,       NULL  
-NoSubscribersCounter,          14,  1,  B, Dec, NULL,        NULL,        NULL,       NULL  
+Error Counter,                 13,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+NoSubscribersCounter,          14,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
 MsgSendErrorCounter,           15,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
 MsgReceiveErrorCounter,        16,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
 InternalErrorCounter,          17,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
@@ -9,7 +9,8 @@ CreatePipeErrorCounter,        18,  1,  B, Dec, NULL,        NULL,        NULL, 
 SubscribeErrorCounter,         19,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
 PipeOptsErrorCounter,          20,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
 DuplicateSubscriptionsCounter, 21,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
-Spare2Align,                   22,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
+GetPipeIdByNameErrorCounter,   22,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
+Spare2Align,                   23,  1,  B, Dec, NULL,        NULL,        NULL,       NULL
 PipeOverflowErrorCounter,      24,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
 MsgLimitErrorCounter,          36,  2,  H, Dec, NULL,        NULL,        NULL,       NULL
 MemPoolHandle,                 28,  4,  I, Dec, NULL,        NULL,        NULL,       NULL
