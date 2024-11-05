@@ -17,8 +17,9 @@
 #
 
 # Development Build Macro Definitions
-_cFS_GrndSys_build_number = 2
-_cFS_GrndSys_build_baseline = "equuleus-rc1"
+_cFS_GrndSys_build_number = 6
+_cFS_GrndSys_build_baseline = "7.2"
+_cFS_GrndSys_build_dev_baseline = "equuleus-rc1"
 _cFS_GrndSys_build_dev_cycle = "equuleus-rc2"
 _cFS_GrndSys_build_codename = "Equuleus"
 
@@ -37,7 +38,7 @@ _cFS_GrndSys_MISSIONREV = 255
 
 # Development Build format for __version__
 # Baseline git tag + Number of commits since baseline
-__version__ = "+dev".join((_cFS_GrndSys_build_baseline,str(_cFS_GrndSys_build_number)))
+__version__ = "+".join((_cFS_GrndSys_build_baseline, _cFS_GrndSys_build_dev_baseline + "_dev" + str(_cFS_GrndSys_build_number)))
 
 # Development Build format for __version_string__
 _version_string = " cFS-GroundSystem DEVELOPMENT BUILD\n " + __version__
