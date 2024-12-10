@@ -1,5 +1,11 @@
 # Changelog
 
+## Development Build: equuleus-rc1+dev14
+- Update LogOverflowCounter Description
+- Update incorrect variable descriptions in tlm.txt
+- Add missing description fields to cfe-es-hk-tlm.txt
+- See <https://github.com/nasa/cFS-GroundSystem/pull/233>, <https://github.com/nasa/cFS-GroundSystem/pull/235>, and <https://github.com/nasa/cFS-GroundSystem/pull/236>
+
 ## Development Build: equuleus-rc1+dev6
 - making version string PEP 440-compliant
 - See <https://github.com/nasa/cFS-GroundSystem/pull/245>

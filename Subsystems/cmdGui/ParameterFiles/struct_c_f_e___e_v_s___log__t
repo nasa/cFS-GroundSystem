@@ -37,7 +37,7 @@ aS'Local Event Log full flag.'
 p18
 aS'Local Event Logging mode (overwrite/discard).'
 p19
-aS'Local Event Log overflow counter. CFE_EVS_Packet_t LogEntry [CFE_EVS_LOG_MAX] The actual Local Event Log entry.'
+aS'Local Event Log overflow counter.'
 p20
 aa(lp21
 S'--half'

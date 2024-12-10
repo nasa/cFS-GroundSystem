@@ -17,7 +17,7 @@
 #
 
 # Development Build Macro Definitions
-_cFS_GrndSys_build_number = 6
+_cFS_GrndSys_build_number = 14
 _cFS_GrndSys_build_baseline = "7.2"
 _cFS_GrndSys_build_dev_baseline = "equuleus-rc1"
 _cFS_GrndSys_build_dev_cycle = "equuleus-rc2"
