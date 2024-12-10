@@ -8,9 +8,9 @@ Longitude,             48,  8,  d,   Dec, NULL,        NULL,        NULL,       
 Longitude Direction,   56,  4,  4s,  Str, NULL,        NULL,        NULL,       NULL
 Speed,                 64,  8,  d,   Dec, NULL,        NULL,        NULL,       NULL
 Direction,             72,  8,  d,   Dec, NULL,        NULL,        NULL,       NULL
-Mag X,   	       80,  2,  h,   Dec, NULL,        NULL,        NULL,       NULL
-Mag Y,   	       82,  2,  h,   Dec, NULL,        NULL,        NULL,       NULL
-Mag Z,   	       84,  2,  h,   Dec, NULL,        NULL,        NULL,       NULL
-Accel X,	       86,  2,  h,   Dec, NULL,        NULL,        NULL,       NULL
-Accel Y,	       88,  2,  h,   Dec, NULL,        NULL,        NULL,       NULL
-Accel Z,	       90,  2,  h,   Dec, NULL,        NULL,        NULL,       NULL
+Mag X,   	           80,  2,  h,   Dec, NULL,        NULL,        NULL,       NULL
+Mag Y,   	           82,  2,  h,   Dec, NULL,        NULL,        NULL,       NULL
+Mag Z,   	           84,  2,  h,   Dec, NULL,        NULL,        NULL,       NULL
+Accel X,	           86,  2,  h,   Dec, NULL,        NULL,        NULL,       NULL
+Accel Y,	           88,  2,  h,   Dec, NULL,        NULL,        NULL,       NULL
+Accel Z,	           90,  2,  h,   Dec, NULL,        NULL,        NULL,       NULL
