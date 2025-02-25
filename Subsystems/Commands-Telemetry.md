@@ -3,7 +3,8 @@
 ## Telemetry ( tlmGUI/ directory ):
 Telemetry is sent from the running cFE/CFS as CCSDS telemetry packets encapsulated in 
 UDP/IP packets. The `enable telemetry` command tells the TO_LAB application to start 
-sending packets to a UDP port (port #1234 by default) on the `localhost` or a specified IP. 
+sending packets to a UDP port on the `localhost` or a specified IP. By default, the TO_LAB application
+listens to UDP port 1234 for commands, and sends telemetry to the tlmGUI at UDP port 1235.
 
 Start the telemetry system using the Ground System's main window.
 
