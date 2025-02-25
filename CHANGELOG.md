@@ -1,5 +1,9 @@
 # Changelog
 
+## Development Build: equuleus-rc1+dev18
+- Fix misleading wording in Commands-Telemetry.md
+- See <https://github.com/nasa/cFS-GroundSystem/pull/249>
+
 ## Development Build: equuleus-rc1+dev14
 - Update LogOverflowCounter Description
 - Update incorrect variable descriptions in tlm.txt
