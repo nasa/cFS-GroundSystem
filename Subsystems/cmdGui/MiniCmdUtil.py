@@ -88,7 +88,7 @@ class MiniCmdUtil:
                 items = param.split("=")  # e.g. ["--uint16", "2"]
                 if "--string" not in param:  # non-string param
                     data_type = items[0].strip("-")  # Remove "--" prefix
-                    data_val = int(items[1])
+                    data_val = int(items[1], 0)
                     for key in self.dataTypes:  # Loop thru dictionary keys
                         if data_type in key:  # Check if e.g. "uint16" in key tuple
                             # Get the TypeSignature tuple
