@@ -82,47 +82,47 @@
  */
 typedef struct
 {
-    char     HostName[MAX_HOSTNAME_SIZE];  /* Host name like "localhost" or "192.168.0.121" */
-    char     PortNum[MAX_PORT_SIZE];       /* Port number */
-    uint16_t CCSDS_Pri[3];                 /* CCSDS Primary Header (always big endian)
-                                            * index  mask    ------------ description ----------------
-                                            *   0   0xE000 : Packet Version number: CCSDS Version 1 = b000
-                                            *   0   0x1000 : Packet Type:           0 = TLM, 1 = CMD
-                                            *   0   0x0800 : Sec Hdr Flag:          0 = absent, 1 = present
-                                            *   0   0x07FF : Application Process Identifier
-                                            *   1   0xC000 : Sequence Flags:        b00 = continuation
-                                            *                                       b01 = first segment
-                                            *                                       b10 = last segment
-                                            *                                       b11 = unsegmented
-                                            *   1   0x3FFF : Packet Sequence Count or Packet Name
-                                            *   2   0xFFFF : Packet Data Length: (total packet length) - 7
-                                            */
-    uint16_t CCSDS_Ext[2];                 /* CCSDS Extended Header (always big endian)
-                                            * index  mask    ------------ description ----------------
-                                            *   0   0xF800 : EDS Version for packet definition used
-                                            *   0   0x0400 : Endian:        Big = 0, Little (Intel) = 1
-                                            *   0   0x0200 : Playback flag: 0 = original, 1 = playback
-                                            *   0   0x01FF : APID Qualifier (Subsystem Identifier)
-                                            *   1   0xFFFF : APID Qualifier (System Identifier)
-                                            */
-    uint16_t CFS_CmdSecHdr;                /* cFS standard secondary command header (always big endian)
-                                            * index  mask    ------------ description ----------------
-                                            *   0   0x8000 : Reserved
-                                            *   0   0x7F00 : Command Function Code
-                                            *   1   0x00FF : Command Checksum
-                                            */
-    bool          BigEndian;               /* Endian default, false means little endian */
-    bool          Verbose;                 /* Verbose option */
-    bool          IncludeCCSDSPri;         /* Include CCSDS Primary Header */
-    bool          IncludeCCSDSExt;         /* Include CCSDS Secondary Header */
-    bool          IncludeCFSSec;           /* Include cFS Command Secondary Header */
-    bool          OverridePktType;         /* Override packet type field */
-    bool          OverridePktSec;          /* Override packet secondary header exists field */
-    bool          OverridePktSeqFlg;       /* Override packet sequence flags */
-    bool          OverridePktLen;          /* Override packet length field */
-    bool          OverridePktEndian;       /* Override packet endian field */
-    bool          OverridePktCksum;        /* Override packet checksum */
-    unsigned char Packet[MAX_PACKET_SIZE]; /* Data packet to send */
+    char          HostName[MAX_HOSTNAME_SIZE]; /* Host name like "localhost" or "192.168.0.121" */
+    char          PortNum[MAX_PORT_SIZE];      /* Port number */
+    uint16_t      CCSDS_Pri[3];                /* CCSDS Primary Header (always big endian)
+                                                * index  mask    ------------ description ----------------
+                                                *   0   0xE000 : Packet Version number: CCSDS Version 1 = b000
+                                                *   0   0x1000 : Packet Type:           0 = TLM, 1 = CMD
+                                                *   0   0x0800 : Sec Hdr Flag:          0 = absent, 1 = present
+                                                *   0   0x07FF : Application Process Identifier
+                                                *   1   0xC000 : Sequence Flags:        b00 = continuation
+                                                *                                       b01 = first segment
+                                                *                                       b10 = last segment
+                                                *                                       b11 = unsegmented
+                                                *   1   0x3FFF : Packet Sequence Count or Packet Name
+                                                *   2   0xFFFF : Packet Data Length: (total packet length) - 7
+                                                */
+    uint16_t      CCSDS_Ext[2];                /* CCSDS Extended Header (always big endian)
+                                                * index  mask    ------------ description ----------------
+                                                *   0   0xF800 : EDS Version for packet definition used
+                                                *   0   0x0400 : Endian:        Big = 0, Little (Intel) = 1
+                                                *   0   0x0200 : Playback flag: 0 = original, 1 = playback
+                                                *   0   0x01FF : APID Qualifier (Subsystem Identifier)
+                                                *   1   0xFFFF : APID Qualifier (System Identifier)
+                                                */
+    uint16_t      CFS_CmdSecHdr;               /* cFS standard secondary command header (always big endian)
+                                                * index  mask    ------------ description ----------------
+                                                *   0   0x8000 : Reserved
+                                                *   0   0x7F00 : Command Function Code
+                                                *   1   0x00FF : Command Checksum
+                                                */
+    bool          BigEndian;                   /* Endian default, false means little endian */
+    bool          Verbose;                     /* Verbose option */
+    bool          IncludeCCSDSPri;             /* Include CCSDS Primary Header */
+    bool          IncludeCCSDSExt;             /* Include CCSDS Secondary Header */
+    bool          IncludeCFSSec;               /* Include cFS Command Secondary Header */
+    bool          OverridePktType;             /* Override packet type field */
+    bool          OverridePktSec;              /* Override packet secondary header exists field */
+    bool          OverridePktSeqFlg;           /* Override packet sequence flags */
+    bool          OverridePktLen;              /* Override packet length field */
+    bool          OverridePktEndian;           /* Override packet endian field */
+    bool          OverridePktCksum;            /* Override packet checksum */
+    unsigned char Packet[MAX_PACKET_SIZE];     /* Data packet to send */
 } CommandData_t;
 
 /*
@@ -133,51 +133,53 @@ static const char *optString = "A:B:C:D:E:F:G:H:I:J:L:P:Q:R:S:T:U:V:Y:b:d:f:h:i:
 /*
  * getopts_long long form argument table
  */
-static struct option longOpts[] = {{"pktapid", required_argument, NULL, 'A'},
-                                   {"pktpb", required_argument, NULL, 'B'},
-                                   {"cmdcode", required_argument, NULL, 'C'},
-                                   {"pktfc", required_argument, NULL, 'C'},
-                                   {"pktedsver", required_argument, NULL, 'D'},
-                                   {"endian", required_argument, NULL, 'E'},
-                                   {"pktseqflg", required_argument, NULL, 'F'},
-                                   {"pktname", required_argument, NULL, 'G'},
-                                   {"pktseqcnt", required_argument, NULL, 'G'},
-                                   {"host", required_argument, NULL, 'H'},
-                                   {"pktid", required_argument, NULL, 'I'},
-                                   {"pktendian", required_argument, NULL, 'J'},
-                                   {"pktlen", required_argument, NULL, 'L'},
-                                   {"port", required_argument, NULL, 'P'},
-                                   {"protocol", required_argument, NULL, 'Q'},
-                                   {"pktcksum", required_argument, NULL, 'R'},
-                                   {"pktsec", required_argument, NULL, 'S'},
-                                   {"pkttype", required_argument, NULL, 'T'},
-                                   {"pktsubsys", required_argument, NULL, 'U'},
-                                   {"pktver", required_argument, NULL, 'V'},
-                                   {"pktsys", required_argument, NULL, 'Y'},
-                                   {"byte", required_argument, NULL, 'b'},
-                                   {"int8", required_argument, NULL, 'b'},
-                                   {"double", required_argument, NULL, 'd'},
-                                   {"float", required_argument, NULL, 'f'},
-                                   {"half", required_argument, NULL, 'h'},
-                                   {"int16", required_argument, NULL, 'h'},
-                                   {"int16b", required_argument, NULL, 'i'},
-                                   {"int32b", required_argument, NULL, 'j'},
-                                   {"int64b", required_argument, NULL, 'k'},
-                                   {"long", required_argument, NULL, 'l'},
-                                   {"word", required_argument, NULL, 'l'},
-                                   {"int32", required_argument, NULL, 'l'},
-                                   {"uint8", required_argument, NULL, 'm'},
-                                   {"uint16", required_argument, NULL, 'n'},
-                                   {"uint32", required_argument, NULL, 'o'},
-                                   {"uint64", required_argument, NULL, 'p'},
-                                   {"int64", required_argument, NULL, 'q'},
-                                   {"string", required_argument, NULL, 's'},
-                                   {"verbose", no_argument, NULL, 'v'},
-                                   {"uint16b", required_argument, NULL, 'w'},
-                                   {"uint32b", required_argument, NULL, 'x'},
-                                   {"uint64b", required_argument, NULL, 'y'},
-                                   {"help", no_argument, NULL, '?'},
-                                   {0, 0, 0, 0}};
+static struct option longOpts[] = {
+    { "pktapid",   required_argument, NULL, 'A' },
+    { "pktpb",     required_argument, NULL, 'B' },
+    { "cmdcode",   required_argument, NULL, 'C' },
+    { "pktfc",     required_argument, NULL, 'C' },
+    { "pktedsver", required_argument, NULL, 'D' },
+    { "endian",    required_argument, NULL, 'E' },
+    { "pktseqflg", required_argument, NULL, 'F' },
+    { "pktname",   required_argument, NULL, 'G' },
+    { "pktseqcnt", required_argument, NULL, 'G' },
+    { "host",      required_argument, NULL, 'H' },
+    { "pktid",     required_argument, NULL, 'I' },
+    { "pktendian", required_argument, NULL, 'J' },
+    { "pktlen",    required_argument, NULL, 'L' },
+    { "port",      required_argument, NULL, 'P' },
+    { "protocol",  required_argument, NULL, 'Q' },
+    { "pktcksum",  required_argument, NULL, 'R' },
+    { "pktsec",    required_argument, NULL, 'S' },
+    { "pkttype",   required_argument, NULL, 'T' },
+    { "pktsubsys", required_argument, NULL, 'U' },
+    { "pktver",    required_argument, NULL, 'V' },
+    { "pktsys",    required_argument, NULL, 'Y' },
+    { "byte",      required_argument, NULL, 'b' },
+    { "int8",      required_argument, NULL, 'b' },
+    { "double",    required_argument, NULL, 'd' },
+    { "float",     required_argument, NULL, 'f' },
+    { "half",      required_argument, NULL, 'h' },
+    { "int16",     required_argument, NULL, 'h' },
+    { "int16b",    required_argument, NULL, 'i' },
+    { "int32b",    required_argument, NULL, 'j' },
+    { "int64b",    required_argument, NULL, 'k' },
+    { "long",      required_argument, NULL, 'l' },
+    { "word",      required_argument, NULL, 'l' },
+    { "int32",     required_argument, NULL, 'l' },
+    { "uint8",     required_argument, NULL, 'm' },
+    { "uint16",    required_argument, NULL, 'n' },
+    { "uint32",    required_argument, NULL, 'o' },
+    { "uint64",    required_argument, NULL, 'p' },
+    { "int64",     required_argument, NULL, 'q' },
+    { "string",    required_argument, NULL, 's' },
+    { "verbose",   no_argument,       NULL, 'v' },
+    { "uint16b",   required_argument, NULL, 'w' },
+    { "uint32b",   required_argument, NULL, 'x' },
+    { "uint64b",   required_argument, NULL, 'y' },
+    { "help",      no_argument,       NULL, '?' },
+    { 0,           0,                 0,    0   }
+};
 
 /*******************************************************************************
  * Display program usage, and exit.
@@ -197,16 +199,21 @@ void DisplayUsage(char *Name)
     printf("    -H, --host: Destination hostname or IP address (Default = %s)\n", DEFAULT_HOSTNAME);
     printf("    -P, --port: Destination port (default = %s)\n", DEFAULT_PORT);
     printf("  - Packet format options:\n");
-    printf("    -E, --endian: Default endian for unnamed fields/payload: [%s|%s] (default = %s)\n", ENDIAN_BIG,
-           ENDIAN_LITTLE, endian);
+    printf("    -E, --endian: Default endian for unnamed fields/payload: [%s|%s] (default = %s)\n",
+           ENDIAN_BIG,
+           ENDIAN_LITTLE,
+           endian);
     printf("    -Q, --protocol: Sets allowed named fields and header layout (default = %s)\n", DEFAULT_PROTOCOL);
     printf("        %8s = no predefined fields/layout\n", PROTOCOL_RAW);
     printf("        %8s = CCSDS Pri header only\n", PROTOCOL_CCSDS_PRI);
     printf("        %8s = CCSDS Pri and Ext headers\n", PROTOCOL_CCSDS_EXT);
     printf("        %8s = CCSDS Pri and cFS Cmd Sec headers\n", PROTOCOL_CFS_V1);
     printf("        %8s = CCSDS Pri, Ext, and cFS Cmd Sec headers\n", PROTOCOL_CFS_V2);
-    printf("  - CCSDS Primary Header named fields (protocol=[%s|%s|%s|%s])\n", PROTOCOL_CCSDS_PRI, PROTOCOL_CCSDS_EXT,
-           PROTOCOL_CFS_V1, PROTOCOL_CFS_V2);
+    printf("  - CCSDS Primary Header named fields (protocol=[%s|%s|%s|%s])\n",
+           PROTOCOL_CCSDS_PRI,
+           PROTOCOL_CCSDS_EXT,
+           PROTOCOL_CFS_V1,
+           PROTOCOL_CFS_V2);
     printf("    -I, --pktid: macro for setting first 16 bits of CCSDS Primary header\n");
     printf("    -V, --pktver: Packet version number (range=0-0x7)\n");
     printf("    -T, --pkttype: !OVERRIDE! Packet type (default is cmd, 0=tlm, 1=cmd)\n");
@@ -261,7 +268,6 @@ void DisplayUsage(char *Name)
  */
 void SetProtocol(CommandData_t *cmd, const char *protocol)
 {
-
     if (protocol == NULL || cmd == NULL)
     {
         fprintf(stderr, "ERROR: %s:%u - null input, exiting\n", __func__, __LINE__);
@@ -314,7 +320,7 @@ void ProcessField(uint16_t *orig, const char *in, const uint16_t mask, bool fiel
 {
     long int     templong;
     unsigned int shift = 0;
-    char *       tail  = NULL;
+    char        *tail  = NULL;
 
     /* Check for null pointer */
     if (in == NULL)
@@ -360,8 +366,14 @@ void ProcessField(uint16_t *orig, const char *in, const uint16_t mask, bool fiel
     templong <<= shift;
     if ((templong & ~mask) != 0)
     {
-        fprintf(stderr, "ERROR: %s:%u - Parameter 0x%lX (%s<<%u) exceeds mask 0x%X\n", __func__, __LINE__, templong, in,
-                shift, mask);
+        fprintf(stderr,
+                "ERROR: %s:%u - Parameter 0x%lX (%s<<%u) exceeds mask 0x%X\n",
+                __func__,
+                __LINE__,
+                templong,
+                in,
+                shift,
+                mask);
         exit(EXIT_FAILURE);
     }
 
@@ -373,12 +385,16 @@ void ProcessField(uint16_t *orig, const char *in, const uint16_t mask, bool fiel
  */
 void CopyData(unsigned char *pkt, unsigned int *startbyte, char *in, unsigned int nbytes)
 {
-
     /* Ensure space */
     if ((*startbyte + nbytes) > MAX_PACKET_SIZE)
     {
-        fprintf(stderr, "ERROR %s:%u - Exceeded packet size, startbyte = %u, nbytes = %u, max = %u\n", __func__,
-                __LINE__, *startbyte, nbytes, MAX_PACKET_SIZE);
+        fprintf(stderr,
+                "ERROR %s:%u - Exceeded packet size, startbyte = %u, nbytes = %u, max = %u\n",
+                __func__,
+                __LINE__,
+                *startbyte,
+                nbytes,
+                MAX_PACKET_SIZE);
         exit(EXIT_FAILURE);
     }
 
@@ -412,7 +428,7 @@ int main(int argc, char *argv[])
     unsigned int           pktnbytes = 0;
     unsigned int           i;
     char                   sbuf[MAX_PACKET_SIZE];
-    char *                 tail = NULL;
+    char                  *tail = NULL;
     long long int          templl;
     long long unsigned int tempull;
     int8_t                 tempint8;
@@ -450,7 +466,11 @@ int main(int argc, char *argv[])
                 strncpy(cmd.HostName, optarg, MAX_HOSTNAME_SIZE - 1);
                 if (strcmp(cmd.HostName, optarg) != 0)
                 {
-                    fprintf(stderr, "ERROR: %s:%u - Trucating host name: %s -> %s\n", __func__, __LINE__, optarg,
+                    fprintf(stderr,
+                            "ERROR: %s:%u - Trucating host name: %s -> %s\n",
+                            __func__,
+                            __LINE__,
+                            optarg,
                             cmd.HostName);
                     exit(EXIT_FAILURE);
                 }
@@ -460,7 +480,11 @@ int main(int argc, char *argv[])
                 strncpy(cmd.PortNum, optarg, MAX_PORT_SIZE - 1);
                 if (strcmp(cmd.PortNum, optarg) != 0)
                 {
-                    fprintf(stderr, "ERROR: %s:%u - Trucating port number: %s -> %s\n", __func__, __LINE__, optarg,
+                    fprintf(stderr,
+                            "ERROR: %s:%u - Trucating port number: %s -> %s\n",
+                            __func__,
+                            __LINE__,
+                            optarg,
                             cmd.HostName);
                     exit(EXIT_FAILURE);
                 }
@@ -624,7 +648,11 @@ int main(int argc, char *argv[])
                 tempint8 = templl;
                 if (tempint8 != templl)
                 {
-                    fprintf(stderr, "ERROR %s:%u - Parameter not int8 %lld -> %d\n", __func__, __LINE__, templl,
+                    fprintf(stderr,
+                            "ERROR %s:%u - Parameter not int8 %lld -> %d\n",
+                            __func__,
+                            __LINE__,
+                            templl,
                             tempint8);
                     exit(EXIT_FAILURE);
                 }
@@ -636,7 +664,11 @@ int main(int argc, char *argv[])
                 tempuint8 = tempull;
                 if (tempuint8 != tempull)
                 {
-                    fprintf(stderr, "ERROR %s:%u - Parameter not uint8 %llu -> %u\n", __func__, __LINE__, tempull,
+                    fprintf(stderr,
+                            "ERROR %s:%u - Parameter not uint8 %llu -> %u\n",
+                            __func__,
+                            __LINE__,
+                            tempull,
                             tempuint8);
                     exit(EXIT_FAILURE);
                 }
@@ -651,7 +683,11 @@ int main(int argc, char *argv[])
                 tempint16 = templl;
                 if (tempint16 != templl)
                 {
-                    fprintf(stderr, "ERROR %s:%u - Parameter not int16 %lld -> %d\n", __func__, __LINE__, templl,
+                    fprintf(stderr,
+                            "ERROR %s:%u - Parameter not int16 %lld -> %d\n",
+                            __func__,
+                            __LINE__,
+                            templl,
                             tempint16);
                     exit(EXIT_FAILURE);
                 }
@@ -673,7 +709,11 @@ int main(int argc, char *argv[])
                 tempuint16 = tempull;
                 if (tempuint16 != tempull)
                 {
-                    fprintf(stderr, "ERROR %s:%u - Parameter not uint16 %llu -> %u\n", __func__, __LINE__, tempull,
+                    fprintf(stderr,
+                            "ERROR %s:%u - Parameter not uint16 %llu -> %u\n",
+                            __func__,
+                            __LINE__,
+                            tempull,
                             tempuint16);
                     exit(EXIT_FAILURE);
                 }
@@ -695,7 +735,11 @@ int main(int argc, char *argv[])
                 tempint32 = templl;
                 if (tempint32 != templl)
                 {
-                    fprintf(stderr, "ERROR %s:%u - Parameter not int32 %lld -> %d\n", __func__, __LINE__, templl,
+                    fprintf(stderr,
+                            "ERROR %s:%u - Parameter not int32 %lld -> %d\n",
+                            __func__,
+                            __LINE__,
+                            templl,
                             tempint32);
                     exit(EXIT_FAILURE);
                 }
@@ -717,7 +761,11 @@ int main(int argc, char *argv[])
                 tempuint32 = tempull;
                 if (tempuint32 != tempull)
                 {
-                    fprintf(stderr, "ERROR %s:%u - Parameter not uint32 %llu -> %u\n", __func__, __LINE__, tempull,
+                    fprintf(stderr,
+                            "ERROR %s:%u - Parameter not uint32 %llu -> %u\n",
+                            __func__,
+                            __LINE__,
+                            tempull,
                             tempuint32);
                     exit(EXIT_FAILURE);
                 }
@@ -739,7 +787,11 @@ int main(int argc, char *argv[])
                 tempint64 = templl;
                 if (tempint64 != templl)
                 {
-                    fprintf(stderr, "ERROR %s:%u - Parameter not int64 %lld -> %lld\n", __func__, __LINE__, templl,
+                    fprintf(stderr,
+                            "ERROR %s:%u - Parameter not int64 %lld -> %lld\n",
+                            __func__,
+                            __LINE__,
+                            templl,
                             (long long int)tempint64);
                     exit(EXIT_FAILURE);
                 }
@@ -761,7 +813,11 @@ int main(int argc, char *argv[])
                 tempuint64 = tempull;
                 if (tempuint64 != tempull)
                 {
-                    fprintf(stderr, "ERROR %s:%u - Parameter not uint64 %llu -> %llu\n", __func__, __LINE__, tempull,
+                    fprintf(stderr,
+                            "ERROR %s:%u - Parameter not uint64 %llu -> %llu\n",
+                            __func__,
+                            __LINE__,
+                            tempull,
                             (unsigned long long int)tempuint64);
                     exit(EXIT_FAILURE);
                 }
@@ -831,7 +887,11 @@ int main(int argc, char *argv[])
 
         if ((tail != NULL) && strlen(tail))
         {
-            fprintf(stderr, "ERROR: %s:%u - Trailing characters (%s) in argument %s\n", __func__, __LINE__, tail,
+            fprintf(stderr,
+                    "ERROR: %s:%u - Trailing characters (%s) in argument %s\n",
+                    __func__,
+                    __LINE__,
+                    tail,
                     optarg);
             exit(EXIT_FAILURE);
         }
