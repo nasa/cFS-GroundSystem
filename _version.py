@@ -19,14 +19,14 @@
 # Development Build Macro Definitions
 _cFS_GrndSys_build_number = 0
 _cFS_GrndSys_build_baseline = "7.0"
-_cFS_GrndSys_build_dev_baseline = "v7.0.0"
-_cFS_GrndSys_build_dev_cycle = "v7.0.0"
+_cFS_GrndSys_build_dev_baseline = "v7.0.1"
+_cFS_GrndSys_build_dev_cycle = "v7.0.1"
 _cFS_GrndSys_build_codename = "Draco"
 
 # Version Number Definitions see doxygen docs for definitions
 _cFS_GrndSys_MAJOR = 7 # Major version number 
 _cFS_GrndSys_MINOR = 0 # Minor version number 
-_cFS_GrndSys_REVISION = 0 # Revision version number 
+_cFS_GrndSys_REVISION = 1 # Revision version number 
 
 
 # Mission revision.
