@@ -1,3 +1,9 @@
+**For members of the cFS Team**
+Click the `Preview` tab and select the pull request template corresponding to the type of change you are submitting:
+- [Comment/Documentation Change](?expand=1&template=comment_documentation_change.md)
+- [Tools Code Change](?expand=1&template=tools_code_change.md)
+- [Workflows Change](?expand=1&template=workflows_change.md)
+
 **Describe the contribution**
 A clear and concise description of what the contribution is.
 - Include explicitly what issue it addresses [e.g. Fixes #X]
@@ -26,9 +32,4 @@ If included, identify any third party code and provide text file of license
 
 **Contributor Info - All information REQUIRED for consideration of pull request**
 Full name and company/organization/center of all contributors ("Personal" if individual work)
-- If NASA Civil Servant Employee or GSFC Contractor on SES II
-  - Address/email/phone and contract/task information (if applicable) must be on file
-- Else if Company
-  - **HAND SIGNED** Company CLA must be on file (once per release): [Company CLA](https://github.com/nasa/cFE/blob/master/docs/GSC_18128_Corp_CLA_form_1219.pdf)
-- Else if Individual
-  - **HAND SIGNED** Individual CLA must be on file (once per release): [Individual CLA](https://github.com/nasa/cFE/blob/master/docs/GSC_18128_Ind_CLA_form_1219.pdf)
+ - Note CLA's apply to software contributions.
