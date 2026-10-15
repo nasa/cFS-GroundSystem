@@ -63,46 +63,44 @@ class RoutingService(QThread):
         print('Attempting to wait for UDP messages')
 
         socket_error_count = 0
+        # Recheck the cumulative error limit after every receive attempt.
         while socket_error_count < 5:
+            try:
+                # Receive message
+                datagram, host = self.sock.recvfrom(
+                    4096)  # buffer size is 1024 bytes
 
-            # Wait for UDP messages
-            while True:
-                try:
-                    # Receive message
-                    datagram, host = self.sock.recvfrom(
-                        4096)  # buffer size is 1024 bytes
+                # Ignore datagram if it is not long enough (doesn't contain tlm header?)
+                if len(datagram) < 6:
+                    continue
 
-                    # Ignore datagram if it is not long enough (doesn't contain tlm header?)
-                    if len(datagram) < 6:
-                        continue
+                # Read host address
+                host_ip_address = host[0]
 
-                    # Read host address
-                    host_ip_address = host[0]
+                #
+                # Add Host to the list if not already in list
+                #
+                if host_ip_address not in self.ip_addresses_list:
+                    ## MAKE SURE THERE'S NO SPACE BETWEEN "Spacecraft"
+                    ## AND THE FIRST CURLY BRACE!!!
+                    hostname = f'Spacecraft{len(self.spacecraft_names)}'
+                    my_hostname_as_bytes = hostname.encode()
+                    print("Detected", hostname, "at", host_ip_address)
+                    self.ip_addresses_list.append(host_ip_address)
+                    self.spacecraft_names.append(my_hostname_as_bytes)
+                    self.signal_update_ip_list.emit(host_ip_address,
+                                                    my_hostname_as_bytes)
 
-                    #
-                    # Add Host to the list if not already in list
-                    #
-                    if host_ip_address not in self.ip_addresses_list:
-                        ## MAKE SURE THERE'S NO SPACE BETWEEN "Spacecraft"
-                        ## AND THE FIRST CURLY BRACE!!!
-                        hostname = f'Spacecraft{len(self.spacecraft_names)}'
-                        my_hostname_as_bytes = hostname.encode()
-                        print("Detected", hostname, "at", host_ip_address)
-                        self.ip_addresses_list.append(host_ip_address)
-                        self.spacecraft_names.append(my_hostname_as_bytes)
-                        self.signal_update_ip_list.emit(host_ip_address,
-                                                        my_hostname_as_bytes)
+                # Forward the message using zeroMQ
+                name = self.spacecraft_names[self.ip_addresses_list.index(
+                    host_ip_address)]
+                self.forwardMessage(datagram, name)
 
-                    # Forward the message using zeroMQ
-                    name = self.spacecraft_names[self.ip_addresses_list.index(
-                        host_ip_address)]
-                    self.forwardMessage(datagram, name)
-
-                # Handle errors
-                except socket.error:
-                    print('Ignored socket error for attempt', socket_error_count)
-                    socket_error_count += 1
-                    sleep(1)
+            # Handle errors
+            except socket.error:
+                print('Ignored socket error for attempt', socket_error_count)
+                socket_error_count += 1
+                sleep(1)
 
     # Apply header using hostname and packet id and send msg using zeroMQ
     def forwardMessage(self, datagram, hostName):
