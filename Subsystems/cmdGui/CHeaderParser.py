@@ -311,6 +311,10 @@ if __name__ == '__main__':
                             # Now that we know the struct is over, add list of lines
                             # to the sets of command structures
                             list_cmd_structs.append(lines_of_struct)
+
+                            # Advance past the closing brace line so the
+                            # outer loop does not reprocess it (fixes #219)
+                            line_num += 1
                             break
 
                         # Add line number to list
