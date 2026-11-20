@@ -109,6 +109,28 @@ def get_file_list(filename='CHeaderParser-hdr-paths.txt'):
     return []
 
 
+def prompt_array_size(array_name, initial_val=None, input_func=input):
+    """
+    Validates array size or prompts the user until a valid integer
+    between 0 and 128 (inclusive) is provided.
+    """
+    array_size = str(initial_val).strip() if initial_val is not None else ""
+    while not (array_size.isdigit() and int(array_size) in range(129)):
+        if not array_size.isdigit():
+            print("Could not translate", array_name)
+        else:
+            print("Array size out of bounds. It must be between 0 and 128.")
+        try:
+            array_size = input_func(
+                (f"Please enter the defined value for "
+                 f"{array_name} (0 - 128): ")
+            ).strip()
+        except (EOFError, KeyboardInterrupt):
+            break
+    return array_size
+
+
+
 if __name__ == '__main__':
 
     # Get list of files to parse
@@ -443,28 +465,12 @@ if __name__ == '__main__':
 
                         print("Array size:", array_size)
 
-                        # This while loop will make sure that
-                        # the user input is both
-                        # - a valid integer
-                        # - between 0 and 128 (inclusively)
-                        while not array_size.isdigit() or int(
-                                array_size) not in range(129):
-                            # User input is not an integer
-                            if not array_size.isdigit():
-                                print("Could not translate",
-                                      array_name_size[1])
-                            else:
-                                print(
-                                    "Array size out of bounds. It must be between 0 and 128."
-                                )
-                            try:
-                                # Try to translate user input to an integer
-                                array_size = int(
-                                    input(
-                                        (f"Please enter the defined value for "
-                                         f"{array_name_size[1]} (0 - 128): ")))
-                            except ValueError:
-                                pass  # Ignore non-integer and try again
+                        # Ensure user input is a valid integer between 0 and 128 (inclusive)
+                        array_size = prompt_array_size(array_name_size[1],
+                                                       initial_val=array_size)
+
+                        # Update parameter length with validated array size
+                        param_lens[-1] = array_size
 
                         # Add string length argument to parameter list
                         string_lens.append(array_size)
